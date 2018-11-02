@@ -1449,10 +1449,10 @@ namespace DirectConnectionPredictControl
                             break;
                         case 5:
                             #region 1车附加5数据
-                            container_1.AbCapacity[4] = recvData[0] * 256 + recvData[1];
-                            container_1.AbCapacity[5] = recvData[2] * 256 + recvData[3];
-                            container_1.AbRealValue[0] = recvData[4] * 256 + recvData[5];
-                            container_1.AbRealValue[1] = recvData[6] * 256 + recvData[7];
+                            container_1.AbCapacity[4] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_1.AbCapacity[5] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_1.AbRealValue[0] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_1.AbRealValue[1] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 6:
@@ -1564,10 +1564,10 @@ namespace DirectConnectionPredictControl
                             break;
                         case 5:
                             #region 1车附加5数据
-                            container_6.AbCapacity[4] = recvData[0] * 256 + recvData[1];
-                            container_6.AbCapacity[5] = recvData[2] * 256 + recvData[3];
-                            container_6.AbRealValue[0] = recvData[4] * 256 + recvData[5];
-                            container_6.AbRealValue[1] = recvData[6] * 256 + recvData[7];
+                            container_6.AbCapacity[4] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_6.AbCapacity[5] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_6.AbRealValue[0] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_6.AbRealValue[1] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 6:
