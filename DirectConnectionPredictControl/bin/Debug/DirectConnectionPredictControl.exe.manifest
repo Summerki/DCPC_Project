@@ -107,14 +107,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DirectConnectionPredictControl.exe" size="1791456">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DirectConnectionPredictControl.exe" size="1791968">
       <assemblyIdentity name="DirectConnectionPredictControl" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4aYSGb1DTgbtaKabvZMXWsOKG5nDCuL7H13nzaMi5FY=</dsig:DigestValue>
+        <dsig:DigestValue>bjkZJOPryxjEs5WANHimJtl1WIBBBGYJmgBszpn8RGY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

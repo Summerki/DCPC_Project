@@ -77,5 +77,7 @@ namespace DirectConnectionPredictControl.CommenTool
             }
             return res;
         }
+
+        
     }
 }

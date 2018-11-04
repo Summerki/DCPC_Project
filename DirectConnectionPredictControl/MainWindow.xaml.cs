@@ -505,11 +505,11 @@ namespace DirectConnectionPredictControl
                             #endregion
 
                             #region byte4~5
-                            container_1.BrakeLevel = recvData[4] * 256 + recvData[5];
+                            container_1.BrakeLevel = Utils.PositiveToNegative(recvData[4], recvData[5]);
                             #endregion
 
                             #region byte6~7
-                            container_1.TrainBrakeForce = recvData[6] * 256 + recvData[7];
+                            container_1.TrainBrakeForce = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
 
                             #endregion
@@ -519,10 +519,31 @@ namespace DirectConnectionPredictControl
                             #region 主从通用数据包1
                             container_1.LifeSig = recvData[point];
 
-                            container_1.SlipLvl1 = recvData[point + 1] & 0x0f;
-                            container_1.SlipLvl2 = recvData[point + 1] & 0xf0;
-                            container_1.SpeedA1Shaft1 = (recvData[point + 2] * 256 + recvData[point + 3]) / 10.0;
-                            container_1.SpeedA1Shaft2 = (recvData[point + 4] * 256 + recvData[point + 5]) / 10.0;
+                            //container_1.SlipLvl1 = recvData[point + 1] & 0x0f;
+                            int SlipLv1 = recvData[point + 1] & 0x0f;
+                            if ((SlipLv1 & 0x08) == 0x08)// 低四位的最高位为1的情况，即为负数的情况下
+                            {
+                                int temp = (SlipLv1 & 0x07);// 先将低四位的最高位置0
+                                container_1.SlipLvl1 = -temp;
+                            }
+                            else
+                            {
+                                container_1.SlipLvl1 = SlipLv1;
+                            }
+                            //container_1.SlipLvl2 = recvData[point + 1] & 0xf0;
+                            int SlipLv2 = recvData[point + 1] & 0xf0;
+                            if ((SlipLv2 & 0x80) == 0x80)// 高四位的最高位是1（负数）
+                            {
+                                int temp = (SlipLv2 & 0x70);
+                                container_1.SlipLvl2 = -temp;
+                            }
+                            else
+                            {
+                                container_1.SlipLvl2 = SlipLv2;
+                            }
+
+                            container_1.SpeedA1Shaft1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]) / 10.0;
+                            container_1.SpeedA1Shaft2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]) / 10.0;
                             //container_1.AccValue1 = recvData[point + 6] / 10.0;
                             //container_1.AccValue2 = recvData[point + 6] / 10.0;
 
@@ -552,10 +573,10 @@ namespace DirectConnectionPredictControl
                         case 2:
                             #region TPDO1(Checked)
 
-                            container_1.AbTargetValueAx1 = recvData[point] * 256 + recvData[point + 1];
-                            container_1.AbTargetValueAx2 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_1.AbTargetValueAx3 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_1.AbTargetValueAx4 = recvData[point + 6] * 256 + recvData[point + 7];
+                            container_1.AbTargetValueAx1 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_1.AbTargetValueAx2 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_1.AbTargetValueAx3 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_1.AbTargetValueAx4 = Utils.PositiveToNegative(recvData[point + 6], recvData[point + 7]);
                             
 
                             
@@ -564,8 +585,8 @@ namespace DirectConnectionPredictControl
 
                         case 3:
                             #region TPDO2(Checked)
-                            container_1.AbTargetValueAx5 = recvData[point] * 256 + recvData[point + 1];
-                            container_1.AbTargetValueAx6 = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_1.AbTargetValueAx5 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_1.AbTargetValueAx6 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             container_1.HardDriveCmd = (recvData[5] & 0x01) == 0x01 ? true : false;
                             container_1.HardBrakeCmd = (recvData[5] & 0x02) == 0x02 ? true : false;
                             container_1.HardFastBrakeCmd = (recvData[5] & 0x04) == 0x04 ? true : false;
@@ -584,22 +605,22 @@ namespace DirectConnectionPredictControl
                             container_1.CanUintSelfTestCmd_B = (recvData[4] & 0x40) == 0x40 ? true : false;
                             container_1.ATOMode1 = (recvData[4] & 0x80) == 0x80 ? true : false;
 
-                            container_1.RefSpeed = (recvData[6] * 256 + recvData[7]) / 10.0;
+                            container_1.RefSpeed = Utils.PositiveToNegative(recvData[6], recvData[7]) / 10.0;
                             break;
                         #endregion
 
                         case 4:
                             #region TPDO4(Checked)
                             container_1.BrakeCylinderSourcePressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
-                            container_1.AirSpring1PressureA1Car1 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_1.AirSpring2PressureA1Car1 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_1.ParkPressureA1 = recvData[point + 6] * 256 + recvData[point + 7];
+                            container_1.AirSpring1PressureA1Car1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_1.AirSpring2PressureA1Car1 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_1.ParkPressureA1 = Utils.PositiveToNegative(recvData[point + 6], recvData[point + 7]);
                             break;
                         #endregion
 
                         case 5:
                             #region TPDO5(Checked)
-                            container_1.VldRealPressureAx1 = recvData[point] * 256 + recvData[point + 1];
+                            container_1.VldRealPressureAx1 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
                             container_1.Bcp1PressureAx1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             container_1.Bcp2PressureAx2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
 
@@ -620,8 +641,8 @@ namespace DirectConnectionPredictControl
 
                         case 6:
                             #region TPDO6(Checked)
-                            container_1.VldPressureSetupAx1 = recvData[point] * 256 + recvData[point + 1];
-                            container_1.MassA1 = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_1.VldPressureSetupAx1 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_1.MassA1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             container_1.BCUFail_Serious = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_1.BCUFail_Middle = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_1.BCUFail_Slight = (recvData[6] & 0x04) == 0x04 ? true : false;
@@ -641,7 +662,7 @@ namespace DirectConnectionPredictControl
                         case 7:
                             #region TPDO7(Checked)
 
-                            container_1.SelfTestSetup = recvData[0] * 256 + recvData[1];
+                            container_1.SelfTestSetup = Utils.PositiveToNegative(recvData[0], recvData[1]);
 
                             container_1.Ax1SelfTestActive = (recvData[2] & 0x01) == 0x01 ? true : false;
                             container_1.Ax1SelfTestOver = (recvData[2] & 0x02) == 0x02 ? true : false;
@@ -678,11 +699,32 @@ namespace DirectConnectionPredictControl
                         case 1:
                             #region 2节点数据包1(Checked)
                             container_2.LifeSig = recvData[point];
-                            container_2.SlipLvl1 = recvData[point + 1] & 0x0f;
-                            container_2.SlipLvl2 = recvData[point + 1] & 0xf0;
 
-                            container_2.SpeedShaft1 = (recvData[point + 2] * 256 + recvData[point + 3]) / 10.0;
-                            container_2.SpeedShaft2 = (recvData[point + 4] * 256 + recvData[point + 5]) / 10.0;
+                            //container_2.SlipLvl1 = recvData[point + 1] & 0x0f;
+                            //container_2.SlipLvl2 = recvData[point + 1] & 0xf0;                           
+                            int SlipLv1 = recvData[point + 1] & 0x0f;
+                            if ((SlipLv1 & 0x08) == 0x08)// 低四位的最高位为1的情况，即为负数的情况下
+                            {
+                                int temp = (SlipLv1 & 0x07);// 先将低四位的最高位置0
+                                container_2.SlipLvl1 = -temp;
+                            }
+                            else
+                            {
+                                container_2.SlipLvl1 = SlipLv1;
+                            }
+                            int SlipLv2 = recvData[point + 1] & 0xf0;
+                            if ((SlipLv2 & 0x80) == 0x80)// 高四位的最高位是1（负数）
+                            {
+                                int temp = (SlipLv2 & 0x70);
+                                container_2.SlipLvl2 = -temp;
+                            }
+                            else
+                            {
+                                container_2.SlipLvl2 = SlipLv2;
+                            }
+
+                            container_2.SpeedShaft1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]) / 10.0;
+                            container_2.SpeedShaft2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]) / 10.0;
 
                             //container_2.AccValue1 = recvData[point + 6] / 10.0;
                             //container_2.AccValue2 = recvData[point + 6] / 10.0;
@@ -711,21 +753,21 @@ namespace DirectConnectionPredictControl
 
                         case 4:
                             #region 2节点数据包2(Checked)
-                            container_2.BrakeCylinderSourcePressure = recvData[point] * 256 + recvData[point + 1];
-                            container_2.AirSpringPressure1 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_2.AirSpringPressure2 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_2.ParkPressure = recvData[6] * 256 + recvData[7];
+                            container_2.BrakeCylinderSourcePressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_2.AirSpringPressure1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_2.AirSpringPressure2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_2.ParkPressure = Utils.PositiveToNegative(recvData[6], recvData[7]);
 
                             break;
                         #endregion
 
                         case 5:
                             #region 2节点数据包3(Checked)
-                            container_2.VldRealPressure = recvData[point] * 256 + recvData[point + 1];
+                            container_2.VldRealPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
                             CheckZero(recvData, point + 2);
-                            container_2.Bcp1Pressure = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_2.Bcp1Pressure = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             CheckZero(recvData, point + 4);
-                            container_2.Bcp2Pressure = recvData[point + 4] * 256 + recvData[point + 5];
+                            container_2.Bcp2Pressure = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
 
                             container_2.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_2.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -743,8 +785,8 @@ namespace DirectConnectionPredictControl
 
                         case 6:
                             #region 2节点数据包4
-                            container_2.VldSetupPressure = recvData[point] * 256 + recvData[point + 1];
-                            container_2.MassValue = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_2.VldSetupPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_2.MassValue = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
 
                             container_2.BCUFail_Serious = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_2.BCUFail_Middle = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -766,7 +808,7 @@ namespace DirectConnectionPredictControl
 
                         case 7:
                             #region 2节点数据包5
-                            container_2.SelfTestSetup = recvData[0] * 256 + recvData[1];
+                            container_2.SelfTestSetup = Utils.PositiveToNegative(recvData[0], recvData[1]);
                             container_2.SelfTestActive = (recvData[2] & 0x01) == 0x01 ? true : false;
                             container_2.SelfTestOver = (recvData[2] & 0x02) == 0x02 ? true : false;
                             container_2.SelfTestSuccess = (recvData[2] & 0x04) == 0x04 ? true : false;
@@ -803,11 +845,32 @@ namespace DirectConnectionPredictControl
                         case 1:
                             #region 2节点数据包1(Checked)
                             container_3.LifeSig = recvData[point];
-                            container_3.SlipLvl1 = recvData[point + 1] & 0x0f;
-                            container_3.SlipLvl2 = recvData[point + 1] & 0xf0;
-                        
-                            container_3.SpeedShaft1 = (recvData[point + 2] * 256 + recvData[point + 3]) / 10.0;
-                            container_3.SpeedShaft2 = (recvData[point + 4] * 256 + recvData[point + 5]) / 10.0;
+
+                            //container_3.SlipLvl1 = recvData[point + 1] & 0x0f;
+                            //container_3.SlipLvl2 = recvData[point + 1] & 0xf0;
+                            int SlipLv1 = recvData[point + 1] & 0x0f;
+                            if ((SlipLv1 & 0x08) == 0x08)// 低四位的最高位为1的情况，即为负数的情况下
+                            {
+                                int temp = (SlipLv1 & 0x07);// 先将低四位的最高位置0
+                                container_3.SlipLvl1 = -temp;
+                            }
+                            else
+                            {
+                                container_3.SlipLvl1 = SlipLv1;
+                            }
+                            int SlipLv2 = recvData[point + 1] & 0xf0;
+                            if ((SlipLv2 & 0x80) == 0x80)// 高四位的最高位是1（负数）
+                            {
+                                int temp = (SlipLv2 & 0x70);
+                                container_3.SlipLvl2 = -temp;
+                            }
+                            else
+                            {
+                                container_3.SlipLvl2 = SlipLv2;
+                            }
+
+                            container_3.SpeedShaft1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]) / 10.0;
+                            container_3.SpeedShaft2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]) / 10.0;
 
                             //container_3.AccValue1 = recvData[point + 6] / 10.0;
                             //container_3.AccValue2 = recvData[point + 6] / 10.0;
@@ -836,21 +899,21 @@ namespace DirectConnectionPredictControl
 
                         case 4:
                             #region 2节点数据包2(Checked)
-                            container_3.BrakeCylinderSourcePressure = recvData[point] * 256 + recvData[point + 1];
-                            container_3.AirSpringPressure1 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_3.AirSpringPressure2 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_3.ParkPressure = recvData[6] * 256 + recvData[7];
+                            container_3.BrakeCylinderSourcePressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_3.AirSpringPressure1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_3.AirSpringPressure2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_3.ParkPressure = Utils.PositiveToNegative(recvData[6], recvData[7]);
 
                             break;
                         #endregion
 
                         case 5:
                             #region 2节点数据包3(Checked)
-                            container_3.VldRealPressure = recvData[point] * 256 + recvData[point + 1];
+                            container_3.VldRealPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
                             CheckZero(recvData, point + 2);
-                            container_3.Bcp1Pressure = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_3.Bcp1Pressure = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             CheckZero(recvData, point + 4);
-                            container_3.Bcp2Pressure = recvData[point + 4] * 256 + recvData[point + 5];
+                            container_3.Bcp2Pressure = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
 
                             container_3.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_3.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -868,8 +931,8 @@ namespace DirectConnectionPredictControl
 
                         case 6:
                             #region 2节点数据包4
-                            container_3.VldSetupPressure = recvData[point] * 256 + recvData[point + 1];
-                            container_3.MassValue = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_3.VldSetupPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_3.MassValue = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
 
                             container_3.BCUFail_Serious = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_3.BCUFail_Middle = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -891,7 +954,7 @@ namespace DirectConnectionPredictControl
 
                         case 7:
                             #region 2节点数据包5
-                            container_3.SelfTestSetup = recvData[0] * 256 + recvData[1];
+                            container_3.SelfTestSetup = Utils.PositiveToNegative(recvData[0], recvData[1]);
                             container_3.SelfTestActive = (recvData[2] & 0x01) == 0x01 ? true : false;
                             container_3.SelfTestOver = (recvData[2] & 0x02) == 0x02 ? true : false;
                             container_3.SelfTestSuccess = (recvData[2] & 0x04) == 0x04 ? true : false;
@@ -928,11 +991,32 @@ namespace DirectConnectionPredictControl
                         case 1:
                             #region 2节点数据包1(Checked)
                             container_4.LifeSig = recvData[point];
-                            container_4.SlipLvl1 = recvData[point + 1] & 0x0f;
-                            container_4.SlipLvl2 = recvData[point + 1] & 0xf0;
 
-                            container_4.SpeedShaft1 = (recvData[point + 2] * 256 + recvData[point + 3]) / 10.0;
-                            container_4.SpeedShaft2 = (recvData[point + 4] * 256 + recvData[point + 5]) / 10.0;
+                            //container_4.SlipLvl1 = recvData[point + 1] & 0x0f;
+                            //container_4.SlipLvl2 = recvData[point + 1] & 0xf0;
+                            int SlipLv1 = recvData[point + 1] & 0x0f;
+                            if ((SlipLv1 & 0x08) == 0x08)// 低四位的最高位为1的情况，即为负数的情况下
+                            {
+                                int temp = (SlipLv1 & 0x07);// 先将低四位的最高位置0
+                                container_4.SlipLvl1 = -temp;
+                            }
+                            else
+                            {
+                                container_4.SlipLvl1 = SlipLv1;
+                            }
+                            int SlipLv2 = recvData[point + 1] & 0xf0;
+                            if ((SlipLv2 & 0x80) == 0x80)// 高四位的最高位是1（负数）
+                            {
+                                int temp = (SlipLv2 & 0x70);
+                                container_4.SlipLvl2 = -temp;
+                            }
+                            else
+                            {
+                                container_4.SlipLvl2 = SlipLv2;
+                            }
+
+                            container_4.SpeedShaft1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]) / 10.0;
+                            container_4.SpeedShaft2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]) / 10.0;
 
                             //container_4.AccValue1 = recvData[point + 6] / 10.0;
                             //container_4.AccValue2 = recvData[point + 6] / 10.0;
@@ -961,21 +1045,21 @@ namespace DirectConnectionPredictControl
 
                         case 4:
                             #region 2节点数据包2(Checked)
-                            container_4.BrakeCylinderSourcePressure = recvData[point] * 256 + recvData[point + 1];
-                            container_4.AirSpringPressure1 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_4.AirSpringPressure2 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_4.ParkPressure = recvData[6] * 256 + recvData[7];
+                            container_4.BrakeCylinderSourcePressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_4.AirSpringPressure1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_4.AirSpringPressure2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_4.ParkPressure = Utils.PositiveToNegative(recvData[6], recvData[7]);
 
                             break;
                         #endregion
 
                         case 5:
                             #region 2节点数据包3(Checked)
-                            container_4.VldRealPressure = recvData[point] * 256 + recvData[point + 1];
+                            container_4.VldRealPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
                             CheckZero(recvData, point + 2);
-                            container_4.Bcp1Pressure = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_4.Bcp1Pressure = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             CheckZero(recvData, point + 4);
-                            container_4.Bcp2Pressure = recvData[point + 4] * 256 + recvData[point + 5];
+                            container_4.Bcp2Pressure = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
 
                             container_4.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_4.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -993,8 +1077,8 @@ namespace DirectConnectionPredictControl
 
                         case 6:
                             #region 2节点数据包4
-                            container_4.VldSetupPressure = recvData[point] * 256 + recvData[point + 1];
-                            container_4.MassValue = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_4.VldSetupPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_4.MassValue = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
 
                             container_4.BCUFail_Serious = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_4.BCUFail_Middle = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -1016,7 +1100,7 @@ namespace DirectConnectionPredictControl
 
                         case 7:
                             #region 2节点数据包5
-                            container_4.SelfTestSetup = recvData[0] * 256 + recvData[1];
+                            container_4.SelfTestSetup = Utils.PositiveToNegative(recvData[0], recvData[1]);
                             container_4.SelfTestActive = (recvData[2] & 0x01) == 0x01 ? true : false;
                             container_4.SelfTestOver = (recvData[2] & 0x02) == 0x02 ? true : false;
                             container_4.SelfTestSuccess = (recvData[2] & 0x04) == 0x04 ? true : false;
@@ -1053,11 +1137,32 @@ namespace DirectConnectionPredictControl
                         case 1:
                             #region 2节点数据包1(Checked)
                             container_5.LifeSig = recvData[point];
-                            container_5.SlipLvl1 = recvData[point + 1] & 0x0f;
-                            container_5.SlipLvl2 = recvData[point + 1] & 0xf0;
 
-                            container_5.SpeedShaft1 = (recvData[point + 2] * 256 + recvData[point + 3]) / 10.0;
-                            container_5.SpeedShaft2 = (recvData[point + 4] * 256 + recvData[point + 5]) / 10.0;
+                            //container_5.SlipLvl1 = recvData[point + 1] & 0x0f;
+                            //container_5.SlipLvl2 = recvData[point + 1] & 0xf0;
+                            int SlipLv1 = recvData[point + 1] & 0x0f;
+                            if ((SlipLv1 & 0x08) == 0x08)// 低四位的最高位为1的情况，即为负数的情况下
+                            {
+                                int temp = (SlipLv1 & 0x07);// 先将低四位的最高位置0
+                                container_5.SlipLvl1 = -temp;
+                            }
+                            else
+                            {
+                                container_5.SlipLvl1 = SlipLv1;
+                            }
+                            int SlipLv2 = recvData[point + 1] & 0xf0;
+                            if ((SlipLv2 & 0x80) == 0x80)// 高四位的最高位是1（负数）
+                            {
+                                int temp = (SlipLv2 & 0x70);
+                                container_5.SlipLvl2 = -temp;
+                            }
+                            else
+                            {
+                                container_5.SlipLvl2 = SlipLv2;
+                            }
+
+                            container_5.SpeedShaft1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]) / 10.0;
+                            container_5.SpeedShaft2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]) / 10.0;
 
                             //container_5.AccValue1 = recvData[point + 6] / 10.0;
                             //container_5.AccValue2 = recvData[point + 6] / 10.0;
@@ -1086,21 +1191,21 @@ namespace DirectConnectionPredictControl
 
                         case 4:
                             #region 2节点数据包2(Checked)
-                            container_5.BrakeCylinderSourcePressure = recvData[point] * 256 + recvData[point + 1];
-                            container_5.AirSpringPressure1 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_5.AirSpringPressure2 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_5.ParkPressure = recvData[6] * 256 + recvData[7];
+                            container_5.BrakeCylinderSourcePressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_5.AirSpringPressure1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_5.AirSpringPressure2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_5.ParkPressure = Utils.PositiveToNegative(recvData[6], recvData[7]);
 
                             break;
                         #endregion
 
                         case 5:
                             #region 2节点数据包3(Checked)
-                            container_5.VldRealPressure = recvData[point] * 256 + recvData[point + 1];
+                            container_5.VldRealPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
                             CheckZero(recvData, point + 2);
-                            container_5.Bcp1Pressure = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_5.Bcp1Pressure = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             CheckZero(recvData, point + 4);
-                            container_5.Bcp2Pressure = recvData[point + 4] * 256 + recvData[point + 5];
+                            container_5.Bcp2Pressure = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
 
                             container_5.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_5.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -1118,8 +1223,8 @@ namespace DirectConnectionPredictControl
 
                         case 6:
                             #region 2节点数据包4
-                            container_5.VldSetupPressure = recvData[point] * 256 + recvData[point + 1];
-                            container_5.MassValue = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_5.VldSetupPressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_5.MassValue = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
 
                             container_5.BCUFail_Serious = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_5.BCUFail_Middle = (recvData[6] & 0x02) == 0x02 ? true : false;
@@ -1141,7 +1246,7 @@ namespace DirectConnectionPredictControl
 
                         case 7:
                             #region 2节点数据包5
-                            container_5.SelfTestSetup = recvData[0] * 256 + recvData[1];
+                            container_5.SelfTestSetup = Utils.PositiveToNegative(recvData[0], recvData[1]);
                             container_5.SelfTestActive = (recvData[2] & 0x01) == 0x01 ? true : false;
                             container_5.SelfTestOver = (recvData[2] & 0x02) == 0x02 ? true : false;
                             container_5.SelfTestSuccess = (recvData[2] & 0x04) == 0x04 ? true : false;
@@ -1230,11 +1335,11 @@ namespace DirectConnectionPredictControl
                             #endregion
 
                             #region byte4~5
-                            container_6.BrakeLevel = recvData[4] * 256 + recvData[5];
+                            container_6.BrakeLevel = Utils.PositiveToNegative(recvData[4], recvData[5]);
                             #endregion
 
                             #region byte6~7
-                            container_6.TrainBrakeForce = recvData[6] * 256 + recvData[7];
+                            container_6.TrainBrakeForce = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
 
                             #endregion
@@ -1244,10 +1349,31 @@ namespace DirectConnectionPredictControl
                             #region 主从通用数据包1
                             container_6.LifeSig = recvData[point];
 
-                            container_6.SlipLvl1 = recvData[point + 1] & 0x0f;
-                            container_6.SlipLvl2 = recvData[point + 1] & 0xf0;
-                            container_6.SpeedA1Shaft1 = (recvData[point + 2] * 256 + recvData[point + 3]) / 10.0;
-                            container_6.SpeedA1Shaft2 = (recvData[point + 4] * 256 + recvData[point + 5]) / 10.0;
+                            //container_6.SlipLvl1 = recvData[point + 1] & 0x0f;
+                            //container_6.SlipLvl2 = recvData[point + 1] & 0xf0;
+                            int SlipLv1 = recvData[point + 1] & 0x0f;
+                            if ((SlipLv1 & 0x08) == 0x08)// 低四位的最高位为1的情况，即为负数的情况下
+                            {
+                                int temp = (SlipLv1 & 0x07);// 先将低四位的最高位置0
+                                container_6.SlipLvl1 = -temp;
+                            }
+                            else
+                            {
+                                container_6.SlipLvl1 = SlipLv1;
+                            }
+                            int SlipLv2 = recvData[point + 1] & 0xf0;
+                            if ((SlipLv2 & 0x80) == 0x80)// 高四位的最高位是1（负数）
+                            {
+                                int temp = (SlipLv2 & 0x70);
+                                container_6.SlipLvl2 = -temp;
+                            }
+                            else
+                            {
+                                container_6.SlipLvl2 = SlipLv2;
+                            }
+
+                            container_6.SpeedA1Shaft1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]) / 10.0;
+                            container_6.SpeedA1Shaft2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]) / 10.0;
 
                             //container_6.AccValue1 = recvData[point + 6] / 10.0;
                             //container_6.AccValue2 = recvData[point + 6] / 10.0;
@@ -1277,10 +1403,10 @@ namespace DirectConnectionPredictControl
                         case 2:
                             #region TPDO1(Checked)
 
-                            container_6.AbTargetValueAx1 = recvData[point] * 256 + recvData[point + 1];
-                            container_6.AbTargetValueAx2 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_6.AbTargetValueAx3 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_6.AbTargetValueAx4 = recvData[point + 6] * 256 + recvData[point + 7];
+                            container_6.AbTargetValueAx1 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_6.AbTargetValueAx2 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_6.AbTargetValueAx3 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_6.AbTargetValueAx4 = Utils.PositiveToNegative(recvData[point + 6], recvData[point + 7]);
 
 
 
@@ -1289,8 +1415,8 @@ namespace DirectConnectionPredictControl
 
                         case 3:
                             #region TPDO2(Checked)
-                            container_6.AbTargetValueAx5 = recvData[point] * 256 + recvData[point + 1];
-                            container_6.AbTargetValueAx6 = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_6.AbTargetValueAx5 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_6.AbTargetValueAx6 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             container_6.HardDriveCmd = (recvData[5] & 0x01) == 0x01 ? true : false;
                             container_6.HardBrakeCmd = (recvData[5] & 0x02) == 0x02 ? true : false;
                             container_6.HardFastBrakeCmd = (recvData[5] & 0x04) == 0x04 ? true : false;
@@ -1309,22 +1435,22 @@ namespace DirectConnectionPredictControl
                             container_6.CanUintSelfTestCmd_B = (recvData[4] & 0x40) == 0x40 ? true : false;
                             container_6.ATOMode1 = (recvData[4] & 0x80) == 0x80 ? true : false;
 
-                            container_6.RefSpeed = (recvData[6] * 256 + recvData[7]) / 10.0;
+                            container_6.RefSpeed = Utils.PositiveToNegative(recvData[6], recvData[7]) / 10.0;
                             break;
                         #endregion
 
                         case 4:
                             #region TPDO4(Checked)
-                            container_6.BrakeCylinderSourcePressure = recvData[point] * 256 + recvData[point + 1];
-                            container_6.AirSpring1PressureA1Car1 = recvData[point + 2] * 256 + recvData[point + 3];
-                            container_6.AirSpring2PressureA1Car1 = recvData[point + 4] * 256 + recvData[point + 5];
-                            container_6.ParkPressureA1 = recvData[point + 6] * 256 + recvData[point + 7];
+                            container_6.BrakeCylinderSourcePressure = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_6.AirSpring1PressureA1Car1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
+                            container_6.AirSpring2PressureA1Car1 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
+                            container_6.ParkPressureA1 = Utils.PositiveToNegative(recvData[point + 6], recvData[point + 7]);
                             break;
                         #endregion
 
                         case 5:
                             #region TPDO5(Checked)
-                            container_6.VldRealPressureAx1 = recvData[point] * 256 + recvData[point + 1];
+                            container_6.VldRealPressureAx1 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
                             container_6.Bcp1PressureAx1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             container_6.Bcp2PressureAx2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
 
@@ -1345,8 +1471,8 @@ namespace DirectConnectionPredictControl
 
                         case 6:
                             #region TPDO6(Checked)
-                            container_6.VldPressureSetupAx1 = recvData[point] * 256 + recvData[point + 1];
-                            container_6.MassA1 = recvData[point + 2] * 256 + recvData[point + 3];
+                            container_6.VldPressureSetupAx1 = Utils.PositiveToNegative(recvData[point], recvData[point + 1]);
+                            container_6.MassA1 = Utils.PositiveToNegative(recvData[point + 2], recvData[point + 3]);
                             container_6.BCUFail_Serious = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_6.BCUFail_Middle = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_6.BCUFail_Slight = (recvData[6] & 0x04) == 0x04 ? true : false;
@@ -1366,7 +1492,7 @@ namespace DirectConnectionPredictControl
                         case 7:
                             #region TPDO7(Checked)
 
-                            container_6.SelfTestSetup = recvData[0] * 256 + recvData[1];
+                            container_6.SelfTestSetup = Utils.PositiveToNegative(recvData[0], recvData[1]);
 
                             container_6.Ax1SelfTestActive = (recvData[2] & 0x01) == 0x01 ? true : false;
                             container_6.Ax1SelfTestOver = (recvData[2] & 0x02) == 0x02 ? true : false;
@@ -1425,26 +1551,26 @@ namespace DirectConnectionPredictControl
                             break;
                         case 2:
                             #region 1车附加2数据(Checked)
-                            container_1.DcuEbRealValue[0] = recvData[0] * 256 + recvData[1];
-                            container_1.DcuMax[0] = recvData[2] * 256 + recvData[3];
-                            container_1.DcuEbRealValue[1] = recvData[4] * 256 + recvData[5];
-                            container_1.DcuMax[1] = recvData[6] * 256 + recvData[7];
+                            container_1.DcuEbRealValue[0] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_1.DcuMax[0] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_1.DcuEbRealValue[1] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_1.DcuMax[1] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 3:
                             #region 1车附加3数据(Checked)
-                            container_1.DcuEbRealValue[2] = recvData[0] * 256 + recvData[1];
-                            container_1.DcuMax[2] = recvData[2] * 256 + recvData[3];
-                            container_1.DcuEbRealValue[3] = recvData[4] * 256 + recvData[5];
-                            container_1.DcuMax[3] = recvData[6] * 256 + recvData[7];
+                            container_1.DcuEbRealValue[2] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_1.DcuMax[2] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_1.DcuEbRealValue[3] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_1.DcuMax[3] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 4:
                             #region 1车附加4数据(Checked)
-                            container_1.AbCapacity[0] = recvData[0] * 256 + recvData[1];
-                            container_1.AbCapacity[1] = recvData[2] * 256 + recvData[3];
-                            container_1.AbCapacity[2] = recvData[4] * 256 + recvData[5];
-                            container_1.AbCapacity[3] = recvData[6] * 256 + recvData[7];
+                            container_1.AbCapacity[0] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_1.AbCapacity[1] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_1.AbCapacity[2] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_1.AbCapacity[3] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 5:
@@ -1457,19 +1583,19 @@ namespace DirectConnectionPredictControl
                             break;
                         case 6:
                             #region 1车附加6数据(Checked)
-                            container_1.AbRealValue[2] = recvData[0] * 256 + recvData[1];
-                            container_1.AbRealValue[3] = recvData[2] * 256 + recvData[3];
-                            container_1.AbRealValue[4] = recvData[4] * 256 + recvData[5];
-                            container_1.AbRealValue[5] = recvData[6] * 256 + recvData[7];
+                            container_1.AbRealValue[2] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_1.AbRealValue[3] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_1.AbRealValue[4] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_1.AbRealValue[5] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
 
                         case 7:
                             #region 1车附加7数据
-                            container_1.DcuVolta[0] = recvData[0] * 256 + recvData[1];
-                            container_1.DcuVolta[1] = recvData[2] * 256 + recvData[3];
-                            container_1.DcuVolta[2] = recvData[4] * 256 + recvData[5];
-                            container_1.DcuVolta[3] = recvData[6] * 256 + recvData[7];
+                            container_1.DcuVolta[0] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_1.DcuVolta[1] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_1.DcuVolta[2] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_1.DcuVolta[3] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
 
@@ -1540,26 +1666,26 @@ namespace DirectConnectionPredictControl
                             break;
                         case 2:
                             #region 1车附加2数据(Checked)
-                            container_6.DcuEbRealValue[0] = recvData[0] * 256 + recvData[1];
-                            container_6.DcuMax[0] = recvData[2] * 256 + recvData[3];
-                            container_6.DcuEbRealValue[1] = recvData[4] * 256 + recvData[5];
-                            container_6.DcuMax[1] = recvData[6] * 256 + recvData[7];
+                            container_6.DcuEbRealValue[0] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_6.DcuMax[0] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_6.DcuEbRealValue[1] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_6.DcuMax[1] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 3:
                             #region 1车附加3数据(Checked)
-                            container_6.DcuEbRealValue[2] = recvData[0] * 256 + recvData[1];
-                            container_6.DcuMax[2] = recvData[2] * 256 + recvData[3];
-                            container_6.DcuEbRealValue[3] = recvData[4] * 256 + recvData[5];
-                            container_6.DcuMax[3] = recvData[6] * 256 + recvData[7];
+                            container_6.DcuEbRealValue[2] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_6.DcuMax[2] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_6.DcuEbRealValue[3] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_6.DcuMax[3] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 4:
                             #region 1车附加4数据(Checked)
-                            container_6.AbCapacity[0] = recvData[0] * 256 + recvData[1];
-                            container_6.AbCapacity[1] = recvData[2] * 256 + recvData[3];
-                            container_6.AbCapacity[2] = recvData[4] * 256 + recvData[5];
-                            container_6.AbCapacity[3] = recvData[6] * 256 + recvData[7];
+                            container_6.AbCapacity[0] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_6.AbCapacity[1] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_6.AbCapacity[2] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_6.AbCapacity[3] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
                         case 5:
@@ -1572,19 +1698,19 @@ namespace DirectConnectionPredictControl
                             break;
                         case 6:
                             #region 1车附加6数据(Checked)
-                            container_6.AbRealValue[2] = recvData[0] * 256 + recvData[1];
-                            container_6.AbRealValue[3] = recvData[2] * 256 + recvData[3];
-                            container_6.AbRealValue[4] = recvData[4] * 256 + recvData[5];
-                            container_6.AbRealValue[5] = recvData[6] * 256 + recvData[7];
+                            container_6.AbRealValue[2] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_6.AbRealValue[3] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_6.AbRealValue[4] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_6.AbRealValue[5] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
 
                         case 7:
                             #region 1车附加7数据
-                            container_6.DcuVolta[0] = recvData[0] * 256 + recvData[1];
-                            container_6.DcuVolta[1] = recvData[2] * 256 + recvData[3];
-                            container_6.DcuVolta[2] = recvData[4] * 256 + recvData[5];
-                            container_6.DcuVolta[3] = recvData[6] * 256 + recvData[7];
+                            container_6.DcuVolta[0] = Utils.PositiveToNegative(recvData[0], recvData[1]);
+                            container_6.DcuVolta[1] = Utils.PositiveToNegative(recvData[2], recvData[3]);
+                            container_6.DcuVolta[2] = Utils.PositiveToNegative(recvData[4], recvData[5]);
+                            container_6.DcuVolta[3] = Utils.PositiveToNegative(recvData[6], recvData[7]);
                             #endregion
                             break;
 
