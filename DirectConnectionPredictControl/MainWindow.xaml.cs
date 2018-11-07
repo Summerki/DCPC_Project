@@ -224,7 +224,7 @@ namespace DirectConnectionPredictControl
             updateUI update = new updateUI(updateUIMethod);
             while (true)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
                 update.Invoke(container_1);
             }
         }

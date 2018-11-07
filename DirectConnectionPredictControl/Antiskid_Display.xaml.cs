@@ -132,7 +132,7 @@ namespace DirectConnectionPredictControl
                     //currentTimeLbl.Content = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     UpdateData();
                 });
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
             }
         }
 
