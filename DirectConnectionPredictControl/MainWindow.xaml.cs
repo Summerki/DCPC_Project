@@ -152,7 +152,7 @@ namespace DirectConnectionPredictControl
 
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(Utils.timeInterval);
                 int speedValue = random.Next(120);
                 int accSetup = random.Next(100);
                 int air = random.Next(1000);
@@ -224,7 +224,7 @@ namespace DirectConnectionPredictControl
             updateUI update = new updateUI(updateUIMethod);
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(Utils.timeInterval);
                 update.Invoke(container_1);
             }
         }
@@ -386,8 +386,12 @@ namespace DirectConnectionPredictControl
                 {
                     continue;
                 }
-                dTO = list[list.Count - 1];
-                FormatData(dTO, FormatType.REAL_TIME, FormatCommand.IGNORE);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    dTO = list[i];
+                    FormatData(dTO, FormatType.REAL_TIME, FormatCommand.IGNORE);
+                }
+                
             }
         }
 
@@ -682,7 +686,7 @@ namespace DirectConnectionPredictControl
                             container_1.EmergencyBrakeActiveA1 = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_1.NotZeroSpeed = (recvData[7] & 0x04) == 0x04 ? true : false;
                             container_1.AbActive = (recvData[7] & 0x08) == 0x08 ? true : false;
-                            container_1.BCPLowA11 = (recvData[7] & 0x10) == 0x10 ? true : false;
+                            //container_1.BCPLowA11 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_1.ParkBreakRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
                             container_1.AbStatuesA1 = (recvData[7] & 0x40) == 0x40 ? true : false;
                             container_1.AirSigValid = (recvData[7] & 0x80) == 0x80 ? true : false;
@@ -1512,7 +1516,7 @@ namespace DirectConnectionPredictControl
                             container_6.EmergencyBrakeActiveA1 = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_6.NotZeroSpeed = (recvData[7] & 0x04) == 0x04 ? true : false;
                             container_6.AbActive = (recvData[7] & 0x08) == 0x08 ? true : false;
-                            container_6.BCPLowA11 = (recvData[7] & 0x10) == 0x10 ? true : false;
+                            //container_6.BCPLowA11 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_6.ParkBreakRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
                             container_6.AbStatuesA1 = (recvData[7] & 0x40) == 0x40 ? true : false;
                             container_6.AirSigValid = (recvData[7] & 0x80) == 0x80 ? true : false;

@@ -24,7 +24,7 @@ namespace DirectConnectionPredictControl
         private HistoryModel history;
         private CompositeCollection collection = new CompositeCollection();
         private List<HistoryDataModel> dataModelList = new List<HistoryDataModel>();
-        private int nowPage;
+        private int nowPage = 1;
         private int totalPage;
         private int location;
         private static int LINE_PER_TIME = 100;
@@ -51,7 +51,7 @@ namespace DirectConnectionPredictControl
                 historyList.Items.Clear();
                 
             //}
-            for (int i = location; i < history.Count + location; i++)
+            for (int i = location; i < LINE_PER_TIME + location; i++)
             {
                 HistoryDataModel temp = new HistoryDataModel();
                 #region detail

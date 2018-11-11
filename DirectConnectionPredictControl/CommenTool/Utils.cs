@@ -10,6 +10,7 @@ namespace DirectConnectionPredictControl.CommenTool
 {
     class Utils
     {
+        public static int timeInterval = 1000;
         public static string formatN1 = "{0:N1}";
         public static DataTable ToDataTable<T>(List<T> items)
         {

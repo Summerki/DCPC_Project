@@ -84,7 +84,7 @@ namespace DirectConnectionPredictControl
             updateUIDelegate updateUIDelegateImpl = new updateUIDelegate(UIControl);
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(Utils.timeInterval);
                 this.Dispatcher.Invoke(updateUIDelegateImpl, mainDevDataContains);
             }
         }

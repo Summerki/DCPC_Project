@@ -64,7 +64,7 @@ namespace DirectConnectionPredictControl
                     UpdateFA();
                     UpdateWSP();
                 });
-                Thread.Sleep(1000);
+                Thread.Sleep(Utils.timeInterval);
             }
             
         }

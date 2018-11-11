@@ -68,7 +68,7 @@ namespace DirectConnectionPredictControl
             updateUIDelegate updateUI = new updateUIDelegate(UIControl);
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(Utils.timeInterval);
                 this.Dispatcher.Invoke(updateUI, sliverDataContainer);
             }
         }
