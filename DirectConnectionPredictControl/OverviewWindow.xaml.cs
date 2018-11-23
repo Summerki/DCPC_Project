@@ -281,6 +281,11 @@ namespace DirectConnectionPredictControl
             row_34_column_6.Content = container_6.SoftwareVersionEP;
 
             //row_34_column_4.Content = container_4.ParkPressure;
+
+            // TC、MP、ME轮径
+            row_36_column_1.Content = container_1.Tc1 + " / " + container_6.Tc1;
+            row_36_column_3.Content = container_1.Mp1 + " / " + container_6.Mp1;
+            row_36_column_5.Content = container_1.M1 + " / " + container_6.M1;
         }
 
         private void UpdateDI()
@@ -506,8 +511,8 @@ namespace DirectConnectionPredictControl
             row_6_column_12_DO.Fill = GetBrush(container_5.AirSigValid);
             row_6_column_13_DO.Fill = GetBrush(container_6.AirSigValid);
 
-            row_7_column_8_DO.Fill = GetBrush(container_1.SelfTestFail, 1);
-            row_7_column_13_DO.Fill = GetBrush(container_6.SelfTestFail, 6);
+            row_7_column_8_DO.Fill = GetBrush(container_1.SelfTestInt, 1);
+            row_7_column_13_DO.Fill = GetBrush(container_6.SelfTestInt, 6);
 
             row_8_column_8_DO.Fill = GetBrush(container_1.SelfTestActive, 1);
             row_8_column_13_DO.Fill = GetBrush(container_6.SelfTestActive, 6);
@@ -596,7 +601,7 @@ namespace DirectConnectionPredictControl
             row_4_column_1_FA.Fill = GetBrush(container_1.ParkCylinderSenorFault);
             row_4_column_2_FA.Fill = GetBrush(container_2.ParkCylinderSenorFault);
             row_4_column_3_FA.Fill = GetBrush(container_3.ParkCylinderSenorFault);
-            row_4_column_4_FA.Fill = GetBrush(container_4.ParkCylinderSenorFault);
+            row_4_column_4_FA.Fill = GetBrush(container_4.MainPipeSensorFault);
             row_4_column_5_FA.Fill = GetBrush(container_5.ParkCylinderSenorFault);
             row_4_column_6_FA.Fill = GetBrush(container_6.ParkCylinderSenorFault);
 
@@ -771,6 +776,35 @@ namespace DirectConnectionPredictControl
             row_1_column_6_sli.Content = container_6.SlipLvl1;
 
             //row_2_column_1_sli.Content = container_1.
+
+            // ICAN1
+            row_16_column_8_FA.Fill = GetBrush(container_1.ICANFault1);
+            row_16_column_9_FA.Fill = GetBrush(container_2.ICANFault1);
+            row_16_column_10_FA.Fill = GetBrush(container_3.ICANFault1);
+            row_16_column_11_FA.Fill = GetBrush(container_4.ICANFault1);
+            row_16_column_12_FA.Fill = GetBrush(container_5.ICANFault1);
+            row_16_column_13_FA.Fill = GetBrush(container_6.ICANFault1);
+            // ICAN2
+            row_17_column_8_FA.Fill = GetBrush(container_1.ICANFault2);
+            row_17_column_9_FA.Fill = GetBrush(container_2.ICANFault2);
+            row_17_column_10_FA.Fill = GetBrush(container_3.ICANFault2);
+            row_17_column_11_FA.Fill = GetBrush(container_4.ICANFault2);
+            row_17_column_12_FA.Fill = GetBrush(container_5.ICANFault2);
+            row_17_column_13_FA.Fill = GetBrush(container_6.ICANFault2);
+            // OCAN1
+            row_18_column_8_FA.Fill = GetBrush(container_1.OCANFault1);
+            row_18_column_9_FA.Fill = GetBrush(container_2.OCANFault1);
+            row_18_column_10_FA.Fill = GetBrush(container_3.OCANFault1);
+            row_18_column_11_FA.Fill = GetBrush(container_4.OCANFault1);
+            row_18_column_12_FA.Fill = GetBrush(container_5.OCANFault1);
+            row_18_column_13_FA.Fill = GetBrush(container_6.OCANFault1);
+            // OCAN2
+            row_19_column_8_FA.Fill = GetBrush(container_1.OCANFault2);
+            row_19_column_9_FA.Fill = GetBrush(container_2.OCANFault2);
+            row_19_column_10_FA.Fill = GetBrush(container_3.OCANFault2);
+            row_19_column_11_FA.Fill = GetBrush(container_4.OCANFault2);
+            row_19_column_12_FA.Fill = GetBrush(container_5.OCANFault2);
+            row_19_column_13_FA.Fill = GetBrush(container_6.OCANFault2);
 
         }
 

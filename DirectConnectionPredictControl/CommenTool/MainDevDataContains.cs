@@ -1658,6 +1658,11 @@ namespace DirectConnectionPredictControl.CommenTool
         public int Percentage_Threshold { get; set; }
         #endregion
 
+        /// <summary>
+        /// 主风管传感器故障
+        /// </summary>
+        public bool MainPipeSensorFault { get; set; }
+
 
     }
 }

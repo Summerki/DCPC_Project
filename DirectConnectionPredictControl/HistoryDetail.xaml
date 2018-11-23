@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:MYUI="clr-namespace:DirectConnectionPredictControl"
         xmlns:local="clr-namespace:DirectConnectionPredictControl"
         mc:Ignorable="d"
         Name="historyDetail"
@@ -32,6 +33,8 @@
                                  Storyboard.TargetProperty="(UIElement.OpacityMask).(GradientBrush.GradientStops)[1].Color"/>
         </Storyboard>
     </Window.Resources>
+
+
 
     <!--透明掩码-->
     <Window.OpacityMask>
@@ -107,6 +110,23 @@
                 </Button>
                 <CheckBox Name="showAnalog" IsChecked="True" Margin="15,0,0,0" Checked="showAnalog_Checked" Unchecked="showAnalog_Unchecked">模拟量</CheckBox>
                 <CheckBox Name="showDigital" IsChecked="True" Margin="5,0,0,0">数字量</CheckBox>
+
+
+                <DatePicker Margin="5,2,0,0"  Name="DateChoose" ></DatePicker>
+                <!--现在先不加Focusable="False"，为了测试-->
+                <!--<MYUI:ComboBoxControl x:Name="HourSelect" ></MYUI:ComboBoxControl>-->
+                <ComboBox Height="27.2" Margin="5,2,0,0" Width="40" Name="HourComboBox" Focusable="False"></ComboBox>
+                <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center">时</TextBlock>
+                <ComboBox Height="27.2" Margin="5,2,0,0" Width="40" Name="MinuteComboBox" Focusable="False" />
+                <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center">分</TextBlock>
+                <ComboBox Height="27.2" Margin="5,2,0,0" Width="40" Name="SecondComboBox" Focusable="False"/>
+                <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center">秒</TextBlock>
+                <Button Margin="5,0,0,0" Content="搜索" Background="#b0d2f5" Name="HistoryDeatilSearchBtn" Click="HistoryDeatilSearchBtn_Click"></Button>
+
+                <TextBox Margin="10,0,0,0" Width="100" Name="SearchTextBox" ></TextBox>
+                <Button Margin="5,0,0,0" Content="测试搜索" Background="#b0d2f5" Name="IDSearch" Click="IDSearch_Click" ></Button>
+                <ComboBox Height="27.2"  Width="auto" Name="SearchResultComboBox" Focusable="False" HorizontalAlignment="Right" />
+                <Button Margin="5,0,0,0" Content="跳转" Background="#b0d2f5" Name="JumpTo"></Button>
             </ToolBar>
         </Grid>
         <Grid DockPanel.Dock="Bottom">
@@ -490,9 +510,9 @@
                 <DataGridTextColumn Header="C车BCP太低" Binding="{Binding BCPLowC}"></DataGridTextColumn>
                 <DataGridTextColumn Header="软件版本" Binding="{Binding SoftVersion}"></DataGridTextColumn>
                 <!--何虎加的-->
-                
+
             </DataGrid>
-            
+
         </Grid>
     </DockPanel>
 </Window>

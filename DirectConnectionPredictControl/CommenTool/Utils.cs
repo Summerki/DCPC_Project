@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace DirectConnectionPredictControl.CommenTool
 {
@@ -77,6 +78,27 @@ namespace DirectConnectionPredictControl.CommenTool
                 res = (short)(high * 256 + low);
             }
             return res;
+        }
+
+        /// <summary>
+        /// 读取xml中的列头数据
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="colunmName"></param>
+        /// <returns></returns>
+        public static IList<string> getXml(string fileName, string colunmName)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(fileName);
+            XmlNode root = document.SelectSingleNode(colunmName);
+            XmlNodeList list = root.ChildNodes;
+            IList<string> header = new List<string>();
+            foreach (var item in list)
+            {
+                XmlNode node = (XmlNode)item;
+                header.Add(node.InnerText);
+            }
+            return header;
         }
 
         

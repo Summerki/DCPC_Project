@@ -637,5 +637,10 @@ namespace DirectConnectionPredictControl.CommenTool
         /// 软件版本EP
         /// </summary>
         public int SoftwareVersionEP { get; set; }
+
+        /// <summary>
+        /// 主风管传感器故障
+        /// </summary>
+        public bool MainPipeSensorFault { get; set; }
     }
 }

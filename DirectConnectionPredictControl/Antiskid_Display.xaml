@@ -121,7 +121,7 @@
                                 <d3:VerticalAxis></d3:VerticalAxis>
                             </d3:ChartPlotter.VerticalAxis>
 
-                            <d3:VerticalAxisTitle Content="速度/kmph"></d3:VerticalAxisTitle>
+                            <d3:VerticalAxisTitle Content="速度 km/h"></d3:VerticalAxisTitle>
                         </d3:ChartPlotter>
                     </Grid>
                     <!--第0行第1列：参考速度和每一架的速度以及速度差-->
@@ -212,7 +212,7 @@
                             <d3:ChartPlotter.VerticalAxis>
                                 <d3:VerticalAxis></d3:VerticalAxis>
                             </d3:ChartPlotter.VerticalAxis>
-                            <d3:VerticalAxisTitle Content="减速度m/s²"></d3:VerticalAxisTitle>
+                            <d3:VerticalAxisTitle Content="减速度 m/s²"></d3:VerticalAxisTitle>
                             <!--<d3:HorizontalAxisTitle Content="运行时间/s"></d3:HorizontalAxisTitle>-->
                         </d3:ChartPlotter>
                     </Grid>
@@ -317,7 +317,7 @@
                             <d3:ChartPlotter.VerticalAxis>
                                 <d3:VerticalAxis></d3:VerticalAxis>
                             </d3:ChartPlotter.VerticalAxis>
-                            <d3:VerticalAxisTitle Content="压力/kpa"></d3:VerticalAxisTitle>
+                            <d3:VerticalAxisTitle Content="压力/kPa"></d3:VerticalAxisTitle>
                             <d3:HorizontalAxisTitle Content="运行时间/s"></d3:HorizontalAxisTitle>
                         </d3:ChartPlotter>
                     </Grid>

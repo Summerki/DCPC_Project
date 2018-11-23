@@ -67,104 +67,20 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v16.2.Core, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\公共基础类库\DevExpress\Components\Bin\Framework\DevExpress.Charts.v16.2.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Data.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\公共基础类库\DevExpress\Components\Bin\Framework\DevExpress.Data.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Mvvm.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\公共基础类库\DevExpress\Components\Bin\Framework\DevExpress.Mvvm.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Charts.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\公共基础类库\DevExpress\Components\Bin\Framework\DevExpress.Xpf.Charts.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.DXStyle.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.DXStyle.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.HybridApp.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.HybridApp.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.LightGray.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.LightGray.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.MetropolisDark.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.MetropolisDark.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.MetropolisLight.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\公共基础类库\DevExpress\Components\Bin\Framework\DevExpress.Xpf.Themes.MetropolisLight.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2007Black.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2007Black.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2007Blue.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2007Blue.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2007Silver.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2007Silver.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2010Black.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2010Black.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2010Blue.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2010Blue.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2010Silver.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2010Silver.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2013.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2013.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2013DarkGray.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2013DarkGray.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2013LightGray.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2013LightGray.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2016Black.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2016Black.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2016Colorful.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2016Colorful.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Office2016White.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2016White.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.Seven.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Seven.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.TouchlineDark.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.TouchlineDark.v16.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpf.Themes.VS2010.v16.2, Version=16.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 16.2\Components\Bin\Framework\DevExpress.Xpf.Themes.VS2010.v16.2.dll</HintPath>
-    </Reference>
     <Reference Include="DynamicDataDisplay">
       <HintPath>..\..\..\..\..\项目\lib\DynamicDataDisplay.dll</HintPath>
+    </Reference>
+    <Reference Include="excel">
+      <HintPath>..\..\excel.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core">
+      <HintPath>..\..\..\..\software\ikvmbin\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime">
+      <HintPath>..\..\..\..\software\ikvmbin\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\IKVM.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime.JNI">
+      <HintPath>..\..\..\..\software\ikvmbin\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\IKVM.Runtime.JNI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Controls">
       <HintPath>..\..\..\WPF\originalcode\WPF.UI-master\ZdfFlatUI\DLL\Microsoft.Expression.Controls.dll</HintPath>
@@ -212,6 +128,7 @@
       <DependentUpon>ComboBoxControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommenTool\CanHelper.cs" />
+    <Compile Include="CommenTool\ExcelUtils.cs" />
     <Compile Include="CommenTool\HistoryDataModel.cs" />
     <Compile Include="CommenTool\HistoryModel.cs" />
     <Compile Include="CommenTool\SliverDataContainer.cs" />
@@ -264,9 +181,6 @@
       <DependentUpon>RealTimeSpeedChartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ReNameWindow.xaml.cs" />
-    <Compile Include="SingleChart.xaml.cs">
-      <DependentUpon>SingleChart.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SlaveDetailWindow.xaml.cs">
       <DependentUpon>SlaveDetailWindow.xaml</DependentUpon>
     </Compile>
@@ -372,10 +286,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SingleChart.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SlaveDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -445,6 +355,9 @@
     <Resource Include="Asserts\train.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Asserts\header.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="CANJieMianMFC.exe" />
     <Content Include="ControlCAN.dll" />
     <Content Include="ControlCAN.h" />

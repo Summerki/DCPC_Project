@@ -12,8 +12,8 @@ namespace DirectConnectionPredictControl.IO
         private string filePath;
         private const string recordName = "record.log";
         private int len;
-        private static int LINE_LENGTH = 490;
-        public static int CAN_MO_NUM = 52;
+        private static int LINE_LENGTH = 562;
+        public static int CAN_MO_NUM = 60;
         private static Dictionary<int, uint> canIDMap = new Dictionary<int, uint>();
         private static long fileLength;
 
@@ -21,8 +21,8 @@ namespace DirectConnectionPredictControl.IO
 
         static FileBuilding()
         {
-            LINE_LENGTH = 490;
-            CAN_MO_NUM = 52;
+            LINE_LENGTH = 562;
+            CAN_MO_NUM = 60;
             InitID();
         }
 
@@ -113,6 +113,7 @@ namespace DirectConnectionPredictControl.IO
             canIDMap.Add(index++, 0x2a00000);   //0x15
             canIDMap.Add(index++, 0x2c00000);   //0x16
             canIDMap.Add(index++, 0x2e00000);   //0x17
+
             canIDMap.Add(index++, 0x4000000);   //0x20
             canIDMap.Add(index++, 0x4200000);   //0x21 =
             canIDMap.Add(index++, 0x4400000);   //0x22
@@ -121,42 +122,57 @@ namespace DirectConnectionPredictControl.IO
             canIDMap.Add(index++, 0x4a00000);   //0x25
             canIDMap.Add(index++, 0x4c00000);   //0x26
             canIDMap.Add(index++, 0x4e00000);   //0x27
+
             canIDMap.Add(index++, 0x6200000);   //0x31=
             canIDMap.Add(index++, 0x6800000);   //0x34
             canIDMap.Add(index++, 0x6a00000);   //0x35
             canIDMap.Add(index++, 0x6c00000);   //0x36
             canIDMap.Add(index++, 0x6e00000);   //0x37
+
             canIDMap.Add(index++, 0x8200000);   //0x41=
             canIDMap.Add(index++, 0x8800000);   //0x44
             canIDMap.Add(index++, 0x8a00000);   //0x45
             canIDMap.Add(index++, 0x8c00000);   //0x46
             canIDMap.Add(index++, 0x8e00000);   //0x47
+
             canIDMap.Add(index++, 0xa200000);   //0x51=
             canIDMap.Add(index++, 0xa800000);   //0x54
             canIDMap.Add(index++, 0xaa00000);   //0x55
             canIDMap.Add(index++, 0xac00000);   //0x56
             canIDMap.Add(index++, 0xae00000);   //0x57
+
             canIDMap.Add(index++, 0xc200000);   //0x61=
             canIDMap.Add(index++, 0xc800000);   //0x64
             canIDMap.Add(index++, 0xca00000);   //0x65
             canIDMap.Add(index++, 0xcc00000);   //0x66
             canIDMap.Add(index++, 0xce00000);   //0x67
+
             canIDMap.Add(index++, 0xe200000);   //0x71
             canIDMap.Add(index++, 0xe400000);   //0x72
             canIDMap.Add(index++, 0xe600000);   //0x73
             canIDMap.Add(index++, 0xe800000);   //0x74
             canIDMap.Add(index++, 0xea00000);   //0x75
             canIDMap.Add(index++, 0xec00000);   //0x76
+            canIDMap.Add(index++, 0xee00000);   //0x77
             canIDMap.Add(index++, 0xf000000);   //0x78
             canIDMap.Add(index++, 0xf200000);   //0x79
+
             canIDMap.Add(index++, 0x10200000);   //0x81
             canIDMap.Add(index++, 0x10400000);   //0x82
             canIDMap.Add(index++, 0x10600000);   //0x83
             canIDMap.Add(index++, 0x10800000);   //0x84
             canIDMap.Add(index++, 0x10a00000);   //0x85
             canIDMap.Add(index++, 0x10c00000);   //0x86
+            canIDMap.Add(index++, 0x10e00000);   //0x87
             canIDMap.Add(index++, 0x11000000);   //0x88
             canIDMap.Add(index++, 0x11200000);   //0x89
+
+            canIDMap.Add(index++, 0x14200000);   //0xa1
+            canIDMap.Add(index++, 0x14400000);   //0xa2
+            canIDMap.Add(index++, 0x14600000);   //0xa3
+            canIDMap.Add(index++, 0x14800000);   //0xa4
+            canIDMap.Add(index++, 0x14a00000);   //0xa5
+            canIDMap.Add(index++, 0x14c00000);   //0xa6
         }
 
         /// <summary>
@@ -178,15 +194,22 @@ namespace DirectConnectionPredictControl.IO
             }
         }
 
-        public void Record(CanDTO canDTO)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg">字符串："8 8 8 8 8"</param>
+        public void Record(byte[][] msg)
         {
-            byte[] id = Encoding.Default.GetBytes(Convert.ToString(canDTO.Id, 16));
-            byte[] data = canDTO.Data;
-            //byte[] time = Encoding.Default.GetBytes(canDTO.Time.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            byte[] time = Encoding.Default.GetBytes(canDTO.Time.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            byte[] split = { (byte)' ' };
-            byte[] line = { (byte)'\r',(byte)'\n' };
-            byte[] final = time.Concat(split).Concat(id).Concat(split).Concat(data).Concat(line).ToArray();
+            DateTime time = DateTime.Now;
+            byte[] content = new byte[0];
+            for (int i = 0; i < msg.Length; i++)
+            {
+                content = content.Concat(msg[i]).ToArray();
+            }
+            string now = time.ToString("yyyy-MM-dd HH:mm:ss") + " ";
+            byte[] nowByte = Encoding.ASCII.GetBytes(now);
+            byte[] end = Encoding.ASCII.GetBytes("\r\n");
+            byte[] final = nowByte.Concat(content).Concat(end).ToArray();
             WriteFile(final);
         }
     }

@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DirectConnectionPredictControl.CommenTool;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DirectConnectionPredictControl
 {
@@ -27,15 +32,59 @@ namespace DirectConnectionPredictControl
         private int nowPage = 1;
         private int totalPage;
         private int location;
-        private static int LINE_PER_TIME = 100;
+        private static int LINE_PER_TIME = 50;
         private int id = 0;
+
+
+
+        // 2018-11-20
+        private List<int> IDList = new List<int>();
+        private List<int> IDSelectList = new List<int>();
+        private List<int> IDSearchResultList = new List<int>();
+
+        private List<string> DateTimeList = new List<string>();
+        private List<int> DateTimeSelectList = new List<int>();
 
 
         public HistoryDetail()
         {
             InitializeComponent();
             location = 0;
+            iniComboBox();
         }
+
+        #region 初始化搜索下拉框的时分秒
+        private void iniComboBox()
+        {
+            string[] hourArray = { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                                   "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                                   "21", "22", "23"};
+            for (int i = 0; i < hourArray.Length; i++)
+            {
+                HourComboBox.Items.Add(hourArray[i]);
+            }
+            string[] MinuteOrSecondArray = { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09" };
+            for (int j = 0; j < MinuteOrSecondArray.Length; j++)
+            {
+                MinuteComboBox.Items.Add(MinuteOrSecondArray[j]);
+                SecondComboBox.Items.Add(MinuteOrSecondArray[j]);
+            }
+            string temp;
+            for (int k = 10; k < 60; k++)
+            {
+                temp = k.ToString();
+                MinuteComboBox.Items.Add(temp);
+                SecondComboBox.Items.Add(temp);
+            }
+
+            // 设置时分秒三个combobox的默认值
+            HourComboBox.SelectedIndex = 0;
+            MinuteComboBox.SelectedIndex = 0;
+            SecondComboBox.SelectedIndex = 0;
+            // 设置datepicker的默认值
+            DateChoose.SelectedDate = DateTime.Now;
+        }
+        #endregion
 
         #region bussiness methods
 
@@ -43,20 +92,34 @@ namespace DirectConnectionPredictControl
 
         private void GetData(int location, int tail)
         {
+
+            // 2018-11-20
+            IDList.Clear();
+            IDSelectList.Clear();
+            DateTimeList.Clear();
+            DateTimeSelectList.Clear();
+
+
             //2018-10-10
             //if (dataModelList.Count > 0)
             //{
-                dataModelList.Clear();
-                historyList.ItemsSource = null;
-                historyList.Items.Clear();
-                
+            dataModelList.Clear();
+            historyList.ItemsSource = null;
+            historyList.Items.Clear();
+
             //}
+            //for (int i = location; i < LINE_PER_TIME + location; i++)
             for (int i = location; i < LINE_PER_TIME + location; i++)
             {
                 HistoryDataModel temp = new HistoryDataModel();
+                if (i == history.Count)
+                {
+                    break;
+                }
                 #region detail
                 id++;
                 temp.ID = id;
+                temp.TestID = history.ListID[i];
                 temp.LifeSig_1 = history.Containers_1[i].LifeSig;
                 temp.LifeSig_2 = history.Containers_2[i].LifeSig;
                 temp.LifeSig_3 = history.Containers_3[i].LifeSig;
@@ -64,7 +127,10 @@ namespace DirectConnectionPredictControl
                 temp.LifeSig_5 = history.Containers_5[i].LifeSig;
                 temp.LifeSig_6 = history.Containers_6[i].LifeSig;
 
-                temp.dateTime = history.Containers_1[i].dateTime;
+                temp.dateTime = history.Containers_1[i].dateTime.ToString("yyyy/MM/dd HH:mm:ss");
+                // 2018-11-18
+                temp.UnixTime = history.Containers_1[i].UnixHour + ":" + history.Containers_1[i].UnixMinute;
+                //temp.UnixTime_2 = history.Containers_6[i].UnixHour + ":" + history.Containers_6[i].UnixMinute;
 
                 temp.RefSpeed = history.Containers_1[i].RefSpeed;
                 temp.Mode = history.Containers_1[i].Mode;
@@ -397,11 +463,11 @@ namespace DirectConnectionPredictControl
                 temp.SoftVersion = history.Containers_1[i].SoftVersion;
                 #endregion
                 dataModelList.Add(temp);
-
             }
             historyList.ItemsSource = dataModelList;
             historyList.ScrollIntoView(historyList.Items[0]);
         }
+
 
         #endregion
 
@@ -429,6 +495,7 @@ namespace DirectConnectionPredictControl
             }
         }
         
+
         private void preEvent(object sender, RoutedEventArgs e)
         {
             if (location == 0)
@@ -443,6 +510,7 @@ namespace DirectConnectionPredictControl
                 nowPageLbl.Content = nowPage;
             }
         }
+        
 
         #endregion
 
@@ -518,7 +586,7 @@ namespace DirectConnectionPredictControl
         private void columnConfigItem_Click(object sender, RoutedEventArgs e)
         {
             //showdialog
-            
+
         }
 
         private void showAnalog_Checked(object sender, RoutedEventArgs e)
@@ -528,7 +596,196 @@ namespace DirectConnectionPredictControl
 
         private void showAnalog_Unchecked(object sender, RoutedEventArgs e)
         {
+
+        }
+
+
+
+
+        /// <summary>
+        /// 获取用户选择进行搜索的时分秒
+        /// </summary>
+        public string GetUserChooseDateTime()
+        {
+            string YearMonthDayChoose = Convert.ToDateTime(DateChoose.SelectedDate).ToString("yyyy/MM/dd");
+            string HourChoose = HourComboBox.SelectedItem.ToString();
+            string MinuteChoose = MinuteComboBox.SelectedItem.ToString();
+            string SecondChoose = SecondComboBox.SelectedItem.ToString();
+            string FullSearchDateTime = YearMonthDayChoose + " " + HourChoose + ":" + MinuteChoose + ":" + SecondChoose;
+            return FullSearchDateTime;
+        }
+        /// <summary>
+        /// 点击历史窗口下搜索按钮会产生的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HistoryDeatilSearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string SearchDateTime = GetUserChooseDateTime();
+            bool bSearch = false;
+
+            for (int i = 0; i < history.Count; i++) {
+                if(history.Containers_1[i].dateTime.ToString("yyyy/MM/dd HH:mm:ss") == SearchDateTime)
+                {
+                    DateTimeSelectList.Add(i);// 获得符合搜索条件的所有id值
+                    bSearch = true;
+                }
+            }
+
+            if(bSearch == true)
+            {
+                int[] DateTimeSelectArray = DateTimeSelectList.ToArray();
+                JudgeSelectedIndex(DateTimeSelectArray[0]);
+                historyList.SelectedIndex = DateTimeSelectArray[0];
+                historyList.UpdateLayout();
+                historyList.ScrollIntoView(historyList.SelectedItem);
+            }
+            else
+            {
+                MessageBox.Show("未找到相关搜索结果！");
+            }
+
+            DateTimeSelectList.Clear();
+
+
+            #region 原来的代码
+            //string[] DateTimeArray = DateTimeList.ToArray();
+
+            //for (int i = 0; i < DateTimeArray.Length; i++)
+            //{
+            //    if (DateTimeArray[i] == SearchDateTime)
+            //    {
+            //        //MessageBox.Show("搜索结果：  " + i + "   行");
+            //        DateTimeSelectList.Add(i);
+            //        bSearch = true;
+            //    }
+            //}
+            //if (bSearch == false)
+            //{
+            //    MessageBox.Show("未找到相关搜索结果!");
+            //}
+
+            //if (bSearch == true)// 找到了搜索结果
+            //{
+            //    int[] DateTimeSelectArray = DateTimeSelectList.ToArray();
+            //    historyList.SelectedIndex = DateTimeSelectArray[0];
+
+
+            //    //JudgeSelectedIndex(historyList.SelectedIndex);
+            //    historyList.UpdateLayout();
+            //    historyList.ScrollIntoView(historyList.SelectedItem);
+            //    DateTimeSelectList.Clear();
+                
+
+            //}
+            #endregion
+        }
+
+        /// <summary>
+        /// 判断符合条件的第一个元素是否在本页面，不是的话得翻页
+        /// </summary>
+        private void JudgeSelectedIndex(int index)
+        {
+            int SearchPage;
+            if ((index % 50) == 0)
+            {
+                SearchPage = index / 50;
+            }
+            else
+            {
+                SearchPage = (int)(index / 50) + 1;
+            }
+             
+            if(SearchPage == nowPage) { }
+            else if(SearchPage > nowPage)
+            {
+                int PrePage = SearchPage - nowPage; // 向后翻多少页
+                location = location + (LINE_PER_TIME * PrePage);
+                GetData(location, location + LINE_PER_TIME);
+                nowPageLbl.Content = SearchPage;
+                nowPage = SearchPage;
+            }
+            else // 向前翻多少页
+            {
+                int AfterPage = nowPage - SearchPage;
+                location = location - (LINE_PER_TIME * AfterPage);
+                GetData(location, location + LINE_PER_TIME);
+                nowPageLbl.Content = SearchPage;
+                nowPage = SearchPage;
+            } 
+        }
+
+
+        // 获取search框内输入的关键词
+        public string SearchItem { get => SearchTextBox.Text; set => SearchTextBox.Text = value; }
+        private void IDSearch_Click(object sender, RoutedEventArgs e)
+        {
+            int SearchID = int.Parse(SearchItem);
+            bool bSearch = false;
+            for(int i = 0; i < history.Count; i++)
+            {
+                if(history.ListID[i] == SearchID)
+                {
+                    IDSelectList.Add(i);
+                    bSearch = true;
+                    break;
+                }
+            }
+            if (bSearch == true)
+            {
+                int[] IDSelectListArray = IDSelectList.ToArray();
+                JudgeSelectedIndex(IDSelectListArray[0] + 1);
+                historyList.SelectedIndex = (IDSelectListArray[0] % 50);
+                historyList.UpdateLayout();
+                historyList.ScrollIntoView(historyList.SelectedItem);
+                historyList.UpdateLayout();
+                historyList.ScrollIntoView(historyList.SelectedItem);
+            }
+            else {
+                MessageBox.Show("未找到相关搜索结果！");
+            }
+
+            IDSelectList.Clear();
             
+
+
+
+            #region 原来的代码
+            //for (int i = 0; i < IDArray.Length; i++)
+            //{
+
+            //    if (IDArray[i] == SearchID)
+            //    {
+            //        //MessageBox.Show("搜索结果：  " + i + "   行");
+            //        IDSelectList.Add(i);
+            //        IDSearchResultList.Add(i);
+            //        bSearch = true;
+            //        break;
+            //    }
+            //}
+            //if (bSearch == false)
+            //{
+            //    MessageBox.Show("未找到相关搜索结果!");
+            //}
+
+            //if (bSearch == true)// 找到了搜索结果
+            //{
+            //    int[] IDSelectArray = IDSelectList.ToArray();
+            //    historyList.SelectedIndex = IDSelectArray[0];
+            //    historyList.UpdateLayout();
+            //    historyList.ScrollIntoView(historyList.SelectedItem);
+            //    IDSelectList.Clear();
+            //}
+
+            //// 加在最后的滚动条上的信息
+            //int[] IDSearchResultArray = IDSearchResultList.ToArray();
+            //for (int z = 0; z < IDSearchResultArray.Length; z++)
+            //{
+            //    int a = z + 1;
+            //    SearchResultComboBox.Items.Add("搜索结果" + a + ":第" + IDSearchResultArray[z] + "行");
+            //}
+            //// 注：由于是每次读取100行数据，我怎么能在toolbar最左侧显示所有的搜索结果？
+            #endregion
         }
     }
 }

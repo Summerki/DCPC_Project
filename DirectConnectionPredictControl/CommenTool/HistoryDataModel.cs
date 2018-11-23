@@ -9,6 +9,9 @@ namespace DirectConnectionPredictControl.CommenTool
     public class HistoryDataModel
     {
         #region column row binding data
+
+        public int TestID { get; set; }
+
         public int ID { get; set; }
         public int LifeSig_1 { get; set; }
         public int LifeSig_2 { get; set; }
@@ -16,7 +19,8 @@ namespace DirectConnectionPredictControl.CommenTool
         public int LifeSig_4 { get; set; }
         public int LifeSig_5 { get; set; }
         public int LifeSig_6 { get; set; }
-        public DateTime dateTime { get; set; }
+        public string dateTime { get; set; }
+        public string UnixTime { get; set; }
         public double RefSpeed { get; set; }
         public string Mode { get; set; }
         public bool BrakeCmd { get; set; }

@@ -59,6 +59,9 @@ namespace DirectConnectionPredictControl
         private ConnectType connectType = ConnectType.CAN;
         private int recordFreq = 16;
         private CanDTO dTO = null;
+        private string msg = "";
+        private byte[][] oriData;
+        private List<uint> idList = new List<uint>();
 
         //数据组
         private MainDevDataContains container_1;
@@ -83,7 +86,7 @@ namespace DirectConnectionPredictControl
         private RealTimeOtherWindow otherWindow;
         private OverviewWindow overviewWindow;
         private ChartWindow chartWindow;
-        private SingleChart singleChartWindow;
+        //private SingleChart singleChartWindow;
         //2018-9-23:新增一个防滑数据显示窗口
         private Antiskid_Display antiskid_Display_Window;
         //2018-9-24:新增一个防滑数据设置窗口
@@ -106,8 +109,8 @@ namespace DirectConnectionPredictControl
             {
                 storyBoard.Begin();
             }
-            Init();
-            //Test();
+            //Init();
+            Test();
         }
 
         #region 测试用
@@ -123,6 +126,8 @@ namespace DirectConnectionPredictControl
             container_5 = new SliverDataContainer();
             container_6 = new MainDevDataContains();
             history = new HistoryModel();
+            Export("123");
+            ClearMsg();
             testThread = new Thread(TestHandler);
             recordThread = new Thread(RecordHandler);
             testThread.Start();
@@ -134,10 +139,10 @@ namespace DirectConnectionPredictControl
             FileBuilding building = new FileBuilding();
             while (true)
             {
-                Thread.Sleep(recordFreq);
+                Thread.Sleep(100);
                 if (dTO != null)
                 {
-                    building.Record(dTO);
+                    building.Record(oriData);
                 }
             }
         }
@@ -216,7 +221,66 @@ namespace DirectConnectionPredictControl
                 updateUIHandler.Start();
                 recordThread.Start();
             }
+
+            ClearMsg();
             
+        }
+
+        /// <summary>
+        /// 初始化所有本地CAN消息记录对象
+        /// </summary>
+        private void ClearMsg()
+        {
+            oriData = new byte[60][];
+            for (uint i = 0; i < 60; i++)
+            {
+                oriData[i] = new byte[9];
+                for (uint j = 0; j < 8; j++)
+                {
+                    oriData[i][j] = 0x30;
+                }
+                oriData[i][8] = (byte)' ';
+            }
+            for (uint i = 0x10; i <= 0x17; i++)
+            {
+                idList.Add(i);
+            }
+            for (uint i = 0x20; i <= 0x27; i++)
+            {
+                idList.Add(i);
+            }
+            idList.Add(0x31);
+            for (uint i = 0x34; i <= 0x37; i++)
+            {
+                idList.Add(i);
+            }
+            idList.Add(0x41);
+            for (uint i = 0x44; i <= 0x47; i++)
+            {
+                idList.Add(i);
+            }
+            idList.Add(0x51);
+            for (uint i = 0x54; i <= 0x57; i++)
+            {
+                idList.Add(i);
+            }
+            idList.Add(0x61);
+            for (uint i = 0x64; i <= 0x67; i++)
+            {
+                idList.Add(i);
+            }
+            for (uint i = 0x71; i <= 0x79; i++)
+            {
+                idList.Add(i);
+            }
+            for (uint i = 0x81; i <= 0x89; i++)
+            {
+                idList.Add(i);
+            }
+            for (uint i = 0xa1; i <= 0xa6; i++)
+            {
+                idList.Add(i);
+            }
         }
 
         private void UpdateUIHandlerMethod()
@@ -256,6 +320,7 @@ namespace DirectConnectionPredictControl
                 history.FileLength = FileBuilding.FileLength;
                 for (int i = 0; i < canList.Count; i++)
                 {
+                    history.ListID.Add(i + 1);// 2018-11-23
                     int count = FileBuilding.CAN_MO_NUM;
                     history.Count = canList.Count;
                     history.X.Add(x);
@@ -405,6 +470,18 @@ namespace DirectConnectionPredictControl
         }
 
         /// <summary>
+        /// 从CAN id获取下标值
+        /// </summary>
+        /// <param name="canID"></param>
+        /// <returns></returns>
+        private int getIndex(uint canID)
+        {
+            int index = 0;
+            index = idList.IndexOf(canID);
+            return index;
+        }
+
+        /// <summary>
         /// 格式化接收的数据至类中
         /// </summary>
         /// <param name="recvData"></param>
@@ -419,12 +496,21 @@ namespace DirectConnectionPredictControl
             //判断数据来源
             uint canID = dTO.Id;
             canID = dTO.Id >> 21;
+
+            
+
             uint canIdHigh = (canID & 0xf0) >> 4;
             uint canIdLow = canID & 0x0f;
 
             if (type == FormatType.REAL_TIME)
             {
                 FormateRealTime(recvData, canIdHigh, canIdLow, FormatType.REAL_TIME, point);
+                int location = getIndex(canID);
+                for (int i = 0; i < 8; i++)
+                {
+                    oriData[location][i] = recvData[i];
+                }
+                oriData[location][8] = (byte)' ';
             }
             if (type == FormatType.HISTORY)
             {
@@ -922,6 +1008,7 @@ namespace DirectConnectionPredictControl
                             container_3.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_3.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_3.AirSpringSenorFault_2 = (recvData[6] & 0x04) == 0x04 ? true : false;
+                            container_3.ParkCylinderSenorFault = (recvData[6] & 0x08) == 0x08 ? true : false;
                             container_3.VLDSensorFault = (recvData[6] & 0x10) == 0x10 ? true : false;
                             container_3.BSRSenorFault_1 = (recvData[6] & 0x20) == 0x20 ? true : false;
                             container_3.BSRSenorFault_2 = (recvData[6] & 0x40) == 0x40 ? true : false;
@@ -1068,6 +1155,7 @@ namespace DirectConnectionPredictControl
                             container_4.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_4.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_4.AirSpringSenorFault_2 = (recvData[6] & 0x04) == 0x04 ? true : false;
+                            container_4.MainPipeSensorFault = (recvData[6] & 0x08) == 0x08 ? true : false;
                             container_4.VLDSensorFault = (recvData[6] & 0x10) == 0x10 ? true : false;
                             container_4.BSRSenorFault_1 = (recvData[6] & 0x20) == 0x20 ? true : false;
                             container_4.BSRSenorFault_2 = (recvData[6] & 0x40) == 0x40 ? true : false;
@@ -1214,6 +1302,7 @@ namespace DirectConnectionPredictControl
                             container_5.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_5.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_5.AirSpringSenorFault_2 = (recvData[6] & 0x04) == 0x04 ? true : false;
+                            container_5.ParkCylinderSenorFault = (recvData[6] & 0x08) == 0x08 ? true : false;
                             container_5.VLDSensorFault = (recvData[6] & 0x10) == 0x10 ? true : false;
                             container_5.BSRSenorFault_1 = (recvData[6] & 0x20) == 0x20 ? true : false;
                             container_5.BSRSenorFault_2 = (recvData[6] & 0x40) == 0x40 ? true : false;
@@ -1741,9 +1830,9 @@ namespace DirectConnectionPredictControl
                             break;
                         case 9:
                             #region 1车附加9数据(Checked)
-                            container_6.Tc2 = recvData[0] * 256 + recvData[1];
-                            container_6.Mp2 = recvData[2] * 256 + recvData[3];
-                            container_6.M2 = recvData[4] * 256 + recvData[5];
+                            container_6.Tc1 = recvData[0] * 256 + recvData[1];
+                            container_6.Mp1 = recvData[2] * 256 + recvData[3];
+                            container_6.M1 = recvData[4] * 256 + recvData[5];
                             container_6.Tc2Valid = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_6.Mp2Valid = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_6.M2Valid = (recvData[6] & 0x04) == 0x04 ? true : false;
@@ -2993,10 +3082,6 @@ namespace DirectConnectionPredictControl
             {
                 chartWindow.UpdateData(container_1, container_2, container_3, container_4, container_5, container_6);
             }
-            if (singleChartWindow != null)
-            {
-                singleChartWindow.UpdateData(container_1, container_2, container_3, container_4, container_5, container_6);
-            }
             if (antiskid_Display_Window != null)
             {
                 antiskid_Display_Window.UpdateData(container_1, container_2, container_3, container_4, container_5, container_6);
@@ -3180,15 +3265,6 @@ namespace DirectConnectionPredictControl
                 }
                 chartWindow.Show();
             }
-            else if (sender.Equals(singleViewItem))
-            {
-                if (singleChartWindow == null)
-                {
-                    singleChartWindow = new SingleChart();
-                    singleChartWindow.CloseWindowEvent += OtherWindowClosedHandler;
-                }
-                singleChartWindow.Show();
-            }
             else if (sender.Equals(Antiskid_Display_Item))
             {
                 if (antiskid_Display_Window == null)
@@ -3259,10 +3335,6 @@ namespace DirectConnectionPredictControl
             else if ("chart".Equals(name))
             {
                 chartWindow = null;
-            }
-            else if ("single".Equals(name))
-            {
-                singleChartWindow = null;
             }
             else if ("Antiskid_Display_Window".Equals(name))
             {
@@ -3371,7 +3443,7 @@ namespace DirectConnectionPredictControl
 
 
 
-        
+
 
         /// <summary>
         /// 导出为excel 按钮事件
@@ -3380,43 +3452,25 @@ namespace DirectConnectionPredictControl
         /// <param name="e"></param>
         private void exportXls_Click(object sender, RoutedEventArgs e)
         {
+            //导出为xml
             txt_to_xml();
+            //string fileName;
+            //SaveFileDialog sfd = new SaveFileDialog();
+            //sfd.CheckFileExists = true;
+            //sfd.CheckPathExists = true;
+            //sfd.RestoreDirectory = true;
+            //if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    double x = 0.0;
+            //    fileName = sfd.FileName;
+            //}
         }
 
-
-        //private HistoryModel history_ForXml = new HistoryModel();
-        //public void OpenFile_ForXml(string FileName)
-        //{
-        //    double x = 0.0;
-        //    string fileName = FileName;
-        //    List<byte[]> content = FileBuilding.GetFileContent(fileName);
-        //    List<List<CanDTO>> canList = FileBuilding.GetCanList(content);
-        //    history_ForXml.FileLength = FileBuilding.FileLength;
-        //    for (int i = 0; i < canList.Count; i++)
-        //    {
-        //        int count = FileBuilding.CAN_MO_NUM;
-        //        history_ForXml.Count = canList.Count;
-        //        history_ForXml.X.Add(x);
-        //        x += 0.1;
-        //        for (int j = 0; j < canList[i].Count; j++)
-        //        {
-        //            if (--count == 0)
-        //            {
-        //                FormatData(canList[i][j], FormatType.HISTORY, FormatCommand.OK);
-        //            }
-        //            else
-        //            {
-        //                FormatData(canList[i][j], FormatType.HISTORY, FormatCommand.WAIT);
-        //            }
-
-        //        }
-        //        index += 0.1;
-        //    }
-        //    HistoryDetail historyDetail_ForXml = new HistoryDetail();
-        //    historyDetail_ForXml.SetHistory(history_ForXml);
-        //    //historyDetail_ForXml.Show();
-
-        //}
+        private void Export(string fileName)
+        {
+            IList<string> header = Utils.getXml("header.xml", "root");
+            
+        }
 
 
         public void OpenFile_1(string fileName)

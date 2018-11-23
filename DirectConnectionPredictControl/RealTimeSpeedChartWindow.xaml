@@ -119,7 +119,7 @@
                 </d3:ChartPlotter.VerticalAxis>
                 <d3:Header Content="速度曲线" Foreground="DodgerBlue"></d3:Header>
                 <d3:HorizontalAxisTitle Content="运行时间/s"></d3:HorizontalAxisTitle>
-                <d3:VerticalAxisTitle Content="速度/kmph"></d3:VerticalAxisTitle>
+                <d3:VerticalAxisTitle Content="速度 km/h"></d3:VerticalAxisTitle>
             </d3:ChartPlotter>
         </Grid>
     </DockPanel>

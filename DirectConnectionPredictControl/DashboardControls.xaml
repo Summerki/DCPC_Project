@@ -26,7 +26,7 @@
             <TextBlock Name="speed" HorizontalAlignment="Center" FontSize="26" Foreground="Gray"
                                            Text="{Binding Path=Value,
                                                           ElementName=dashboard}" />
-            <TextBlock Name="Kmphtext"  FontSize="12"  HorizontalAlignment="Center" Text="Kmph" />
+            <TextBlock Name="Kmphtext"  FontSize="12"  HorizontalAlignment="Center" Text="km/h" />
         </StackPanel>
     </Grid>
   
