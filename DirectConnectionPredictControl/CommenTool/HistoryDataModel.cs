@@ -10,9 +10,9 @@ namespace DirectConnectionPredictControl.CommenTool
     {
         #region column row binding data
 
-        public int TestID { get; set; }
-
         public int ID { get; set; }
+
+        
         public int LifeSig_1 { get; set; }
         public int LifeSig_2 { get; set; }
         public int LifeSig_3 { get; set; }

@@ -109,8 +109,8 @@ namespace DirectConnectionPredictControl
             {
                 storyBoard.Begin();
             }
-            //Init();
-            Test();
+            Init();
+            //Test();
         }
 
         #region 测试用
@@ -339,14 +339,17 @@ namespace DirectConnectionPredictControl
                     }
                     index += 0.1;
                 }
-                HistoryDetail historyDetail = new HistoryDetail();
-                historyDetail.SetHistory(history);
-                historyDetail.Show();
+                //HistoryDetail historyDetail = new HistoryDetail();
+                //historyDetail.SetHistory(history);
+                //historyDetail.Show();
+
                 //SingleChart historyChart = new SingleChart();
-                
+
                 //historyChart.Show();
                 //historyChart.SetHistoryModel(history);
                 //historyChart.PaintHistory();
+                OverviewWindowHis his = new OverviewWindowHis(history);
+                his.Show();
             }
         }
         /// <summary>
@@ -492,6 +495,7 @@ namespace DirectConnectionPredictControl
             int point = 0;
 
             byte[] recvData = dTO.Data;
+            DateTime recvTime = dTO.Time;
 
             //判断数据来源
             uint canID = dTO.Id;
@@ -523,7 +527,7 @@ namespace DirectConnectionPredictControl
 
                 if (type == FormatType.HISTORY && command == FormatCommand.OK)
                 {
-                    FormateHistory(recvData, canIdHigh, canIdLow, FormatType.HISTORY, FormatCommand.OK, container_1, container_2, container_3,
+                    FormateHistory(recvTime, recvData, canIdHigh, canIdLow, FormatType.HISTORY, FormatCommand.OK, container_1, container_2, container_3,
                         container_4, container_5, container_6);
                 }
 
@@ -1891,7 +1895,7 @@ namespace DirectConnectionPredictControl
             #endregion
         }
 
-        private void FormateHistory(byte[] recvData, uint canIdHigh, uint canIdLow, FormatType type, FormatCommand command, MainDevDataContains data_1, SliverDataContainer data_2, SliverDataContainer data_3, 
+        private void FormateHistory(DateTime recvTime, byte[] recvData, uint canIdHigh, uint canIdLow, FormatType type, FormatCommand command, MainDevDataContains data_1, SliverDataContainer data_2, SliverDataContainer data_3, 
             SliverDataContainer data_4, SliverDataContainer data_5, MainDevDataContains data_6, int point = 0)
         {
             #region 解析CAN数据包中的8个字节，根据CAN ID来决定字段含义
@@ -3001,6 +3005,10 @@ namespace DirectConnectionPredictControl
             #endregion
             if (type == FormatType.HISTORY && command == FormatCommand.OK)
             {
+                // datatime
+                data_1.dateTime =recvTime;
+
+
                 data_1.X = index;
                 data_2.X = index;
                 data_3.X = index;

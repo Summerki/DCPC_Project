@@ -117,9 +117,9 @@ namespace DirectConnectionPredictControl
                     break;
                 }
                 #region detail
-                id++;
-                temp.ID = id;
-                temp.TestID = history.ListID[i];
+                //id++;
+                //temp.ID = id;
+                temp.ID = history.ListID[i];
                 temp.LifeSig_1 = history.Containers_1[i].LifeSig;
                 temp.LifeSig_2 = history.Containers_2[i].LifeSig;
                 temp.LifeSig_3 = history.Containers_3[i].LifeSig;
@@ -629,14 +629,17 @@ namespace DirectConnectionPredictControl
                 {
                     DateTimeSelectList.Add(i);// 获得符合搜索条件的所有id值
                     bSearch = true;
+                    break;
                 }
             }
 
             if(bSearch == true)
             {
                 int[] DateTimeSelectArray = DateTimeSelectList.ToArray();
-                JudgeSelectedIndex(DateTimeSelectArray[0]);
-                historyList.SelectedIndex = DateTimeSelectArray[0];
+                JudgeSelectedIndex(DateTimeSelectArray[0] + 1);
+                historyList.SelectedIndex = (DateTimeSelectArray[0] % 50);
+                historyList.UpdateLayout();
+                historyList.ScrollIntoView(historyList.SelectedItem);
                 historyList.UpdateLayout();
                 historyList.ScrollIntoView(historyList.SelectedItem);
             }

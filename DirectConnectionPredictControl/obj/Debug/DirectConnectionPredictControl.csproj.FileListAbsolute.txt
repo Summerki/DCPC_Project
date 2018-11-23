@@ -3825,3 +3825,5 @@ C:\Users\summerki\Desktop\研一DCPC项目\2018-11-22\2018-11-23\DCPC-Gemini\DCP
 C:\Users\summerki\Desktop\研一DCPC项目\2018-11-22\2018-11-23\DCPC-Gemini\DCPC-Gemini\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.csproj.CopyComplete
 C:\Users\summerki\Desktop\研一DCPC项目\2018-11-22\2018-11-23\DCPC-Gemini\DCPC-Gemini\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.exe
 C:\Users\summerki\Desktop\研一DCPC项目\2018-11-22\2018-11-23\DCPC-Gemini\DCPC-Gemini\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.pdb
+C:\Users\summerki\Desktop\研一DCPC项目\1-Git_DCPC\DirectConnectionPredictControl\obj\Debug\OverviewWindowHis.g.cs
+C:\Users\summerki\Desktop\研一DCPC项目\1-Git_DCPC\DirectConnectionPredictControl\obj\Debug\OverviewWindowHis.baml

@@ -167,6 +167,9 @@
     <Compile Include="OverviewWindow.xaml.cs">
       <DependentUpon>OverviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OverviewWindowHis.xaml.cs">
+      <DependentUpon>OverviewWindowHis.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ParameterSetWindow.xaml.cs">
       <DependentUpon>ParameterSetWindow.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OverviewWindowHis.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
