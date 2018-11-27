@@ -339,17 +339,18 @@ namespace DirectConnectionPredictControl
                     }
                     index += 0.1;
                 }
-                //HistoryDetail historyDetail = new HistoryDetail();
-                //historyDetail.SetHistory(history);
-                //historyDetail.Show();
+                HistoryDetail historyDetail = new HistoryDetail();
+                historyDetail.SetHistory(history);
+                historyDetail.Show();
 
                 //SingleChart historyChart = new SingleChart();
 
                 //historyChart.Show();
                 //historyChart.SetHistoryModel(history);
                 //historyChart.PaintHistory();
-                OverviewWindowHis his = new OverviewWindowHis(history);
-                his.Show();
+
+                //OverviewWindowHis his = new OverviewWindowHis(history);
+                //his.Show();
             }
         }
         /// <summary>

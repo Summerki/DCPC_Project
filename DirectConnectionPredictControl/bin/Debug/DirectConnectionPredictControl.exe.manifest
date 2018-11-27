@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DirectConnectionPredictControl.exe" size="1952736">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DirectConnectionPredictControl.exe" size="1982432">
       <assemblyIdentity name="DirectConnectionPredictControl" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9pT1+wQXK+ELwZiWUyf/Q0SqKfSxtO5kxg4LoUcsfms=</dsig:DigestValue>
+        <dsig:DigestValue>VqRp+jxeXJaqFtWDVANmaPGgMEE8m1bg0Z28o6zUEYk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -119,22 +119,22 @@
       <dsig:DigestValue>4x7gEyuzpoK+dEaz6bjbGrMt/synkvnUIsD3I1DulTc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ControlCAN.h" size="5417">
+  <file name="ControlCAN.h" size="5603">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>ldndSM7kUfFhkkaPDpobCPkzgdQCO72jnp1A7ScSmpA=</dsig:DigestValue>
+      <dsig:DigestValue>jO+0qG9tnC78xOLSZCSG5iLLAjnJGfn31uzLVmF3diA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="DirectConnectionPredictControl.exe.config" size="178">
+  <file name="DirectConnectionPredictControl.exe.config" size="184">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>pOyyBcweXMlNB4Kmf4v1ezhl5BH5FT8d9w+toOcdxD4=</dsig:DigestValue>
+      <dsig:DigestValue>FqWy0dfMmRS85zkU1NlW07p6LsNOPUHodvLiZcFdgJY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="kerneldlls\CAN232.dll" size="53248">

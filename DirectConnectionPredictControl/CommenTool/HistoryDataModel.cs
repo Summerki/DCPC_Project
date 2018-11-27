@@ -10,9 +10,86 @@ namespace DirectConnectionPredictControl.CommenTool
     {
         #region column row binding data
 
-        public int ID { get; set; }
 
-        
+        #region 2018-11-27：新增一组自检目标设定值
+        public bool ICANFault1_1 { get; set; }
+        public bool ICANFault2_1 { get; set; }
+        public bool ICANFault3_1 { get; set; }
+        public bool ICANFault4_1 { get; set; }
+        public bool ICANFault5_1 { get; set; }
+        public bool ICANFault6_1 { get; set; }
+        public bool ICANFault1_2 { get; set; }
+        public bool ICANFault2_2 { get; set; }
+        public bool ICANFault3_2 { get; set; }
+        public bool ICANFault4_2 { get; set; }
+        public bool ICANFault5_2 { get; set; }
+        public bool ICANFault6_2 { get; set; }
+
+        public bool OCANFault1_1 { get; set; }
+        public bool OCANFault2_1 { get; set; }
+        public bool OCANFault3_1 { get; set; }
+        public bool OCANFault4_1 { get; set; }
+        public bool OCANFault5_1 { get; set; }
+        public bool OCANFault6_1 { get; set; }
+        public bool OCANFault1_2 { get; set; }
+        public bool OCANFault2_2 { get; set; }
+        public bool OCANFault3_2 { get; set; }
+        public bool OCANFault4_2 { get; set; }
+        public bool OCANFault5_2 { get; set; }
+        public bool OCANFault6_2 { get; set; }
+
+
+        public bool CanASPEnable_1 { get; set; }
+        public bool CanASPEnable_6 { get; set; }
+
+        public double AccValue1_1 { get; set; }
+        public double AccValue2_1 { get; set; }
+        public double AccValue3_1 { get; set; }
+        public double AccValue4_1 { get; set; }
+        public double AccValue5_1 { get; set; }
+        public double AccValue6_1 { get; set; }
+        public double AccValue1_2 { get; set; }
+        public double AccValue2_2 { get; set; }
+        public double AccValue3_2 { get; set; }
+        public double AccValue4_2 { get; set; }
+        public double AccValue5_2 { get; set; }
+        public double AccValue6_2 { get; set; }
+
+        public int SlipLv1_1 { get; set; }
+        public int SlipLv2_1 { get; set; }
+        public int SlipLv3_1 { get; set; }
+        public int SlipLv4_1 { get; set; }
+        public int SlipLv5_1 { get; set; }
+        public int SlipLv6_1 { get; set; }
+        public int SlipLv1_2 { get; set; }
+        public int SlipLv2_2 { get; set; }
+        public int SlipLv3_2 { get; set; }
+        public int SlipLv4_2 { get; set; }
+        public int SlipLv5_2 { get; set; }
+        public int SlipLv6_2 { get; set; }
+
+        public int SelfTestSetup_1 { get; set; }
+        public int SelfTestSetup_2 { get; set; }
+        public int SelfTestSetup_3 { get; set; }
+        public int SelfTestSetup_4 { get; set; }
+        public int SelfTestSetup_5 { get; set; }
+        public int SelfTestSetup_6 { get; set; }
+
+        public int SoftwareVersionCPU_1 { get; set; }
+        public int SoftwareVersionCPU_2 { get; set; }
+        public int SoftwareVersionCPU_3 { get; set; }
+        public int SoftwareVersionCPU_4 { get; set; }
+        public int SoftwareVersionCPU_5 { get; set; }
+        public int SoftwareVersionCPU_6 { get; set; }
+
+        public int SoftwareVersionEP_1 { get; set; }
+        public int SoftwareVersionEP_2 { get; set; }
+        public int SoftwareVersionEP_3 { get; set; }
+        public int SoftwareVersionEP_4 { get; set; }
+        public int SoftwareVersionEP_5 { get; set; }
+        public int SoftwareVersionEP_6 { get; set; }
+        #endregion
+        public int ID { get; set; }
         public int LifeSig_1 { get; set; }
         public int LifeSig_2 { get; set; }
         public int LifeSig_3 { get; set; }
@@ -21,21 +98,30 @@ namespace DirectConnectionPredictControl.CommenTool
         public int LifeSig_6 { get; set; }
         public string dateTime { get; set; }
         public string UnixTime { get; set; }
-        public double RefSpeed { get; set; }
-        public string Mode { get; set; }
-        public bool BrakeCmd { get; set; }
-        public bool DriveCmd { get; set; }
-        public bool FastBrakeCmd { get; set; }
-        public bool LazyCmd { get; set; }
-        public bool EmergencyBrakeCmd { get; set; }
+        public double RefSpeed_1 { get; set; }
+        public double RefSpeed_6 { get; set; }
+        public string Mode_1 { get; set; }
+        public string Mode_6 { get; set; }
+        public bool BrakeCmd_1 { get; set; }
+        public bool BrakeCmd_6 { get; set; }
+        public bool DriveCmd_1 { get; set; }
+        public bool DriveCmd_6 { get; set; }
+        public bool FastBrakeCmd_1 { get; set; }
+        public bool FastBrakeCmd_6 { get; set; }
+        public bool LazyCmd_1 { get; set; }
+        public bool LazyCmd_6 { get; set; }
+        public bool EmergencyBrakeCmd_1 { get; set; }
+        public bool EmergencyBrakeCmd_6 { get; set; }
         public bool HoldBrakeRealease { get; set; }
         public bool LazyState { get; set; }
         public bool DriveState { set; get; }
         public bool NormalBrakeState { get; set; }
         public bool EmergencyBrakeState { get; set; }
         public bool ZeroSpeed { get; set; }
-        public int BrakeLevel { get; set; }
-        public int TrainBrakeForce { get; set; }
+        public int BrakeLevel_1 { get; set; }
+        public int BrakeLevel_6 { get; set; }
+        public int TrainBrakeForce_1 { get; set; }
+        public int TrainBrakeForce_6 { get; set; }
         public double SpeedAx1_1 { get; set; }
         public double SpeedAx2_1 { get; set; }
         public double SpeedAx1_2 { get; set; }
@@ -75,7 +161,12 @@ namespace DirectConnectionPredictControl.CommenTool
         public bool BSRLow_4 { get; set; }
         public bool BSRLow_5 { get; set; }
         public bool BSRLow_6 { get; set; }
-        public bool ParkBreakRealease { get; set; }
+        public bool ParkBreakRealease_1 { get; set; }
+        public bool ParkBreakRealease_2 { get; set; }
+        public bool ParkBreakRealease_3 { get; set; }
+        public bool ParkBreakRealease_4 { get; set; }
+        public bool ParkBreakRealease_5 { get; set; }
+        public bool ParkBreakRealease_6 { get; set; }
         public bool AbStatues_1 { get; set; }
         public bool AbStatues_2 { get; set; }
         public bool AbStatues_3 { get; set; }
@@ -101,23 +192,33 @@ namespace DirectConnectionPredictControl.CommenTool
         public bool UnTest24 { get; set; }
         public bool UnTest26 { get; set; }
         public bool GatewayValveState { get; set; }
-        public bool HardDrive { get; set; }
+        public bool HardDrive_1 { get; set; }
+        public bool HardDrive_6 { get; set; }
         public bool HardBrake { get; set; }
-        public bool HardFastBrake { get; set; }
-        public bool HardEmergencyBrake { get; set; }
-        public bool HardEmergencyDrive { get; set; }
+        public bool HardFastBrake_1 { get; set; }
+        public bool HardFastBrake_6 { get; set; }
+        public bool HardEmergencyBrake_1 { get; set; }
+        public bool HardEmergencyBrake_6 { get; set; }
+        public bool HardEmergencyDrive_1 { get; set; }
+        public bool HardEmergencyDrive_6 { get; set; }
         public bool CanUnitTestOn { get; set; }
         public bool CanValveActive { get; set; }
         public bool CanUnitTestOff { get; set; }
-        public bool NetDrive { get; set; }
-        public bool NetBrake { get; set; }
+        public bool NetDrive_1 { get; set; }
+        public bool NetDrive_6 { get; set; }
+        public bool NetBrake_1 { get; set; }
+        public bool NetBrake_6 { get; set; }
         public bool NetFastBrake { get; set; }
         public bool TowingMode { get; set; }
-        public bool KeepBrakeRelease { get; set; }
-        public bool CanTestA { get; set; }
-        public bool CanTestB { get; set; }
+        public bool KeepBrakeRelease_1 { get; set; }
+        public bool KeepBrakeRelease_6 { get; set; }
+        public bool CanTestA_1 { get; set; }
+        public bool CanTestA_6 { get; set; }
+        public bool CanTestB_1 { get; set; }
+        public bool CanTestB_6 { get; set; }
         public bool BrakeLevelActive { get; set; }
-        public bool SelfTestCmd { get; set; }
+        public bool SelfTestCmd_1 { get; set; }
+        public bool SelfTestCmd_6 { get; set; }
         public bool TrainBrakeEnable { get; set; }
         public bool AbFadeOut { get; set; }
         public bool EDoutB { get; set; }
@@ -301,11 +402,16 @@ namespace DirectConnectionPredictControl.CommenTool
         public bool BCPLow_4 { get; set; }
         public bool BCPLow_5 { get; set; }
         public bool BCPLow_6 { get; set; }
-        public int VCMLifeSig { get; set; }
-        public int DCULifeSig_1 { get; set; }
-        public int DCULifeSig_2 { get; set; }
-        public int DCULifeSig_3 { get; set; }
-        public int DCULifeSig_4 { get; set; }
+        public int VCMLifeSig_1 { get; set; }
+        public int VCMLifeSig_6 { get; set; }
+        public int DCULifeSig1_1 { get; set; }
+        public int DCULifeSig1_2 { get; set; }
+        public int DCULifeSig1_3 { get; set; }
+        public int DCULifeSig1_4 { get; set; }
+        public int DCULifeSig6_1 { get; set; }
+        public int DCULifeSig6_2 { get; set; }
+        public int DCULifeSig6_3 { get; set; }
+        public int DCULifeSig6_4 { get; set; }
         public bool DCU_Ed_Ok_1 { get; set; }
         public bool DCU_Ed_Fadeout_1 { get; set; }
         public bool DCU_Ed_Slip_1 { get; set; }
@@ -318,37 +424,70 @@ namespace DirectConnectionPredictControl.CommenTool
         public bool DCU_Ed_Ok_4 { get; set; }
         public bool DCU_Ed_Fadeout_4 { get; set; }
         public bool DCU_Ed_Slip_4 { get; set; }
-        public int DcuEbRealValue_1 { get; set; }
-        public int DcuEbRealValue_2 { get; set; }
-        public int DcuEbRealValue_3 { get; set; }
-        public int DcuEbRealValue_4 { get; set; }
-        public int DcuMax_1 { get; set; }
-        public int DcuMax_2 { get; set; }
-        public int DcuMax_3 { get; set; }
-        public int DcuMax_4 { get; set; }
-        public int AbCapacity_1 { get; set; }
-        public int AbCapacity_2 { get; set; }
-        public int AbCapacity_3 { get; set; }
-        public int AbCapacity_4 { get; set; }
-        public int AbCapacity_5 { get; set; }
-        public int AbCapacity_6 { get; set; }
-        public int AbRealValue_1 { get; set; }
-        public int AbRealValue_2 { get; set; }
-        public int AbRealValue_3 { get; set; }
-        public int AbRealValue_4 { get; set; }
-        public int AbRealValue_5 { get; set; }
-        public int AbRealValue_6 { get; set; }
-        public bool SpeedDetection { get; set; }
-        public bool CanBusFail1 { get; set; }
-        public bool CanBusFail2 { get; set; }
+        public int DcuEbRealValue1_1 { get; set; }
+        public int DcuEbRealValue1_2 { get; set; }
+        public int DcuEbRealValue1_3 { get; set; }
+        public int DcuEbRealValue1_4 { get; set; }
+        public int DcuEbRealValue6_1 { get; set; }
+        public int DcuEbRealValue6_2 { get; set; }
+        public int DcuEbRealValue6_3 { get; set; }
+        public int DcuEbRealValue6_4 { get; set; }
+        public int DcuMax1_1 { get; set; }
+        public int DcuMax1_2 { get; set; }
+        public int DcuMax1_3 { get; set; }
+        public int DcuMax1_4 { get; set; }
+        public int DcuMax6_1 { get; set; }
+        public int DcuMax6_2 { get; set; }
+        public int DcuMax6_3 { get; set; }
+        public int DcuMax6_4 { get; set; }
+        public int AbCapacity1_1 { get; set; }
+        public int AbCapacity1_2 { get; set; }
+        public int AbCapacity1_3 { get; set; }
+        public int AbCapacity1_4 { get; set; }
+        public int AbCapacity1_5 { get; set; }
+        public int AbCapacity1_6 { get; set; }
+        public int AbCapacity6_1 { get; set; }
+        public int AbCapacity6_2 { get; set; }
+        public int AbCapacity6_3 { get; set; }
+        public int AbCapacity6_4 { get; set; }
+        public int AbCapacity6_5 { get; set; }
+        public int AbCapacity6_6 { get; set; }
+        public int AbRealValue1_1 { get; set; }
+        public int AbRealValue1_2 { get; set; }
+        public int AbRealValue1_3 { get; set; }
+        public int AbRealValue1_4 { get; set; }
+        public int AbRealValue1_5 { get; set; }
+        public int AbRealValue1_6 { get; set; }
+        public int AbRealValue6_1 { get; set; }
+        public int AbRealValue6_2 { get; set; }
+        public int AbRealValue6_3 { get; set; }
+        public int AbRealValue6_4 { get; set; }
+        public int AbRealValue6_5 { get; set; }
+        public int AbRealValue6_6 { get; set; }
+        public bool SpeedDetection_1 { get; set; }
+        public bool SpeedDetection_2 { get; set; }
+        public bool SpeedDetection_3 { get; set; }
+        public bool SpeedDetection_4 { get; set; }
+        public bool SpeedDetection_5 { get; set; }
+        public bool SpeedDetection_6 { get; set; }
+        public bool CanBusFail1_1 { get; set; }
+        public bool CanBusFail6_1 { get; set; }
+        public bool CanBusFail1_2 { get; set; }
+        public bool CanBusFail6_2 { get; set; }
         public bool HardDifferent { get; set; }
-        public bool Event_High { get; set; }
-        public bool Event_Middle { get; set; }
-        public bool Event_Low { get; set; }
+        public bool Event_High_1 { get; set; }
+        public bool Event_High_6 { get; set; }
+        public bool Event_Middle_1 { get; set; }
+        public bool Event_Middle_6 { get; set; }
+        public bool Event_Low_1 { get; set; }
+        public bool Event_Low_6 { get; set; }
         public bool CanASPActive { get; set; }
-        public bool BCPLowA { get; set; }
-        public bool BCPLowB { get; set; }
-        public bool BCPLowC { get; set; }
+        public bool BCPLowA_1 { get; set; }
+        public bool BCPLowA_6 { get; set; }
+        public bool BCPLowB_1 { get; set; }
+        public bool BCPLowB_6 { get; set; }
+        public bool BCPLowC_1 { get; set; }
+        public bool BCPLowC_6 { get; set; }
         public int SoftVersion { get; set; }
 
         #endregion

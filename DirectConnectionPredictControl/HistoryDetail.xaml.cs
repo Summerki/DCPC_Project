@@ -32,7 +32,7 @@ namespace DirectConnectionPredictControl
         private int nowPage = 1;
         private int totalPage;
         private int location;
-        private static int LINE_PER_TIME = 50;
+        private static int LINE_PER_TIME = 30;
         private int id = 0;
 
 
@@ -51,7 +51,106 @@ namespace DirectConnectionPredictControl
             InitializeComponent();
             location = 0;
             iniComboBox();
+            Init();
         }
+
+        /// <summary>
+        /// 初始化函数，主要是为了在HistoryDetail窗口加载右键5个选择项和2个窗口进入项
+        /// </summary>
+        private void Init()
+        {
+            System.Windows.Controls.ContextMenu context = new System.Windows.Controls.ContextMenu();
+
+            System.Windows.Controls.MenuItem analogDataItem = new System.Windows.Controls.MenuItem();
+            analogDataItem.Header = "模拟量数据";
+            analogDataItem.IsCheckable = true;
+            analogDataItem.Click += AnalogDataItem_Click;
+            context.Items.Add(analogDataItem);
+
+            System.Windows.Controls.MenuItem digitalInputItem = new System.Windows.Controls.MenuItem();
+            digitalInputItem.Header = "数字量输入";
+            digitalInputItem.IsCheckable = true;
+            digitalInputItem.Click += DigitalInputItem_Click;
+            context.Items.Add(digitalInputItem);
+
+            System.Windows.Controls.MenuItem digitalOutputItem = new System.Windows.Controls.MenuItem();
+            digitalOutputItem.Header = "数字量输出";
+            digitalOutputItem.IsCheckable = true;
+            digitalOutputItem.Click += DigitalOutputItem_Click;
+            context.Items.Add(digitalOutputItem);
+
+            System.Windows.Controls.MenuItem faultDataItem = new System.Windows.Controls.MenuItem();
+            faultDataItem.Header = "故障数据";
+            faultDataItem.IsCheckable = true;
+            faultDataItem.Click += FaultDataItem_Click;
+            context.Items.Add(faultDataItem);
+
+            System.Windows.Controls.MenuItem antiskidDataItem = new System.Windows.Controls.MenuItem();
+            antiskidDataItem.Header = "防滑数据";
+            antiskidDataItem.IsCheckable = true;
+            antiskidDataItem.Click += AntiskidDataItem_Click;
+            context.Items.Add(antiskidDataItem);
+
+            // 添加一条分割线
+            Separator sp = new Separator();
+            context.Items.Add(sp);
+
+            System.Windows.Controls.MenuItem overviewHisDataItem = new System.Windows.Controls.MenuItem();
+            overviewHisDataItem.Header = "历史数据按实时监控界面回放";
+            overviewHisDataItem.Click += OverviewHisDataItem_Click;
+            context.Items.Add(overviewHisDataItem);
+
+            System.Windows.Controls.MenuItem overviewHisChartItem = new System.Windows.Controls.MenuItem();
+            overviewHisChartItem.Header = "历史数据画图显示";
+            overviewHisChartItem.Click += OverviewHisChartItem_Click;
+            context.Items.Add(overviewHisChartItem);
+
+            this.ContextMenu = context;
+        }
+
+        #region HistoryDetail窗口上右键每一项所产生的事件
+
+        #region 右键打开两个窗口的事件
+        private void OverviewHisChartItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OverviewHisDataItem_Click(object sender, RoutedEventArgs e)
+        {
+            OverviewWindowHis his = new OverviewWindowHis(history);
+            his.Show();
+        }
+        #endregion
+
+        #region 右键复选框显示数据事件
+        private void AntiskidDataItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FaultDataItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DigitalOutputItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DigitalInputItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AnalogDataItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #endregion
 
         #region 初始化搜索下拉框的时分秒
         private void iniComboBox()
@@ -117,9 +216,20 @@ namespace DirectConnectionPredictControl
                     break;
                 }
                 #region detail
-                //id++;
-                //temp.ID = id;
+                #region 模拟量数据
                 temp.ID = history.ListID[i];
+                temp.dateTime = history.Containers_1[i].dateTime.ToString("yyyy/MM/dd HH:mm:ss");
+                temp.UnixTime = history.Containers_1[i].UnixHour + ":" + history.Containers_1[i].UnixMinute;
+
+                temp.RefSpeed_1 = history.Containers_1[i].RefSpeed;
+                temp.RefSpeed_6 = history.Containers_6[i].RefSpeed;
+
+                temp.BrakeLevel_1 = history.Containers_1[i].BrakeLevel;
+                temp.BrakeLevel_6 = history.Containers_6[i].BrakeLevel;
+
+                temp.TrainBrakeForce_1 = history.Containers_1[i].TrainBrakeForce;
+                temp.TrainBrakeForce_6 = history.Containers_6[i].TrainBrakeForce;
+
                 temp.LifeSig_1 = history.Containers_1[i].LifeSig;
                 temp.LifeSig_2 = history.Containers_2[i].LifeSig;
                 temp.LifeSig_3 = history.Containers_3[i].LifeSig;
@@ -127,38 +237,500 @@ namespace DirectConnectionPredictControl
                 temp.LifeSig_5 = history.Containers_5[i].LifeSig;
                 temp.LifeSig_6 = history.Containers_6[i].LifeSig;
 
-                temp.dateTime = history.Containers_1[i].dateTime.ToString("yyyy/MM/dd HH:mm:ss");
+                temp.SpeedAx1_1 = history.Containers_1[i].SpeedA1Shaft1;
+                temp.SpeedAx1_2 = history.Containers_2[i].SpeedShaft1;
+                temp.SpeedAx1_3 = history.Containers_3[i].SpeedShaft1;
+                temp.SpeedAx1_4 = history.Containers_4[i].SpeedShaft1;
+                temp.SpeedAx1_5 = history.Containers_5[i].SpeedShaft1;
+                temp.SpeedAx1_6 = history.Containers_6[i].SpeedA1Shaft1;
+
+                temp.SpeedAx2_1 = history.Containers_1[i].SpeedA1Shaft2;
+                temp.SpeedAx2_2 = history.Containers_2[i].SpeedShaft2;
+                temp.SpeedAx2_3 = history.Containers_3[i].SpeedShaft2;
+                temp.SpeedAx2_4 = history.Containers_4[i].SpeedShaft2;
+                temp.SpeedAx2_5 = history.Containers_5[i].SpeedShaft2;
+                temp.SpeedAx2_6 = history.Containers_6[i].SpeedA1Shaft2;
+
+                // 这里制动缸目标值没有解析
+
+                temp.BrakeCylinderSourcePressure_1 = history.Containers_1[i].BrakeCylinderSourcePressure;
+                temp.BrakeCylinderSourcePressure_2 = history.Containers_2[i].BrakeCylinderSourcePressure;
+                temp.BrakeCylinderSourcePressure_3 = history.Containers_3[i].BrakeCylinderSourcePressure;
+                temp.BrakeCylinderSourcePressure_4 = history.Containers_4[i].BrakeCylinderSourcePressure;
+                temp.BrakeCylinderSourcePressure_5 = history.Containers_5[i].BrakeCylinderSourcePressure;
+                temp.BrakeCylinderSourcePressure_6 = history.Containers_6[i].BrakeCylinderSourcePressure;
+
+                temp.AirSpringPressure1_1 = history.Containers_1[i].AirSpring1PressureA1Car1;
+                temp.AirSpringPressure1_2 = history.Containers_2[i].AirSpringPressure1;
+                temp.AirSpringPressure1_3 = history.Containers_3[i].AirSpringPressure1;
+                temp.AirSpringPressure1_4 = history.Containers_4[i].AirSpringPressure1;
+                temp.AirSpringPressure1_5 = history.Containers_5[i].AirSpringPressure1;
+                temp.AirSpringPressure1_6 = history.Containers_6[i].AirSpring1PressureA1Car1;
+
+                temp.AirSpringPressure2_1 = history.Containers_1[i].AirSpring2PressureA1Car1;
+                temp.AirSpringPressure2_2 = history.Containers_2[i].AirSpringPressure2;
+                temp.AirSpringPressure2_3 = history.Containers_3[i].AirSpringPressure2;
+                temp.AirSpringPressure2_4 = history.Containers_4[i].AirSpringPressure2;
+                temp.AirSpringPressure2_5 = history.Containers_5[i].AirSpringPressure2;
+                temp.AirSpringPressure2_6 = history.Containers_6[i].AirSpring2PressureA1Car1;
+
+                temp.ParkPressure_1 = history.Containers_1[i].ParkPressureA1;
+                temp.ParkPressure_2 = history.Containers_3[i].ParkPressure;
+                temp.ParkPressure_3 = history.Containers_5[i].ParkPressure;
+
+                temp.VldRealPressure_1 = history.Containers_1[i].VldRealPressureAx1;
+                temp.VldRealPressure_2 = history.Containers_2[i].VldRealPressure;
+                temp.VldRealPressure_3 = history.Containers_3[i].VldRealPressure;
+                temp.VldRealPressure_4 = history.Containers_4[i].VldRealPressure;
+                temp.VldRealPressure_5 = history.Containers_5[i].VldRealPressure;
+                temp.VldRealPressure_6 = history.Containers_6[i].VldRealPressureAx1;
+
+                temp.Bcp1Pressure_1 = history.Containers_1[i].Bcp1PressureAx1;
+                temp.Bcp1Pressure_2 = history.Containers_2[i].Bcp1Pressure;
+                temp.Bcp1Pressure_3 = history.Containers_3[i].Bcp1Pressure;
+                temp.Bcp1Pressure_4 = history.Containers_4[i].Bcp1Pressure;
+                temp.Bcp1Pressure_5 = history.Containers_5[i].Bcp1Pressure;
+                temp.Bcp1Pressure_6 = history.Containers_6[i].Bcp1PressureAx1;
+
+                temp.Bcp2Pressure_1 = history.Containers_1[i].Bcp2PressureAx2;
+                temp.Bcp2Pressure_2 = history.Containers_2[i].Bcp2Pressure;
+                temp.Bcp2Pressure_3 = history.Containers_3[i].Bcp2Pressure;
+                temp.Bcp2Pressure_4 = history.Containers_4[i].Bcp2Pressure;
+                temp.Bcp2Pressure_5 = history.Containers_5[i].Bcp2Pressure;
+                temp.Bcp2Pressure_6 = history.Containers_6[i].Bcp2PressureAx2;
+
+                temp.VldPressureSetup_1 = history.Containers_1[i].VldPressureSetupAx1;
+                temp.VldPressureSetup_2 = history.Containers_2[i].VldSetupPressure;
+                temp.VldPressureSetup_3 = history.Containers_3[i].VldSetupPressure;
+                temp.VldPressureSetup_4 = history.Containers_4[i].VldSetupPressure;
+                temp.VldPressureSetup_5 = history.Containers_5[i].VldSetupPressure;
+                temp.VldPressureSetup_6 = history.Containers_6[i].VldPressureSetupAx1;
+
+                temp.Mass_1 = history.Containers_1[i].MassA1;
+                temp.Mass_2 = history.Containers_2[i].MassValue;
+                temp.Mass_3 = history.Containers_3[i].MassValue;
+                temp.Mass_4 = history.Containers_4[i].MassValue;
+                temp.Mass_5 = history.Containers_5[i].MassValue;
+                temp.Mass_6 = history.Containers_6[i].MassA1;
+
+                temp.SelfTestSetup_1 = history.Containers_1[i].SelfTestSetup;
+                temp.SelfTestSetup_2 = history.Containers_2[i].SelfTestSetup;
+                temp.SelfTestSetup_3 = history.Containers_3[i].SelfTestSetup;
+                temp.SelfTestSetup_4 = history.Containers_4[i].SelfTestSetup;
+                temp.SelfTestSetup_5 = history.Containers_5[i].SelfTestSetup;
+                temp.SelfTestSetup_6 = history.Containers_6[i].SelfTestSetup;
+
+                temp.VCMLifeSig_1 = history.Containers_1[i].VCMLifeSig;
+                temp.VCMLifeSig_6 = history.Containers_6[i].VCMLifeSig;
+
+                temp.DCULifeSig1_1 = history.Containers_1[i].DcuLifeSig[0];
+                temp.DCULifeSig6_1 = history.Containers_6[i].DcuLifeSig[0];
+                temp.DCULifeSig1_2 = history.Containers_1[i].DcuLifeSig[1];
+                temp.DCULifeSig6_2 = history.Containers_6[i].DcuLifeSig[1];
+                temp.DCULifeSig1_3 = history.Containers_1[i].DcuLifeSig[2];
+                temp.DCULifeSig6_3 = history.Containers_6[i].DcuLifeSig[2];
+                temp.DCULifeSig1_4 = history.Containers_1[i].DcuLifeSig[3];
+                temp.DCULifeSig6_4 = history.Containers_6[i].DcuLifeSig[3];
+
+                temp.DcuEbRealValue1_1 = history.Containers_1[i].DcuEbRealValue[0];
+                temp.DcuEbRealValue6_1 = history.Containers_6[i].DcuEbRealValue[0];
+                temp.DcuMax1_1 = history.Containers_1[i].DcuMax[0];
+                temp.DcuMax6_1 = history.Containers_6[i].DcuMax[0];
+                temp.DcuEbRealValue1_2 = history.Containers_1[i].DcuEbRealValue[1];
+                temp.DcuEbRealValue6_2 = history.Containers_6[i].DcuEbRealValue[1];
+                temp.DcuMax1_2 = history.Containers_1[i].DcuMax[1];
+                temp.DcuMax6_2 = history.Containers_6[i].DcuMax[1];
+                temp.DcuEbRealValue1_3 = history.Containers_1[i].DcuEbRealValue[2];
+                temp.DcuEbRealValue6_3 = history.Containers_6[i].DcuEbRealValue[2];
+                temp.DcuMax1_3 = history.Containers_1[i].DcuMax[2];
+                temp.DcuMax6_3 = history.Containers_6[i].DcuMax[2];
+                temp.DcuEbRealValue1_4 = history.Containers_1[i].DcuEbRealValue[3];
+                temp.DcuEbRealValue6_4 = history.Containers_6[i].DcuEbRealValue[3];
+                temp.DcuMax1_4 = history.Containers_1[i].DcuMax[3];
+                temp.DcuMax6_4 = history.Containers_6[i].DcuMax[3];
+
+                temp.AbRealValue1_1 = history.Containers_1[i].AbRealValue[0];
+                temp.AbRealValue1_2 = history.Containers_1[i].AbRealValue[1];
+                temp.AbRealValue1_3 = history.Containers_1[i].AbRealValue[2];
+                temp.AbRealValue1_4 = history.Containers_1[i].AbRealValue[3];
+                temp.AbRealValue1_5 = history.Containers_1[i].AbRealValue[4];
+                temp.AbRealValue1_6 = history.Containers_1[i].AbRealValue[5];
+
+                temp.AbRealValue6_1 = history.Containers_6[i].AbRealValue[0];
+                temp.AbRealValue6_2 = history.Containers_6[i].AbRealValue[1];
+                temp.AbRealValue6_3 = history.Containers_6[i].AbRealValue[2];
+                temp.AbRealValue6_4 = history.Containers_6[i].AbRealValue[3];
+                temp.AbRealValue6_5 = history.Containers_6[i].AbRealValue[4];
+                temp.AbRealValue6_6 = history.Containers_6[i].AbRealValue[5];
+
+                temp.AbCapacity1_1 = history.Containers_1[i].AbCapacity[0];
+                temp.AbCapacity1_2 = history.Containers_1[i].AbCapacity[1];
+                temp.AbCapacity1_3 = history.Containers_1[i].AbCapacity[2];
+                temp.AbCapacity1_4 = history.Containers_1[i].AbCapacity[3];
+                temp.AbCapacity1_5 = history.Containers_1[i].AbCapacity[4];
+                temp.AbCapacity1_6 = history.Containers_1[i].AbCapacity[5];
+
+                temp.AbCapacity6_1 = history.Containers_6[i].AbCapacity[0];
+                temp.AbCapacity6_2 = history.Containers_6[i].AbCapacity[1];
+                temp.AbCapacity6_3 = history.Containers_6[i].AbCapacity[2];
+                temp.AbCapacity6_4 = history.Containers_6[i].AbCapacity[3];
+                temp.AbCapacity6_5 = history.Containers_6[i].AbCapacity[4];
+                temp.AbCapacity6_6 = history.Containers_6[i].AbCapacity[5];
+
+                temp.SoftwareVersionCPU_1 = history.Containers_1[i].SoftwareVersionCPU;
+                temp.SoftwareVersionCPU_2 = history.Containers_2[i].SoftwareVersionCPU;
+                temp.SoftwareVersionCPU_3 = history.Containers_3[i].SoftwareVersionCPU;
+                temp.SoftwareVersionCPU_4 = history.Containers_4[i].SoftwareVersionCPU;
+                temp.SoftwareVersionCPU_5 = history.Containers_5[i].SoftwareVersionCPU;
+                temp.SoftwareVersionCPU_6 = history.Containers_6[i].SoftwareVersionCPU;
+
+                temp.SoftwareVersionEP_1 = history.Containers_1[1].SoftwareVersionEP;
+                temp.SoftwareVersionEP_2 = history.Containers_2[1].SoftwareVersionEP;
+                temp.SoftwareVersionEP_3 = history.Containers_3[1].SoftwareVersionEP;
+                temp.SoftwareVersionEP_4 = history.Containers_4[1].SoftwareVersionEP;
+                temp.SoftwareVersionEP_5 = history.Containers_5[1].SoftwareVersionEP;
+                temp.SoftwareVersionEP_6 = history.Containers_6[1].SoftwareVersionEP;
+
+                // 这里还有MVB轮径、存储轮径没有解析
+
+                temp.ParkPressure_4 = history.Containers_4[i].ParkPressure;
+                #endregion
+
+                #region 数字量输入
+                temp.BrakeCmd_1 = history.Containers_1[i].BrakeCmd;
+                temp.BrakeCmd_6 = history.Containers_6[i].BrakeCmd;
+
+                temp.DriveCmd_1 = history.Containers_1[i].DriveCmd;
+                temp.DriveCmd_6 = history.Containers_6[i].DriveCmd;
+
+                temp.LazyCmd_1 = history.Containers_1[i].LazyCmd;
+                temp.LazyCmd_6 = history.Containers_6[i].LazyCmd;
+
+                temp.FastBrakeCmd_1 = history.Containers_1[i].FastBrakeCmd;
+                temp.FastBrakeCmd_6 = history.Containers_6[i].FastBrakeCmd;
+
+                temp.EmergencyBrakeCmd_1 = history.Containers_1[i].EmergencyBrakeCmd;
+                temp.EmergencyBrakeCmd_6 = history.Containers_6[i].EmergencyBrakeCmd;
+
+                temp.EmergencyBrakeActive_1 = history.Containers_1[i].EmergencyBrakeActiveA1;
+                temp.EmergencyBrakeActive_2 = history.Containers_2[i].EmergencyBrakeActive;
+                temp.EmergencyBrakeActive_3 = history.Containers_3[i].EmergencyBrakeActive;
+                temp.EmergencyBrakeActive_4 = history.Containers_4[i].EmergencyBrakeActive;
+                temp.EmergencyBrakeActive_5 = history.Containers_5[i].EmergencyBrakeActive;
+                temp.EmergencyBrakeActive_6 = history.Containers_6[i].EmergencyBrakeActiveA1;
+
+                temp.AbActive_1 = history.Containers_1[i].AbActive;
+                temp.AbActive_2 = history.Containers_2[i].AbBrakeActive;
+                temp.AbActive_3 = history.Containers_3[i].AbBrakeActive;
+                temp.AbActive_4 = history.Containers_4[i].AbBrakeActive;
+                temp.AbActive_5 = history.Containers_5[i].AbBrakeActive;
+                temp.AbActive_6 = history.Containers_6[i].AbActive;
+
+                // 这里只有1架的停放制动缓解
+                temp.ParkBreakRealease_1 = history.Containers_1[i].ParkBreakRealease;
+
+                temp.HardDrive_1 = history.Containers_1[i].HardDriveCmd;
+                temp.HardDrive_6 = history.Containers_6[i].HardDriveCmd;
+
+                temp.HardFastBrake_1 = history.Containers_1[i].HardFastBrakeCmd;
+                temp.HardFastBrake_6 = history.Containers_6[i].HardFastBrakeCmd;
+
+                temp.HardEmergencyBrake_1 = history.Containers_1[i].HardEmergencyBrake;
+                temp.HardEmergencyBrake_6 = history.Containers_6[i].HardEmergencyBrake;
+
+                temp.HardEmergencyDrive_1 = history.Containers_1[i].HardEmergencyDriveCmd;
+                temp.HardEmergencyDrive_6 = history.Containers_6[i].HardEmergencyDriveCmd;
+
+                temp.NetDrive_1 = history.Containers_1[i].NetDriveCmd;
+                temp.NetDrive_6 = history.Containers_6[i].NetDriveCmd;
+
+                temp.NetBrake_1 = history.Containers_1[i].NetBrakeCmd;
+                temp.NetBrake_6 = history.Containers_6[i].NetBrakeCmd;
+
+                temp.CanTestA_1 = history.Containers_1[i].CanUintSelfTestCmd_A;
+                temp.CanTestA_6 = history.Containers_6[i].CanUintSelfTestCmd_A;
+                temp.CanTestB_1 = history.Containers_1[i].CanUintSelfTestCmd_B;
+                temp.CanTestB_6 = history.Containers_6[i].CanUintSelfTestCmd_B;
+
+                temp.KeepBrakeRelease_1 = history.Containers_1[i].KeepBrakeState;
+                temp.KeepBrakeRelease_6 = history.Containers_6[i].KeepBrakeState;
+
+                temp.SelfTestCmd_1 = history.Containers_1[i].SelfTestCmd;
+                temp.SelfTestCmd_6 = history.Containers_6[i].SelfTestCmd;
+                #endregion
+
+                #region 数字量输出
+                temp.Mode_1 = history.Containers_1[i].Mode;
+                temp.Mode_6 = history.Containers_6[i].Mode;
+
+                // 缺少 惰性命令
+
+
+                #endregion
+
+                #region 故障数据
+                temp.BSSRSenorFault_1 = history.Containers_1[i].BSSRSenorFault;
+                temp.BSSRSenorFault_2 = history.Containers_2[i].BSSRSenorFault;
+                temp.BSSRSenorFault_3 = history.Containers_3[i].BSSRSenorFault;
+                temp.BSSRSenorFault_4 = history.Containers_4[i].BSSRSenorFault;
+                temp.BSSRSenorFault_5 = history.Containers_5[i].BSSRSenorFault;
+                temp.BSSRSenorFault_6 = history.Containers_6[i].BSSRSenorFault;
+
+                temp.AirSpringSenorFault1_1 = history.Containers_1[i].AirSpringSenorFault_1;
+                temp.AirSpringSenorFault1_2 = history.Containers_2[i].AirSpringSenorFault_1;
+                temp.AirSpringSenorFault1_3 = history.Containers_3[i].AirSpringSenorFault_1;
+                temp.AirSpringSenorFault1_4 = history.Containers_4[i].AirSpringSenorFault_1;
+                temp.AirSpringSenorFault1_5 = history.Containers_5[i].AirSpringSenorFault_1;
+                temp.AirSpringSenorFault1_6 = history.Containers_6[i].AirSpringSenorFault_1;
+
+                temp.AirSpringSenorFault2_1 = history.Containers_1[i].AirSpringSenorFault_2;
+                temp.AirSpringSenorFault2_2 = history.Containers_2[i].AirSpringSenorFault_2;
+                temp.AirSpringSenorFault2_3 = history.Containers_3[i].AirSpringSenorFault_2;
+                temp.AirSpringSenorFault2_4 = history.Containers_4[i].AirSpringSenorFault_2;
+                temp.AirSpringSenorFault2_5 = history.Containers_5[i].AirSpringSenorFault_2;
+                temp.AirSpringSenorFault2_6 = history.Containers_6[i].AirSpringSenorFault_2;
+
+                temp.ParkCylinderSenorFault_1 = history.Containers_1[i].ParkCylinderSenorFault;
+                temp.ParkCylinderSenorFault_3 = history.Containers_3[i].ParkCylinderSenorFault;
+                temp.ParkCylinderSenorFault_5 = history.Containers_5[i].ParkCylinderSenorFault;
+
+                // 4架主风管传感器故障 没有
+
+                temp.VLDSensorFault_1 = history.Containers_1[i].VLDSensorFault;
+                temp.VLDSensorFault_2 = history.Containers_2[i].VLDSensorFault;
+                temp.VLDSensorFault_3 = history.Containers_3[i].VLDSensorFault;
+                temp.VLDSensorFault_4 = history.Containers_4[i].VLDSensorFault;
+                temp.VLDSensorFault_5 = history.Containers_5[i].VLDSensorFault;
+                temp.VLDSensorFault_6 = history.Containers_6[i].VLDSensorFault;
+
+                temp.BSRSenorFault1_1 = history.Containers_1[i].BSRSenorFault_1;
+                temp.BSRSenorFault1_2 = history.Containers_2[i].BSRSenorFault_1;
+                temp.BSRSenorFault1_3 = history.Containers_3[i].BSRSenorFault_1;
+                temp.BSRSenorFault1_4 = history.Containers_4[i].BSRSenorFault_1;
+                temp.BSRSenorFault1_5 = history.Containers_5[i].BSRSenorFault_1;
+                temp.BSRSenorFault1_6 = history.Containers_6[i].BSRSenorFault_1;
+
+                temp.BSRSenorFault2_1 = history.Containers_1[i].BSRSenorFault_2;
+                temp.BSRSenorFault2_2 = history.Containers_2[i].BSRSenorFault_2;
+                temp.BSRSenorFault2_3 = history.Containers_3[i].BSRSenorFault_2;
+                temp.BSRSenorFault2_4 = history.Containers_4[i].BSRSenorFault_2;
+                temp.BSRSenorFault2_5 = history.Containers_5[i].BSRSenorFault_2;
+                temp.BSRSenorFault2_6 = history.Containers_6[i].BSRSenorFault_2;
+
+                temp.AirSpringOverflow1_1 = history.Containers_1[i].AirSpringOverflow_1;
+                temp.AirSpringOverflow1_2 = history.Containers_2[i].AirSpringOverflow_1;
+                temp.AirSpringOverflow1_3 = history.Containers_3[i].AirSpringOverflow_1;
+                temp.AirSpringOverflow1_4 = history.Containers_4[i].AirSpringOverflow_1;
+                temp.AirSpringOverflow1_5 = history.Containers_5[i].AirSpringOverflow_1;
+                temp.AirSpringOverflow1_6 = history.Containers_6[i].AirSpringOverflow_1;
+
+                temp.AirSpringOverflow2_1 = history.Containers_1[i].AirSpringOverflow_2;
+                temp.AirSpringOverflow2_2 = history.Containers_2[i].AirSpringOverflow_2;
+                temp.AirSpringOverflow2_3 = history.Containers_3[i].AirSpringOverflow_2;
+                temp.AirSpringOverflow2_4 = history.Containers_4[i].AirSpringOverflow_2;
+                temp.AirSpringOverflow2_5 = history.Containers_5[i].AirSpringOverflow_2;
+                temp.AirSpringOverflow2_6 = history.Containers_6[i].AirSpringOverflow_2;
+
+                temp.BSRLow_1 = history.Containers_1[i].BSRLowA11;
+                temp.BSRLow_2 = history.Containers_2[i].BSRLow1;
+                temp.BSRLow_3 = history.Containers_3[i].BSRLow1;
+                temp.BSRLow_4 = history.Containers_4[i].BSRLow1;
+                temp.BSRLow_5 = history.Containers_5[i].BSRLow1;
+                temp.BSRLow_6 = history.Containers_6[i].BSRLowA11;
+
+                temp.BCUFail_Serious_1 = history.Containers_1[i].BCUFail_Serious;
+                temp.BCUFail_Serious_2 = history.Containers_2[i].BCUFail_Serious;
+                temp.BCUFail_Serious_3 = history.Containers_3[i].BCUFail_Serious;
+                temp.BCUFail_Serious_4 = history.Containers_4[i].BCUFail_Serious;
+                temp.BCUFail_Serious_5 = history.Containers_5[i].BCUFail_Serious;
+                temp.BCUFail_Serious_6 = history.Containers_6[i].BCUFail_Serious;
+                temp.BCUFail_Middle_1 = history.Containers_1[i].BCUFail_Middle;
+                temp.BCUFail_Middle_2 = history.Containers_2[i].BCUFail_Middle;
+                temp.BCUFail_Middle_3 = history.Containers_3[i].BCUFail_Middle;
+                temp.BCUFail_Middle_4 = history.Containers_4[i].BCUFail_Middle;
+                temp.BCUFail_Middle_5 = history.Containers_5[i].BCUFail_Middle;
+                temp.BCUFail_Middle_6 = history.Containers_6[i].BCUFail_Middle;
+                temp.BCUFail_Slight_1 = history.Containers_1[i].BCUFail_Slight;
+                temp.BCUFail_Slight_2 = history.Containers_2[i].BCUFail_Slight;                                
+                temp.BCUFail_Slight_3 = history.Containers_3[i].BCUFail_Slight;                                
+                temp.BCUFail_Slight_4 = history.Containers_4[i].BCUFail_Slight;                                
+                temp.BCUFail_Slight_5 = history.Containers_5[i].BCUFail_Slight;                                
+                temp.BCUFail_Slight_6 = history.Containers_6[i].BCUFail_Slight;
+
+                temp.EmergencyBrakeFault_1 = history.Containers_1[i].EmergencyBrakeFault;
+                temp.EmergencyBrakeFault_2 = history.Containers_2[i].EmergencyBrakeFault;
+                temp.EmergencyBrakeFault_3 = history.Containers_3[i].EmergencyBrakeFault;
+                temp.EmergencyBrakeFault_4 = history.Containers_4[i].EmergencyBrakeFault;
+                temp.EmergencyBrakeFault_5 = history.Containers_5[i].EmergencyBrakeFault;
+                temp.EmergencyBrakeFault_6 = history.Containers_6[i].EmergencyBrakeFault;
+
+                temp.CanASPEnable_1 = history.Containers_1[i].CanASPEnable;
+                temp.CanASPEnable_6 = history.Containers_6[i].CanASPEnable;
+
+                temp.BCPLowA_1 = history.Containers_1[i].BCPLowA;
+                temp.BCPLowA_6 = history.Containers_6[i].BCPLowA;
+                temp.BCPLowB_1 = history.Containers_1[i].BCPLowB;
+                temp.BCPLowB_6 = history.Containers_6[i].BCPLowB;
+                temp.BCPLowC_1 = history.Containers_1[i].BCPLowC;
+                temp.BCPLowC_6 = history.Containers_6[i].BCPLowC;                
+
+                temp.SpeedSenorFault1_1 = history.Containers_1[i].SpeedSenorFault_1;
+                temp.SpeedSenorFault1_2 = history.Containers_2[i].SpeedSenorFault_1;
+                temp.SpeedSenorFault1_3 = history.Containers_3[i].SpeedSenorFault_1;
+                temp.SpeedSenorFault1_4 = history.Containers_4[i].SpeedSenorFault_1;
+                temp.SpeedSenorFault1_5 = history.Containers_5[i].SpeedSenorFault_1;
+                temp.SpeedSenorFault1_6 = history.Containers_6[i].SpeedSenorFault_1;
+
+                temp.SpeedSenorFault2_1 = history.Containers_1[i].SpeedSenorFault_2;                
+                temp.SpeedSenorFault2_2 = history.Containers_2[i].SpeedSenorFault_2;                
+                temp.SpeedSenorFault2_3 = history.Containers_3[i].SpeedSenorFault_2;                
+                temp.SpeedSenorFault2_4 = history.Containers_4[i].SpeedSenorFault_2;                
+                temp.SpeedSenorFault2_5 = history.Containers_5[i].SpeedSenorFault_2;                
+                temp.SpeedSenorFault2_6 = history.Containers_6[i].SpeedSenorFault_2;
+
+                temp.WSPFault1_1 = history.Containers_1[i].WSPFault_1;
+                temp.WSPFault1_2 = history.Containers_2[i].WSPFault_1;
+                temp.WSPFault1_3 = history.Containers_3[i].WSPFault_1;
+                temp.WSPFault1_4 = history.Containers_4[i].WSPFault_1;
+                temp.WSPFault1_5 = history.Containers_5[i].WSPFault_1;
+                temp.WSPFault1_6 = history.Containers_6[i].WSPFault_1;
+
+                temp.WSPFault2_1 = history.Containers_1[i].WSPFault_2;                
+                temp.WSPFault2_2 = history.Containers_2[i].WSPFault_2;                
+                temp.WSPFault2_3 = history.Containers_3[i].WSPFault_2;                
+                temp.WSPFault2_4 = history.Containers_4[i].WSPFault_2;                
+                temp.WSPFault2_5 = history.Containers_5[i].WSPFault_2;                
+                temp.WSPFault2_6 = history.Containers_6[i].WSPFault_2;
+
+                temp.CodeConnectorFault_1 = history.Containers_1[i].CodeConnectorFault;
+                temp.CodeConnectorFault_2 = history.Containers_2[i].CodeConnectorFault;
+                temp.CodeConnectorFault_3 = history.Containers_3[i].CodeConnectorFault;
+                temp.CodeConnectorFault_4 = history.Containers_4[i].CodeConnectorFault;
+                temp.CodeConnectorFault_5 = history.Containers_5[i].CodeConnectorFault;
+                temp.CodeConnectorFault_6 = history.Containers_6[i].CodeConnectorFault;
+
+                temp.AirSpringLimit_1 = history.Containers_1[i].AirSpringLimit;
+                temp.AirSpringLimit_2 = history.Containers_2[i].AirSpringLimit;
+                temp.AirSpringLimit_3 = history.Containers_3[i].AirSpringLimit;
+                temp.AirSpringLimit_4 = history.Containers_4[i].AirSpringLimit;
+                temp.AirSpringLimit_5 = history.Containers_5[i].AirSpringLimit;
+                temp.AirSpringLimit_6 = history.Containers_6[i].AirSpringLimit;
+
+                temp.BrakeNotRealease_1 = history.Containers_1[i].BrakeNotRealease;
+                temp.BrakeNotRealease_2 = history.Containers_2[i].BrakeNotRealease;
+                temp.BrakeNotRealease_3 = history.Containers_3[i].BrakeNotRealease;
+                temp.BrakeNotRealease_4 = history.Containers_4[i].BrakeNotRealease;
+                temp.BrakeNotRealease_5 = history.Containers_5[i].BrakeNotRealease;
+                temp.BrakeNotRealease_6 = history.Containers_6[i].BrakeNotRealease;
+                
+                temp.BCPLow_1 = history.Containers_1[i].BCPLowA11;
+                temp.BCPLow_2 = history.Containers_2[i].BCPLow1;
+                temp.BCPLow_3 = history.Containers_3[i].BCPLow1;
+                temp.BCPLow_4 = history.Containers_4[i].BCPLow1;
+                temp.BCPLow_5 = history.Containers_5[i].BCPLow1;
+                temp.BCPLow_6 = history.Containers_6[i].BCPLowA11;
+
+                temp.SpeedDetection_1 = history.Containers_1[i].SpeedDetection;
+                temp.SpeedDetection_6 = history.Containers_6[i].SpeedDetection;
+
+                temp.CanBusFail1_1 = history.Containers_1[i].CanBusFail1;
+                temp.CanBusFail6_1 = history.Containers_6[i].CanBusFail1;
+                temp.CanBusFail1_2 = history.Containers_1[i].CanBusFail2;
+                temp.CanBusFail6_1 = history.Containers_6[i].CanBusFail2;
+
+                // 发送制动指令不一致 没有
+
+                temp.Event_High_1 = history.Containers_1[i].EventHigh;
+                temp.Event_High_6 = history.Containers_6[i].EventHigh;
+                temp.Event_Middle_1 = history.Containers_1[i].EventMid;
+                temp.Event_Middle_6 = history.Containers_6[i].EventMid;
+                temp.Event_Low_1 = history.Containers_1[i].EventLow;
+                temp.Event_Low_6 = history.Containers_6[i].EventLow;
+
+                temp.ICANFault1_1 = history.Containers_1[i].ICANFault1;
+                temp.ICANFault2_1 = history.Containers_2[i].ICANFault1;
+                temp.ICANFault3_1 = history.Containers_3[i].ICANFault1;
+                temp.ICANFault4_1 = history.Containers_4[i].ICANFault1;
+                temp.ICANFault5_1 = history.Containers_5[i].ICANFault1;
+                temp.ICANFault6_1 = history.Containers_6[i].ICANFault1;
+
+                temp.ICANFault1_2 = history.Containers_1[i].ICANFault2;
+                temp.ICANFault2_2 = history.Containers_2[i].ICANFault2;
+                temp.ICANFault3_2 = history.Containers_3[i].ICANFault2;
+                temp.ICANFault4_2 = history.Containers_4[i].ICANFault2;
+                temp.ICANFault5_2 = history.Containers_5[i].ICANFault2;
+                temp.ICANFault6_2 = history.Containers_6[i].ICANFault2;
+
+                temp.OCANFault1_1 = history.Containers_1[i].OCANFault1;
+                temp.OCANFault2_1 = history.Containers_2[i].OCANFault1;
+                temp.OCANFault3_1 = history.Containers_3[i].OCANFault1;
+                temp.OCANFault4_1 = history.Containers_4[i].OCANFault1;
+                temp.OCANFault5_1 = history.Containers_5[i].OCANFault1;
+                temp.OCANFault6_1 = history.Containers_6[i].OCANFault1;
+
+                temp.OCANFault1_2 = history.Containers_1[i].OCANFault2;
+                temp.OCANFault2_2 = history.Containers_2[i].OCANFault2;
+                temp.OCANFault3_2 = history.Containers_3[i].OCANFault2;
+                temp.OCANFault4_2 = history.Containers_4[i].OCANFault2;
+                temp.OCANFault5_2 = history.Containers_5[i].OCANFault2;
+                temp.OCANFault6_2 = history.Containers_6[i].OCANFault2;
+                #endregion
+
+                #region 防滑数据
+                temp.SlipLv1_1 = history.Containers_1[i].SlipLvl1;
+                temp.SlipLv2_1 = history.Containers_2[i].SlipLvl1;
+                temp.SlipLv3_1 = history.Containers_3[i].SlipLvl1;
+                temp.SlipLv4_1 = history.Containers_4[i].SlipLvl1;
+                temp.SlipLv5_1 = history.Containers_5[i].SlipLvl1;
+                temp.SlipLv6_1 = history.Containers_6[i].SlipLvl1;
+
+                temp.SlipLv1_2 = history.Containers_1[i].SlipLvl2;
+                temp.SlipLv2_2 = history.Containers_2[i].SlipLvl2;
+                temp.SlipLv3_2 = history.Containers_3[i].SlipLvl2;
+                temp.SlipLv4_2 = history.Containers_4[i].SlipLvl2;
+                temp.SlipLv5_2 = history.Containers_5[i].SlipLvl2;
+                temp.SlipLv6_2 = history.Containers_6[i].SlipLvl2;
+
+                temp.AccValue1_1 = history.Containers_1[i].AccValue1;
+                temp.AccValue2_1 = history.Containers_2[i].AccValue1;
+                temp.AccValue3_1 = history.Containers_3[i].AccValue1;
+                temp.AccValue4_1 = history.Containers_4[i].AccValue1;
+                temp.AccValue5_1 = history.Containers_5[i].AccValue1;
+                temp.AccValue6_1 = history.Containers_6[i].AccValue1;
+
+                temp.AccValue1_2 = history.Containers_1[i].AccValue2;
+                temp.AccValue2_2 = history.Containers_2[i].AccValue2;
+                temp.AccValue3_2 = history.Containers_3[i].AccValue2;
+                temp.AccValue4_2 = history.Containers_4[i].AccValue2;
+                temp.AccValue5_2 = history.Containers_5[i].AccValue2;
+                temp.AccValue6_2 = history.Containers_6[i].AccValue2;
+                #endregion
+
+
+
                 // 2018-11-18
-                temp.UnixTime = history.Containers_1[i].UnixHour + ":" + history.Containers_1[i].UnixMinute;
+
                 //temp.UnixTime_2 = history.Containers_6[i].UnixHour + ":" + history.Containers_6[i].UnixMinute;
 
-                temp.RefSpeed = history.Containers_1[i].RefSpeed;
-                temp.Mode = history.Containers_1[i].Mode;
-                temp.BrakeCmd = history.Containers_1[i].BrakeCmd;
-                temp.DriveCmd = history.Containers_1[i].DriveCmd;
-                temp.FastBrakeCmd = history.Containers_1[i].FastBrakeCmd;
-                temp.LazyCmd = history.Containers_1[i].LazyCmd;
-                temp.EmergencyBrakeCmd = history.Containers_1[i].EmergencyBrakeCmd;
+
+
+
+                temp.HardBrake = history.Containers_1[i].HardBrakeCmd;
+
+
+
                 temp.HoldBrakeRealease = history.Containers_1[i].HoldBrakeRealease;
                 temp.LazyState = history.Containers_1[i].LazyState;
                 temp.DriveState = history.Containers_1[i].DriveState;
                 temp.NormalBrakeState = history.Containers_1[i].NormalBrakeState;
                 temp.EmergencyBrakeState = history.Containers_1[i].EmergencyBrakeState;
                 temp.ZeroSpeed = history.Containers_1[i].ZeroSpeed;
-                temp.BrakeLevel = history.Containers_1[i].BrakeLevel;
-                temp.TrainBrakeForce = history.Containers_1[i].TrainBrakeForce;
-                temp.SpeedAx1_1 = history.Containers_1[i].SpeedA1Shaft1;
-                temp.SpeedAx2_1 = history.Containers_1[i].SpeedA1Shaft2;
-                temp.SpeedAx1_2 = history.Containers_2[i].SpeedShaft1;
-                temp.SpeedAx2_2 = history.Containers_2[i].SpeedShaft2;
-                temp.SpeedAx1_3 = history.Containers_3[i].SpeedShaft1;
-                temp.SpeedAx2_3 = history.Containers_3[i].SpeedShaft2;
-                temp.SpeedAx1_4 = history.Containers_4[i].SpeedShaft1;
-                temp.SpeedAx2_4 = history.Containers_4[i].SpeedShaft2;
-                temp.SpeedAx1_5 = history.Containers_5[i].SpeedShaft1;
-                temp.SpeedAx2_5 = history.Containers_5[i].SpeedShaft2;
-                temp.SpeedAx1_6 = history.Containers_6[i].SpeedA1Shaft1;
-                temp.SpeedAx2_6 = history.Containers_6[i].SpeedA1Shaft2;
+                
+                
+                
+                
+                
+                
                 temp.VCM2MVBState_1 = history.Containers_1[i].VCM_MVBConnectionState;
                 temp.VCM2MVBState_2 = history.Containers_6[i].VCM_MVBConnectionState;
                 temp.Slip_1 = history.Containers_1[i].SlipA1;
@@ -167,26 +739,11 @@ namespace DirectConnectionPredictControl
                 temp.Slip_4 = history.Containers_4[i].Slip;
                 temp.Slip_5 = history.Containers_5[i].Slip;
                 temp.Slip_6 = history.Containers_6[i].SlipA1;
-                temp.EmergencyBrakeActive_1 = history.Containers_1[i].EmergencyBrakeActiveA1;
-                temp.EmergencyBrakeActive_2 = history.Containers_2[i].EmergencyBrakeActive;
-                temp.EmergencyBrakeActive_3 = history.Containers_3[i].EmergencyBrakeActive;
-                temp.EmergencyBrakeActive_4 = history.Containers_4[i].EmergencyBrakeActive;
-                temp.EmergencyBrakeActive_5 = history.Containers_5[i].EmergencyBrakeActive;
-                temp.EmergencyBrakeActive_6 = history.Containers_6[i].EmergencyBrakeActiveA1;
+                
                 temp.NotZeroSpeed = history.Containers_1[i].NotZeroSpeed;
-                temp.AbActive_1 = history.Containers_1[i].AbActive;
-                temp.AbActive_2 = history.Containers_2[i].AbBrakeActive;
-                temp.AbActive_3 = history.Containers_3[i].AbBrakeActive;
-                temp.AbActive_4 = history.Containers_4[i].AbBrakeActive;
-                temp.AbActive_5 = history.Containers_5[i].AbBrakeActive;
-                temp.AbActive_6 = history.Containers_6[i].AbActive;
-                temp.BSRLow_1 = history.Containers_1[i].BSRLowA11;
-                temp.BSRLow_2 = history.Containers_2[i].BSRLow1;
-                temp.BSRLow_3 = history.Containers_3[i].BSRLow1;
-                temp.BSRLow_4 = history.Containers_4[i].BSRLow1;
-                temp.BSRLow_5 = history.Containers_5[i].BSRLow1;
-                temp.BSRLow_6 = history.Containers_6[i].BSRLowA11;
-                temp.ParkBreakRealease = history.Containers_1[i].ParkBreakRealease;
+               
+                
+                
                 temp.AbStatues_1 = history.Containers_1[i].AbStatuesA1;
                 temp.AbStatues_2 = history.Containers_2[i].AbBrakeSatet;
                 temp.AbStatues_3 = history.Containers_3[i].AbBrakeSatet;
@@ -212,211 +769,50 @@ namespace DirectConnectionPredictControl
                 temp.UnTest24 = history.Containers_1[i].UnSelfTest24;
                 temp.UnTest26 = history.Containers_1[i].UnSelfTest26;
                 temp.GatewayValveState = history.Containers_1[i].GateValveState;
-                temp.HardDrive = history.Containers_1[i].HardDriveCmd;
-                temp.HardBrake = history.Containers_1[i].HardBrakeCmd;
-                temp.HardFastBrake = history.Containers_1[i].HardFastBrakeCmd;
-                temp.HardEmergencyBrake = history.Containers_1[i].HardEmergencyBrake;
-                temp.HardEmergencyDrive = history.Containers_1[i].HardEmergencyDriveCmd;
+                
+                
+                
+                
+                
                 temp.CanUnitTestOn = history.Containers_1[i].CanUnitSelfTestOn;
                 temp.CanUnitTestOff = history.Containers_1[i].CanUintSelfTestOver;
                 temp.CanValveActive = history.Containers_1[i].ValveCanEmergencyActive;
-                temp.NetDrive = history.Containers_1[i].NetDriveCmd;
-                temp.NetBrake = history.Containers_1[i].NetBrakeCmd;
+                
                 temp.NetFastBrake = history.Containers_1[i].NetFastBrakeCmd;
                 temp.TowingMode = history.Containers_1[i].TowingMode;
-                temp.KeepBrakeRelease = history.Containers_1[i].KeepBrakeState;
-                temp.CanTestA = history.Containers_1[i].CanUintSelfTestCmd_A;
-                temp.CanTestB = history.Containers_1[i].CanUintSelfTestCmd_B;
+                
+                
                 temp.BrakeLevelActive = history.Containers_1[i].BrakeLevelEnable;
-                temp.SelfTestCmd = history.Containers_1[i].SelfTestCmd;
+                
                 temp.AbFadeOut = history.Containers_1[i].EdFadeOut;
                 temp.TrainBrakeEnable = history.Containers_1[i].TrainBrakeEnable;
                 temp.EDoutB = history.Containers_1[i].EdOffB1;
                 temp.EDoutC = history.Containers_1[i].EdOffC1;
                 temp.WheelInputState = history.Containers_1[i].WheelInputState;
-                temp.BrakeCylinderSourcePressure_1 = history.Containers_1[i].BrakeCylinderSourcePressure;
-                temp.BrakeCylinderSourcePressure_2 = history.Containers_2[i].BrakeCylinderSourcePressure;
-                temp.BrakeCylinderSourcePressure_3 = history.Containers_3[i].BrakeCylinderSourcePressure;
-                temp.BrakeCylinderSourcePressure_4 = history.Containers_4[i].BrakeCylinderSourcePressure;
-                temp.BrakeCylinderSourcePressure_5 = history.Containers_5[i].BrakeCylinderSourcePressure;
-                temp.BrakeCylinderSourcePressure_6 = history.Containers_6[i].BrakeCylinderSourcePressure;
-                temp.AirSpringPressure1_1 = history.Containers_1[i].AirSpring1PressureA1Car1;
-                temp.AirSpringPressure2_1 = history.Containers_1[i].AirSpring2PressureA1Car1;
-                temp.AirSpringPressure1_2 = history.Containers_2[i].AirSpringPressure1;
-                temp.AirSpringPressure2_2 = history.Containers_2[i].AirSpringPressure2;
-                temp.AirSpringPressure1_3 = history.Containers_3[i].AirSpringPressure1;
-                temp.AirSpringPressure2_3 = history.Containers_3[i].AirSpringPressure2;
-                temp.AirSpringPressure1_4 = history.Containers_4[i].AirSpringPressure1;
-                temp.AirSpringPressure2_4 = history.Containers_4[i].AirSpringPressure2;
-                temp.AirSpringPressure1_5 = history.Containers_5[i].AirSpringPressure1;
-                temp.AirSpringPressure2_5 = history.Containers_5[i].AirSpringPressure2;
-                temp.AirSpringPressure1_6 = history.Containers_6[i].AirSpring1PressureA1Car1;
-                temp.AirSpringPressure2_6 = history.Containers_6[i].AirSpring2PressureA1Car1;
-                temp.ParkPressure_1 = history.Containers_1[i].ParkPressureA1;
-                temp.ParkPressure_2 = history.Containers_3[i].ParkPressure;
-                temp.ParkPressure_3 = history.Containers_5[i].ParkPressure;
-                temp.ParkPressure_4 = history.Containers_4[i].ParkPressure;
-                temp.VldRealPressure_1 = history.Containers_1[i].VldRealPressureAx1;
-                temp.VldRealPressure_2 = history.Containers_2[i].VldRealPressure;
-                temp.VldRealPressure_3 = history.Containers_3[i].VldRealPressure;
-                temp.VldRealPressure_4 = history.Containers_4[i].VldRealPressure;
-                temp.VldRealPressure_5 = history.Containers_5[i].VldRealPressure;
-                temp.VldRealPressure_6 = history.Containers_6[i].VldRealPressureAx1;
-                temp.Bcp1Pressure_1 = history.Containers_1[i].Bcp1PressureAx1;
-                temp.Bcp2Pressure_1 = history.Containers_1[i].Bcp2PressureAx2;
-                temp.Bcp1Pressure_2 = history.Containers_2[i].Bcp1Pressure;
-                temp.Bcp2Pressure_2 = history.Containers_2[i].Bcp2Pressure;
-                temp.Bcp1Pressure_3 = history.Containers_3[i].Bcp1Pressure;
-                temp.Bcp2Pressure_3 = history.Containers_3[i].Bcp2Pressure;
-                temp.Bcp1Pressure_4 = history.Containers_4[i].Bcp1Pressure;
-                temp.Bcp2Pressure_4 = history.Containers_4[i].Bcp2Pressure;
-                temp.Bcp1Pressure_5 = history.Containers_5[i].Bcp1Pressure;
-                temp.Bcp2Pressure_5 = history.Containers_5[i].Bcp2Pressure;
-                temp.Bcp1Pressure_6 = history.Containers_6[i].Bcp1PressureAx1;
-                temp.Bcp2Pressure_6 = history.Containers_6[i].Bcp2PressureAx2;
-                temp.BSSRSenorFault_1 = history.Containers_1[i].BSSRSenorFault;
-                temp.BSSRSenorFault_2 = history.Containers_2[i].BSSRSenorFault;
-                temp.BSSRSenorFault_3 = history.Containers_3[i].BSSRSenorFault;
-                temp.BSSRSenorFault_4 = history.Containers_4[i].BSSRSenorFault;
-                temp.BSSRSenorFault_5 = history.Containers_5[i].BSSRSenorFault;
-                temp.BSSRSenorFault_6 = history.Containers_6[i].BSSRSenorFault;
-                temp.AirSpringSenorFault1_1 = history.Containers_1[i].AirSpringSenorFault_1;
-                temp.AirSpringSenorFault2_1 = history.Containers_1[i].AirSpringSenorFault_2;
-                temp.AirSpringSenorFault1_2 = history.Containers_2[i].AirSpringSenorFault_1;
-                temp.AirSpringSenorFault2_2 = history.Containers_2[i].AirSpringSenorFault_2;
-                temp.AirSpringSenorFault1_3 = history.Containers_3[i].AirSpringSenorFault_1;
-                temp.AirSpringSenorFault2_3 = history.Containers_3[i].AirSpringSenorFault_2;
-                temp.AirSpringSenorFault1_4 = history.Containers_4[i].AirSpringSenorFault_1;
-                temp.AirSpringSenorFault2_4 = history.Containers_4[i].AirSpringSenorFault_2;
-                temp.AirSpringSenorFault1_5 = history.Containers_5[i].AirSpringSenorFault_1;
-                temp.AirSpringSenorFault2_5 = history.Containers_5[i].AirSpringSenorFault_2;
-                temp.AirSpringSenorFault1_6 = history.Containers_6[i].AirSpringSenorFault_1;
-                temp.AirSpringSenorFault2_6 = history.Containers_6[i].AirSpringSenorFault_2;
-                temp.ParkCylinderSenorFault_1 = history.Containers_1[i].ParkCylinderSenorFault;
-                temp.ParkCylinderSenorFault_2 = history.Containers_2[i].ParkCylinderSenorFault;
-                temp.ParkCylinderSenorFault_3 = history.Containers_3[i].ParkCylinderSenorFault;
-                temp.ParkCylinderSenorFault_4 = history.Containers_4[i].ParkCylinderSenorFault;
-                temp.ParkCylinderSenorFault_5 = history.Containers_5[i].ParkCylinderSenorFault;
-                temp.ParkCylinderSenorFault_6 = history.Containers_6[i].ParkCylinderSenorFault;
-                temp.VLDSensorFault_1 = history.Containers_1[i].VLDSensorFault;
-                temp.VLDSensorFault_2 = history.Containers_2[i].VLDSensorFault;
-                temp.VLDSensorFault_3 = history.Containers_3[i].VLDSensorFault;
-                temp.VLDSensorFault_4 = history.Containers_4[i].VLDSensorFault;
-                temp.VLDSensorFault_5 = history.Containers_5[i].VLDSensorFault;
-                temp.VLDSensorFault_6 = history.Containers_6[i].VLDSensorFault;
-                temp.BSRSenorFault1_1 = history.Containers_1[i].BSRSenorFault_1;
-                temp.BSRSenorFault2_1 = history.Containers_1[i].BSRSenorFault_2;
-                temp.BSRSenorFault1_2 = history.Containers_2[i].BSRSenorFault_1;
-                temp.BSRSenorFault2_2 = history.Containers_2[i].BSRSenorFault_2;
-                temp.BSRSenorFault1_3 = history.Containers_3[i].BSRSenorFault_1;
-                temp.BSRSenorFault2_3 = history.Containers_3[i].BSRSenorFault_2;
-                temp.BSRSenorFault1_4 = history.Containers_4[i].BSRSenorFault_1;
-                temp.BSRSenorFault2_4 = history.Containers_4[i].BSRSenorFault_2;
-                temp.BSRSenorFault1_5 = history.Containers_5[i].BSRSenorFault_1;
-                temp.BSRSenorFault2_5 = history.Containers_5[i].BSRSenorFault_2;
-                temp.BSRSenorFault1_6 = history.Containers_6[i].BSRSenorFault_1;
-                temp.BSRSenorFault2_6 = history.Containers_6[i].BSRSenorFault_2;
-                temp.AirSpringOverflow1_1 = history.Containers_1[i].AirSpringOverflow_1;
-                temp.AirSpringOverflow2_1 = history.Containers_1[i].AirSpringOverflow_2;
-                temp.AirSpringOverflow1_2 = history.Containers_2[i].AirSpringOverflow_1;
-                temp.AirSpringOverflow2_2 = history.Containers_2[i].AirSpringOverflow_2;
-                temp.AirSpringOverflow1_3 = history.Containers_3[i].AirSpringOverflow_1;
-                temp.AirSpringOverflow2_3 = history.Containers_3[i].AirSpringOverflow_2;
-                temp.AirSpringOverflow1_4 = history.Containers_4[i].AirSpringOverflow_1;
-                temp.AirSpringOverflow2_4 = history.Containers_4[i].AirSpringOverflow_2;
-                temp.AirSpringOverflow1_5 = history.Containers_5[i].AirSpringOverflow_1;
-                temp.AirSpringOverflow2_5 = history.Containers_5[i].AirSpringOverflow_2;
-                temp.AirSpringOverflow1_6 = history.Containers_6[i].AirSpringOverflow_1;
-                temp.AirSpringOverflow2_6 = history.Containers_6[i].AirSpringOverflow_2;
-                temp.VldPressureSetup_1 = history.Containers_1[i].VldPressureSetupAx1;
-                temp.VldPressureSetup_2 = history.Containers_2[i].VldSetupPressure;
-                temp.VldPressureSetup_3 = history.Containers_3[i].VldSetupPressure;
-                temp.VldPressureSetup_4 = history.Containers_4[i].VldSetupPressure;
-                temp.VldPressureSetup_5 = history.Containers_5[i].VldSetupPressure;
-                temp.VldPressureSetup_6 = history.Containers_6[i].VldPressureSetupAx1;
-                temp.Mass_1 = history.Containers_1[i].MassA1;
-                temp.Mass_2 = history.Containers_2[i].MassValue;
-                temp.Mass_3 = history.Containers_3[i].MassValue;
-                temp.Mass_4 = history.Containers_4[i].MassValue;
-                temp.Mass_5 = history.Containers_5[i].MassValue;
-                temp.Mass_6 = history.Containers_6[i].MassA1;
-                temp.BCUFail_Serious_1 = history.Containers_1[i].BCUFail_Serious;
-                temp.BCUFail_Middle_1 = history.Containers_1[i].BCUFail_Middle;
-                temp.BCUFail_Slight_1 = history.Containers_1[i].BCUFail_Slight;
-                temp.BCUFail_Serious_2 = history.Containers_2[i].BCUFail_Serious;
-                temp.BCUFail_Middle_2 = history.Containers_2[i].BCUFail_Middle;
-                temp.BCUFail_Slight_2 = history.Containers_2[i].BCUFail_Slight;
-                temp.BCUFail_Serious_3 = history.Containers_3[i].BCUFail_Serious;
-                temp.BCUFail_Middle_3 = history.Containers_3[i].BCUFail_Middle;
-                temp.BCUFail_Slight_3 = history.Containers_3[i].BCUFail_Slight;
-                temp.BCUFail_Serious_4 = history.Containers_4[i].BCUFail_Serious;
-                temp.BCUFail_Middle_4 = history.Containers_4[i].BCUFail_Middle;
-                temp.BCUFail_Slight_4 = history.Containers_4[i].BCUFail_Slight;
-                temp.BCUFail_Serious_5 = history.Containers_5[i].BCUFail_Serious;
-                temp.BCUFail_Middle_5 = history.Containers_5[i].BCUFail_Middle;
-                temp.BCUFail_Slight_5 = history.Containers_5[i].BCUFail_Slight;
-                temp.BCUFail_Serious_6 = history.Containers_6[i].BCUFail_Serious;
-                temp.BCUFail_Middle_6 = history.Containers_6[i].BCUFail_Middle;
-                temp.BCUFail_Slight_6 = history.Containers_6[i].BCUFail_Slight;
-                temp.EmergencyBrakeFault_1 = history.Containers_1[i].EmergencyBrakeFault;
-                temp.EmergencyBrakeFault_2 = history.Containers_2[i].EmergencyBrakeFault;
-                temp.EmergencyBrakeFault_3 = history.Containers_3[i].EmergencyBrakeFault;
-                temp.EmergencyBrakeFault_4 = history.Containers_4[i].EmergencyBrakeFault;
-                temp.EmergencyBrakeFault_5 = history.Containers_5[i].EmergencyBrakeFault;
-                temp.EmergencyBrakeFault_6 = history.Containers_6[i].EmergencyBrakeFault;
-                temp.SpeedSenorFault1_1 = history.Containers_1[i].SpeedSenorFault_1;
-                temp.SpeedSenorFault2_1 = history.Containers_1[i].SpeedSenorFault_2;
-                temp.SpeedSenorFault1_2 = history.Containers_2[i].SpeedSenorFault_1;
-                temp.SpeedSenorFault2_2 = history.Containers_2[i].SpeedSenorFault_2;
-                temp.SpeedSenorFault1_3 = history.Containers_3[i].SpeedSenorFault_1;
-                temp.SpeedSenorFault2_3 = history.Containers_3[i].SpeedSenorFault_2;
-                temp.SpeedSenorFault1_4 = history.Containers_4[i].SpeedSenorFault_1;
-                temp.SpeedSenorFault2_4 = history.Containers_4[i].SpeedSenorFault_2;
-                temp.SpeedSenorFault1_5 = history.Containers_5[i].SpeedSenorFault_1;
-                temp.SpeedSenorFault2_5 = history.Containers_5[i].SpeedSenorFault_2;
-                temp.SpeedSenorFault1_6 = history.Containers_6[i].SpeedSenorFault_1;
-                temp.SpeedSenorFault2_6 = history.Containers_6[i].SpeedSenorFault_2;
-                temp.WSPFault1_1 = history.Containers_1[i].WSPFault_1;
-                temp.WSPFault2_1 = history.Containers_1[i].WSPFault_2;
-                temp.WSPFault1_2 = history.Containers_2[i].WSPFault_1;
-                temp.WSPFault2_2 = history.Containers_2[i].WSPFault_2;
-                temp.WSPFault1_3 = history.Containers_3[i].WSPFault_1;
-                temp.WSPFault2_3 = history.Containers_3[i].WSPFault_2;
-                temp.WSPFault1_4 = history.Containers_4[i].WSPFault_1;
-                temp.WSPFault2_4 = history.Containers_4[i].WSPFault_2;
-                temp.WSPFault1_5 = history.Containers_5[i].WSPFault_1;
-                temp.WSPFault2_5 = history.Containers_5[i].WSPFault_2;
-                temp.WSPFault1_6 = history.Containers_6[i].WSPFault_1;
-                temp.WSPFault2_6 = history.Containers_6[i].WSPFault_2;
-                temp.CodeConnectorFault_1 = history.Containers_1[i].CodeConnectorFault;
-                temp.CodeConnectorFault_2 = history.Containers_2[i].CodeConnectorFault;
-                temp.CodeConnectorFault_3 = history.Containers_3[i].CodeConnectorFault;
-                temp.CodeConnectorFault_4 = history.Containers_4[i].CodeConnectorFault;
-                temp.CodeConnectorFault_5 = history.Containers_5[i].CodeConnectorFault;
-                temp.CodeConnectorFault_6 = history.Containers_6[i].CodeConnectorFault;
-                temp.AirSpringLimit_1 = history.Containers_1[i].AirSpringLimit;
-                temp.AirSpringLimit_2 = history.Containers_2[i].AirSpringLimit;
-                temp.AirSpringLimit_3 = history.Containers_3[i].AirSpringLimit;
-                temp.AirSpringLimit_4 = history.Containers_4[i].AirSpringLimit;
-                temp.AirSpringLimit_5 = history.Containers_5[i].AirSpringLimit;
-                temp.AirSpringLimit_6 = history.Containers_6[i].AirSpringLimit;
-                temp.BrakeNotRealease_1 = history.Containers_1[i].BrakeNotRealease;
-                temp.BrakeNotRealease_2 = history.Containers_2[i].BrakeNotRealease;
-                temp.BrakeNotRealease_3 = history.Containers_3[i].BrakeNotRealease;
-                temp.BrakeNotRealease_4 = history.Containers_4[i].BrakeNotRealease;
-                temp.BrakeNotRealease_5 = history.Containers_5[i].BrakeNotRealease;
-                temp.BrakeNotRealease_6 = history.Containers_6[i].BrakeNotRealease;
-                temp.BCPLow_1 = history.Containers_1[i].BCPLowA11;
-                temp.BCPLow_2 = history.Containers_2[i].BCPLow1;
-                temp.BCPLow_3 = history.Containers_3[i].BCPLow1;
-                temp.BCPLow_4 = history.Containers_4[i].BCPLow1;
-                temp.BCPLow_5 = history.Containers_5[i].BCPLow1;
-                temp.BCPLow_6 = history.Containers_6[i].BCPLowA11;
-                temp.VCMLifeSig = history.Containers_1[i].VCMLifeSig;
-                temp.DCULifeSig_1 = history.Containers_1[i].DcuLifeSig[0];
-                temp.DCULifeSig_2 = history.Containers_1[i].DcuLifeSig[1];
-                temp.DCULifeSig_3 = history.Containers_1[i].DcuLifeSig[2];
-                temp.DCULifeSig_4 = history.Containers_1[i].DcuLifeSig[3];
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 temp.DCU_Ed_Ok_1 = history.Containers_1[i].DcuEbOK[0];
                 temp.DCU_Ed_Fadeout_1 = history.Containers_1[i].DcuEbFadeout[0];
                 temp.DCU_Ed_Slip_1 = history.Containers_1[i].DcuEbSlip[0];
@@ -429,43 +825,24 @@ namespace DirectConnectionPredictControl
                 temp.DCU_Ed_Ok_4 = history.Containers_1[i].DcuEbOK[3];
                 temp.DCU_Ed_Fadeout_4 = history.Containers_1[i].DcuEbFadeout[3];
                 temp.DCU_Ed_Slip_4 = history.Containers_1[i].DcuEbSlip[3];
-                temp.DcuEbRealValue_1 = history.Containers_1[i].DcuEbRealValue[0];
-                temp.DcuEbRealValue_2 = history.Containers_1[i].DcuEbRealValue[1];
-                temp.DcuEbRealValue_3 = history.Containers_1[i].DcuEbRealValue[2];
-                temp.DcuEbRealValue_4 = history.Containers_1[i].DcuEbRealValue[3];
-                temp.DcuMax_1 = history.Containers_1[i].DcuMax[0];
-                temp.DcuMax_2 = history.Containers_1[i].DcuMax[1];
-                temp.DcuMax_3 = history.Containers_1[i].DcuMax[2];
-                temp.DcuMax_4 = history.Containers_1[i].DcuMax[3];
-                temp.AbCapacity_1 = history.Containers_1[i].AbCapacity[0];
-                temp.AbCapacity_2 = history.Containers_1[i].AbCapacity[1];
-                temp.AbCapacity_3 = history.Containers_1[i].AbCapacity[2];
-                temp.AbCapacity_4 = history.Containers_1[i].AbCapacity[3];
-                temp.AbCapacity_5 = history.Containers_1[i].AbCapacity[4];
-                temp.AbCapacity_6 = history.Containers_1[i].AbCapacity[5];
-                temp.AbRealValue_1 = history.Containers_1[i].AbRealValue[0];
-                temp.AbRealValue_2 = history.Containers_1[i].AbRealValue[1];
-                temp.AbRealValue_3 = history.Containers_1[i].AbRealValue[2];
-                temp.AbRealValue_4 = history.Containers_1[i].AbRealValue[3];
-                temp.AbRealValue_5 = history.Containers_1[i].AbRealValue[4];
-                temp.AbRealValue_6 = history.Containers_1[i].AbRealValue[5];
-                temp.SpeedDetection = history.Containers_1[i].SpeedDetection;
-                temp.CanBusFail1 = history.Containers_1[i].CanBusFail1;
-                temp.CanBusFail2 = history.Containers_1[i].CanBusFail2;
+                
+                
+                
+                
+                
+                
                 temp.HardDifferent = history.Containers_1[i].HardDifferent;
-                temp.Event_High = history.Containers_1[i].EventHigh;
-                temp.Event_Middle = history.Containers_1[i].EventMid;
-                temp.Event_Low = history.Containers_1[i].EventLow;
+                
                 temp.CanASPActive = history.Containers_1[i].CanASPEnable;
-                temp.BCPLowA = history.Containers_1[i].BCPLowA;
-                temp.BCPLowB = history.Containers_1[i].BCPLowB;
-                temp.BCPLowC = history.Containers_1[i].BCPLowC;
+                
                 temp.SoftVersion = history.Containers_1[i].SoftVersion;
                 #endregion
                 dataModelList.Add(temp);
             }
             historyList.ItemsSource = dataModelList;
+            
             historyList.ScrollIntoView(historyList.Items[0]);
+            
         }
 
 
@@ -637,7 +1014,7 @@ namespace DirectConnectionPredictControl
             {
                 int[] DateTimeSelectArray = DateTimeSelectList.ToArray();
                 JudgeSelectedIndex(DateTimeSelectArray[0] + 1);
-                historyList.SelectedIndex = (DateTimeSelectArray[0] % 50);
+                historyList.SelectedIndex = (DateTimeSelectArray[0] % LINE_PER_TIME);
                 historyList.UpdateLayout();
                 historyList.ScrollIntoView(historyList.SelectedItem);
                 historyList.UpdateLayout();
@@ -690,13 +1067,13 @@ namespace DirectConnectionPredictControl
         private void JudgeSelectedIndex(int index)
         {
             int SearchPage;
-            if ((index % 50) == 0)
+            if ((index % LINE_PER_TIME) == 0)
             {
-                SearchPage = index / 50;
+                SearchPage = index / LINE_PER_TIME;
             }
             else
             {
-                SearchPage = (int)(index / 50) + 1;
+                SearchPage = (int)(index / LINE_PER_TIME) + 1;
             }
              
             if(SearchPage == nowPage) { }
@@ -738,7 +1115,7 @@ namespace DirectConnectionPredictControl
             {
                 int[] IDSelectListArray = IDSelectList.ToArray();
                 JudgeSelectedIndex(IDSelectListArray[0] + 1);
-                historyList.SelectedIndex = (IDSelectListArray[0] % 50);
+                historyList.SelectedIndex = (IDSelectListArray[0] % LINE_PER_TIME);
                 historyList.UpdateLayout();
                 historyList.ScrollIntoView(historyList.SelectedItem);
                 historyList.UpdateLayout();

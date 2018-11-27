@@ -84,20 +84,20 @@ namespace DirectConnectionPredictControl
             recordPointerLbl.Content = nowRecord + " / " + totalRecord;
             StepTo(1);
             hisProgress.Maximum = totalRecord;
-            ContextMenu contex = new ContextMenu();
-            MenuItem item = new MenuItem();
-            item.Header = "跳转详细数据";
-            item.Click += EatShit;
-            contex.Items.Add(item);
-            this.ContextMenu = contex;
+            //ContextMenu contex = new ContextMenu();
+            //MenuItem item = new MenuItem();
+            //item.Header = "跳转详细数据";
+            //item.Click += EatShit;
+            //contex.Items.Add(item);
+            //this.ContextMenu = contex;
         }
 
-        private void EatShit(object sender, RoutedEventArgs e)
-        {
-            HistoryDetail historyDetail = new HistoryDetail();
-            historyDetail.SetHistory(history);
-            historyDetail.Show();
-        }
+        //private void EatShit(object sender, RoutedEventArgs e)
+        //{
+        //    HistoryDetail historyDetail = new HistoryDetail();
+        //    historyDetail.SetHistory(history);
+        //    historyDetail.Show();
+        //}
 
         private void StepChanged(object sender, SelectionChangedEventArgs e)
         {
