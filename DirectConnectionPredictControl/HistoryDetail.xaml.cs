@@ -35,7 +35,13 @@ namespace DirectConnectionPredictControl
         private static int LINE_PER_TIME = 30;
         private int id = 0;
 
-
+        // 2018-11-28
+        private System.Windows.Controls.ContextMenu context;
+        private System.Windows.Controls.MenuItem analogDataItem;
+        private System.Windows.Controls.MenuItem digitalInputItem;
+        private System.Windows.Controls.MenuItem digitalOutputItem;
+        private System.Windows.Controls.MenuItem faultDataItem;
+        private System.Windows.Controls.MenuItem antiskidDataItem;
 
         // 2018-11-20
         private List<int> IDList = new List<int>();
@@ -54,40 +60,47 @@ namespace DirectConnectionPredictControl
             Init();
         }
 
+        
+
         /// <summary>
         /// 初始化函数，主要是为了在HistoryDetail窗口加载右键5个选择项和2个窗口进入项
         /// </summary>
         private void Init()
         {
-            System.Windows.Controls.ContextMenu context = new System.Windows.Controls.ContextMenu();
+            context = new System.Windows.Controls.ContextMenu();
 
-            System.Windows.Controls.MenuItem analogDataItem = new System.Windows.Controls.MenuItem();
+            analogDataItem = new System.Windows.Controls.MenuItem();
             analogDataItem.Header = "模拟量数据";
             analogDataItem.IsCheckable = true;
+            analogDataItem.IsChecked = true;
             analogDataItem.Click += AnalogDataItem_Click;
             context.Items.Add(analogDataItem);
 
-            System.Windows.Controls.MenuItem digitalInputItem = new System.Windows.Controls.MenuItem();
+            digitalInputItem = new System.Windows.Controls.MenuItem();
             digitalInputItem.Header = "数字量输入";
             digitalInputItem.IsCheckable = true;
+            digitalInputItem.IsChecked = true;
             digitalInputItem.Click += DigitalInputItem_Click;
             context.Items.Add(digitalInputItem);
 
-            System.Windows.Controls.MenuItem digitalOutputItem = new System.Windows.Controls.MenuItem();
+            digitalOutputItem = new System.Windows.Controls.MenuItem();
             digitalOutputItem.Header = "数字量输出";
             digitalOutputItem.IsCheckable = true;
+            digitalOutputItem.IsChecked = true;
             digitalOutputItem.Click += DigitalOutputItem_Click;
             context.Items.Add(digitalOutputItem);
 
-            System.Windows.Controls.MenuItem faultDataItem = new System.Windows.Controls.MenuItem();
+            faultDataItem = new System.Windows.Controls.MenuItem();
             faultDataItem.Header = "故障数据";
             faultDataItem.IsCheckable = true;
+            faultDataItem.IsChecked = true;
             faultDataItem.Click += FaultDataItem_Click;
             context.Items.Add(faultDataItem);
 
-            System.Windows.Controls.MenuItem antiskidDataItem = new System.Windows.Controls.MenuItem();
+            antiskidDataItem = new System.Windows.Controls.MenuItem();
             antiskidDataItem.Header = "防滑数据";
             antiskidDataItem.IsCheckable = true;
+            antiskidDataItem.IsChecked = true;
             antiskidDataItem.Click += AntiskidDataItem_Click;
             context.Items.Add(antiskidDataItem);
 
@@ -108,12 +121,14 @@ namespace DirectConnectionPredictControl
             this.ContextMenu = context;
         }
 
+        
+
         #region HistoryDetail窗口上右键每一项所产生的事件
 
         #region 右键打开两个窗口的事件
         private void OverviewHisChartItem_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("历史曲线图表");
         }
 
         private void OverviewHisDataItem_Click(object sender, RoutedEventArgs e)
@@ -124,29 +139,150 @@ namespace DirectConnectionPredictControl
         #endregion
 
         #region 右键复选框显示数据事件
+        /// <summary>
+        /// 防滑数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AntiskidDataItem_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            int antiskidDataItemFir = GetColumnNum(historyList, "1架轴1滑行等级");
+            int antiskidDataItemLast = GetColumnNum(historyList, "6架轴2减速度");
+            //int antiskidDataItemLen = antiskidDataItemLast - antiskidDataItemFir + 1;
+            if (!antiskidDataItem.IsChecked)
+            {
+                for (int i = antiskidDataItemFir; i < antiskidDataItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                for(int i = antiskidDataItemFir; i < antiskidDataItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Visible;
+                }
+            }
         }
 
+        /// <summary>
+        /// 故障数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FaultDataItem_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            int faultDataItemFir = GetColumnNum(historyList, "架1制动风缸传感器故障");
+            int faultDataItemLast = GetColumnNum(historyList, "6架OCAN2通讯故障");
+            //int faultDataItemLen = faultDataItemLast - faultDataItemFir + 1;
+            if (!faultDataItem.IsChecked)
+            {
+                for (int i = faultDataItemFir; i < faultDataItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                for(int i = faultDataItemFir; i < faultDataItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Visible;
+                }
+            }
         }
 
+        /// <summary>
+        /// 数字量输出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DigitalOutputItem_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            int digitalOutputItemFir = GetColumnNum(historyList, "1架运行模式");
+            int digitalOutputItemLast = GetColumnNum(historyList, "6架发送C车电制动切除");
+            //int digitalOutputItemLen = digitalOutputItemLast - digitalOutputItemFir + 1;
+            if (!digitalOutputItem.IsChecked)
+            {
+                for (int i = digitalOutputItemFir; i < digitalOutputItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                for (int i = digitalOutputItemFir; i < digitalOutputItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Visible;
+                }
+            }
         }
 
+        /// <summary>
+        /// 数字量输入 43行   147---- 147 + 43
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DigitalInputItem_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            int digitalInputItemFir = GetColumnNum(historyList, "1架发送制动命令");
+            int digitalInputItemLast = GetColumnNum(historyList, "6架发送自检命令");
+            //int digitalInputItemLen = digitalInputItemLast - digitalInputItemFir + 1;
+            if (!digitalInputItem.IsChecked)
+            {
+                for (int i = digitalInputItemFir; i < digitalInputItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                for (int i = digitalInputItemFir; i < digitalInputItemLast + 1; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
+        /// <summary>
+        /// 模拟量数据 147行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AnalogDataItem_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            int analogDataItemFir = GetColumnNum(historyList, "本地时间");
+            int analogDataItemLast = GetColumnNum(historyList, "4车主风管压力");
+            int analogDataItemLen = analogDataItemLast - analogDataItemFir + 2;
+            if (!analogDataItem.IsChecked)
+            {
+                for (int i = analogDataItemFir; i < analogDataItemLen; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                for (int i = analogDataItemFir; i < analogDataItemLen; i++)
+                {
+                    historyList.Columns[i].Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 根据HistoryList的Header获得相应的为多少列
+        /// </summary>
+        /// <returns></returns>
+        private int GetColumnNum(System.Windows.Controls.DataGrid dataGrid, string header)
+        {
+            for(int i = 0; i < dataGrid.Columns.Count; i++)
+            {
+                if (header == dataGrid.Columns[i].Header.ToString())
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
         #endregion
 
@@ -463,9 +599,129 @@ namespace DirectConnectionPredictControl
                 temp.Mode_1 = history.Containers_1[i].Mode;
                 temp.Mode_6 = history.Containers_6[i].Mode;
 
-                // 缺少 惰性命令
+                temp.LazyCmd_1 = history.Containers_1[i].LazyCmd;
+                temp.LazyCmd_6 = history.Containers_6[i].LazyCmd;
 
+                temp.KeepStateBreak_1 = history.Containers_1[i].KeepBrakeState;
+                temp.KeepStateBreak_6 = history.Containers_6[i].KeepBrakeState;
 
+                temp.LazyState_1 = history.Containers_1[i].LazyState;
+                temp.LazyState_6 = history.Containers_6[i].LazyState;
+
+                temp.DriveState_1 = history.Containers_1[i].DriveState;
+                temp.DriveState_6 = history.Containers_6[i].DriveState;
+
+                temp.NormalBrakeState_1 = history.Containers_1[i].NormalBrakeState;
+                temp.NormalBrakeState_6 = history.Containers_6[i].NormalBrakeState;
+
+                temp.EmergencyBrakeState_1 = history.Containers_1[i].EmergencyBrakeState;
+                temp.EmergencyBrakeState_6 = history.Containers_6[i].EmergencyBrakeState;
+
+                temp.ZeroSpeed_1 = history.Containers_1[i].ZeroSpeed;
+                temp.ZeroSpeed_6 = history.Containers_6[i].ZeroSpeed;
+
+                temp.SelfFail_1 = history.Containers_1[i].SelfTestFail;
+                temp.SelfFail_6 = history.Containers_6[i].SelfTestFail;
+
+                temp.UnTest24_1 = history.Containers_1[i].UnSelfTest24;
+                temp.UnTest24_6 = history.Containers_6[i].UnSelfTest24;
+
+                temp.UnTest26_1 = history.Containers_1[i].UnSelfTest26;
+                temp.UnTest26_6 = history.Containers_6[i].UnSelfTest26;
+
+                temp.GatewayValveState_1 = history.Containers_1[i].GateValveState;
+                temp.GatewayValveState_6 = history.Containers_6[i].GateValveState;
+
+                temp.CanUnitTestOn_1 = history.Containers_1[i].CanUnitSelfTestOn;
+                temp.CanUnitTestOn_6 = history.Containers_6[i].CanUnitSelfTestOn;
+
+                temp.CanValveActive_1 = history.Containers_1[i].ValveCanEmergencyActive;
+                temp.CanValveActive_6 = history.Containers_6[i].ValveCanEmergencyActive;
+
+                temp.CanUnitTestOff_1 = history.Containers_1[i].CanUintSelfTestOver;
+                temp.CanUnitTestOff_6 = history.Containers_6[i].CanUintSelfTestOver;
+
+                temp.TowingMode_1 = history.Containers_1[i].TowingMode;
+                temp.TowingMode_6 = history.Containers_6[i].TowingMode;
+
+                temp.ATOMode_1 = history.Containers_1[i].ATOMode1;
+                temp.ATOMode_6 = history.Containers_6[i].ATOMode1;
+
+                temp.ATOHold_1 = history.Containers_1[i].ATOHold;
+                temp.ATOHold_6 = history.Containers_6[i].ATOHold;
+
+                temp.BrakeLevelActive_1 = history.Containers_1[i].BrakeLevelEnable;
+                temp.BrakeLevelActive_6 = history.Containers_6[i].BrakeLevelEnable;
+
+                temp.DCU_Ed_Ok_1_1 = history.Containers_1[i].DcuEbOK[0];
+                temp.DCU_Ed_Ok_1_6 = history.Containers_6[i].DcuEbOK[0];
+                temp.DCU_Ed_Fadeout_1_1 = history.Containers_1[i].DcuEbFadeout[0];
+                temp.DCU_Ed_Fadeout_1_6 = history.Containers_6[i].DcuEbFadeout[0];
+                temp.DCU_Ed_Slip_1_1 = history.Containers_1[i].DcuEbSlip[0];
+                temp.DCU_Ed_Slip_1_6 = history.Containers_6[i].DcuEbSlip[0];
+                // 电制动不可用 没有
+                temp.DCU_Ed_Ok_2_1 = history.Containers_1[i].DcuEbOK[1];
+                temp.DCU_Ed_Ok_2_6 = history.Containers_6[i].DcuEbOK[1];
+                temp.DCU_Ed_Fadeout_2_1 = history.Containers_1[i].DcuEbFadeout[1];
+                temp.DCU_Ed_Fadeout_2_6 = history.Containers_6[i].DcuEbFadeout[1];
+                temp.DCU_Ed_Slip_2_1 = history.Containers_1[i].DcuEbSlip[1];
+                temp.DCU_Ed_Slip_2_6 = history.Containers_6[i].DcuEbSlip[1];
+                // 电制动不可用 没有
+                temp.DCU_Ed_Ok_3_1 = history.Containers_1[i].DcuEbOK[2];
+                temp.DCU_Ed_Ok_3_6 = history.Containers_6[i].DcuEbOK[2];
+                temp.DCU_Ed_Fadeout_3_1 = history.Containers_1[i].DcuEbFadeout[2];
+                temp.DCU_Ed_Fadeout_3_6 = history.Containers_6[i].DcuEbFadeout[2];
+                temp.DCU_Ed_Slip_3_1 = history.Containers_1[i].DcuEbSlip[2];
+                temp.DCU_Ed_Slip_3_6 = history.Containers_6[i].DcuEbSlip[2];
+                // 电制动不可用 没有
+                temp.DCU_Ed_Ok_4_1 = history.Containers_1[i].DcuEbOK[3];
+                temp.DCU_Ed_Ok_4_6 = history.Containers_6[i].DcuEbOK[3];
+                temp.DCU_Ed_Fadeout_4_1 = history.Containers_1[i].DcuEbFadeout[3];
+                temp.DCU_Ed_Fadeout_4_6 = history.Containers_6[i].DcuEbFadeout[3];
+                temp.DCU_Ed_Slip_4_1 = history.Containers_1[i].DcuEbSlip[3];
+                temp.DCU_Ed_Slip_4_6 = history.Containers_6[i].DcuEbSlip[3];
+                // 电制动不可用 没有
+
+                temp.VCM2MVBState_1 = history.Containers_1[i].VCM_MVBConnectionState;
+                temp.VCM2MVBState_2 = history.Containers_6[i].VCM_MVBConnectionState;
+
+                temp.Slip_1 = history.Containers_1[i].SlipA1;
+                temp.Slip_2 = history.Containers_2[i].Slip;
+                temp.Slip_3 = history.Containers_3[i].Slip;
+                temp.Slip_4 = history.Containers_4[i].Slip;
+                temp.Slip_5 = history.Containers_5[i].Slip;
+                temp.Slip_6 = history.Containers_6[i].SlipA1;
+
+                temp.AbStatues_1 = history.Containers_1[i].AbStatuesA1;
+                temp.AbStatues_2 = history.Containers_2[i].AbBrakeSatet;
+                temp.AbStatues_3 = history.Containers_3[i].AbBrakeSatet;
+                temp.AbStatues_4 = history.Containers_4[i].AbBrakeSatet;
+                temp.AbStatues_5 = history.Containers_5[i].AbBrakeSatet;
+                temp.AbStatues_6 = history.Containers_6[i].AbStatuesA1;
+
+                // 风缸压力低 没有
+
+                // 空簧信号有效 没有
+
+                temp.SelfInt_1 = history.Containers_1[i].SelfTestInt;
+                temp.SelfInt_6 = history.Containers_6[i].SelfTestInt;
+                temp.SelfActive_1 = history.Containers_1[i].SelfTestActive;
+                temp.SelfActive_6 = history.Containers_6[i].SelfTestActive;
+                temp.SelfSuccess_1 = history.Containers_1[i].SelfTestSuccess;
+                temp.SelfSuccess_6 = history.Containers_6[i].SelfTestSuccess;
+
+                temp.AbFadeOut_1 = history.Containers_1[i].EdFadeOut;
+                temp.AbFadeOut_6 = history.Containers_6[i].EdFadeOut;
+
+                temp.TrainBrakeEnable_1 = history.Containers_1[i].TrainBrakeEnable;
+                temp.TrainBrakeEnable_6 = history.Containers_6[i].TrainBrakeEnable;
+
+                temp.EDoutB_1 = history.Containers_1[i].EdOffB1;
+                temp.EDoutB_6 = history.Containers_6[i].EdOffB1;
+                temp.EDoutC_1 = history.Containers_1[i].EdOffC1;
+                temp.EDoutC_6 = history.Containers_6[i].EdOffC1;
+
+                // 最后还有1、2、3、4、5、6架的自检相关内容(老衲写不动了...
                 #endregion
 
                 #region 故障数据
@@ -636,7 +892,7 @@ namespace DirectConnectionPredictControl
                 temp.CanBusFail1_1 = history.Containers_1[i].CanBusFail1;
                 temp.CanBusFail6_1 = history.Containers_6[i].CanBusFail1;
                 temp.CanBusFail1_2 = history.Containers_1[i].CanBusFail2;
-                temp.CanBusFail6_1 = history.Containers_6[i].CanBusFail2;
+                temp.CanBusFail6_2 = history.Containers_6[i].CanBusFail2;
 
                 // 发送制动指令不一致 没有
 
@@ -706,136 +962,28 @@ namespace DirectConnectionPredictControl
                 temp.AccValue6_2 = history.Containers_6[i].AccValue2;
                 #endregion
 
-
-
-                // 2018-11-18
-
-                //temp.UnixTime_2 = history.Containers_6[i].UnixHour + ":" + history.Containers_6[i].UnixMinute;
-
-
-
-
-                temp.HardBrake = history.Containers_1[i].HardBrakeCmd;
-
-
-
-                temp.HoldBrakeRealease = history.Containers_1[i].HoldBrakeRealease;
-                temp.LazyState = history.Containers_1[i].LazyState;
-                temp.DriveState = history.Containers_1[i].DriveState;
-                temp.NormalBrakeState = history.Containers_1[i].NormalBrakeState;
-                temp.EmergencyBrakeState = history.Containers_1[i].EmergencyBrakeState;
-                temp.ZeroSpeed = history.Containers_1[i].ZeroSpeed;
-                
-                
-                
-                
-                
-                
-                temp.VCM2MVBState_1 = history.Containers_1[i].VCM_MVBConnectionState;
-                temp.VCM2MVBState_2 = history.Containers_6[i].VCM_MVBConnectionState;
-                temp.Slip_1 = history.Containers_1[i].SlipA1;
-                temp.Slip_2 = history.Containers_2[i].Slip;
-                temp.Slip_3 = history.Containers_3[i].Slip;
-                temp.Slip_4 = history.Containers_4[i].Slip;
-                temp.Slip_5 = history.Containers_5[i].Slip;
-                temp.Slip_6 = history.Containers_6[i].SlipA1;
-                
-                temp.NotZeroSpeed = history.Containers_1[i].NotZeroSpeed;
-               
-                
-                
-                temp.AbStatues_1 = history.Containers_1[i].AbStatuesA1;
-                temp.AbStatues_2 = history.Containers_2[i].AbBrakeSatet;
-                temp.AbStatues_3 = history.Containers_3[i].AbBrakeSatet;
-                temp.AbStatues_4 = history.Containers_4[i].AbBrakeSatet;
-                temp.AbStatues_5 = history.Containers_5[i].AbBrakeSatet;
-                temp.AbStatues_6 = history.Containers_6[i].AbStatuesA1;
-                temp.MassValid_1 = history.Containers_1[i].MassSigValid;
-                temp.MassValid_2 = history.Containers_2[i].MassSigValid;
-                temp.MassValid_3 = history.Containers_3[i].MassSigValid;
-                temp.MassValid_4 = history.Containers_4[i].MassSigValid;
-                temp.MassValid_5 = history.Containers_5[i].MassSigValid;
-                temp.MassValid_6 = history.Containers_6[i].MassSigValid;
-                temp.AbTargetValue_1 = history.Containers_1[i].AbTargetValueAx1;
-                temp.AbTargetValue_2 = history.Containers_1[i].AbTargetValueAx2;
-                temp.AbTargetValue_3 = history.Containers_1[i].AbTargetValueAx3;
-                temp.AbTargetValue_4 = history.Containers_1[i].AbTargetValueAx4;
-                temp.AbTargetValue_5 = history.Containers_1[i].AbTargetValueAx5;
-                temp.AbTargetValue_6 = history.Containers_1[i].AbTargetValueAx6;
-                temp.SelfInt = history.Containers_1[i].SelfTestInt;
-                temp.SelfActive = history.Containers_1[i].SelfTestActive;
-                temp.SelfSuccess = history.Containers_1[i].SelfTestSuccess;
-                temp.SelfFail = history.Containers_1[i].SelfTestFail;
-                temp.UnTest24 = history.Containers_1[i].UnSelfTest24;
-                temp.UnTest26 = history.Containers_1[i].UnSelfTest26;
-                temp.GatewayValveState = history.Containers_1[i].GateValveState;
-                
-                
-                
-                
-                
-                temp.CanUnitTestOn = history.Containers_1[i].CanUnitSelfTestOn;
-                temp.CanUnitTestOff = history.Containers_1[i].CanUintSelfTestOver;
-                temp.CanValveActive = history.Containers_1[i].ValveCanEmergencyActive;
-                
-                temp.NetFastBrake = history.Containers_1[i].NetFastBrakeCmd;
-                temp.TowingMode = history.Containers_1[i].TowingMode;
-                
-                
-                temp.BrakeLevelActive = history.Containers_1[i].BrakeLevelEnable;
-                
-                temp.AbFadeOut = history.Containers_1[i].EdFadeOut;
-                temp.TrainBrakeEnable = history.Containers_1[i].TrainBrakeEnable;
-                temp.EDoutB = history.Containers_1[i].EdOffB1;
-                temp.EDoutC = history.Containers_1[i].EdOffC1;
-                temp.WheelInputState = history.Containers_1[i].WheelInputState;
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                temp.DCU_Ed_Ok_1 = history.Containers_1[i].DcuEbOK[0];
-                temp.DCU_Ed_Fadeout_1 = history.Containers_1[i].DcuEbFadeout[0];
-                temp.DCU_Ed_Slip_1 = history.Containers_1[i].DcuEbSlip[0];
-                temp.DCU_Ed_Ok_2 = history.Containers_1[i].DcuEbOK[1];
-                temp.DCU_Ed_Fadeout_2 = history.Containers_1[i].DcuEbFadeout[1];
-                temp.DCU_Ed_Slip_2 = history.Containers_1[i].DcuEbSlip[1];
-                temp.DCU_Ed_Ok_3 = history.Containers_1[i].DcuEbOK[2];
-                temp.DCU_Ed_Fadeout_3 = history.Containers_1[i].DcuEbFadeout[2];
-                temp.DCU_Ed_Slip_3 = history.Containers_1[i].DcuEbSlip[2];
-                temp.DCU_Ed_Ok_4 = history.Containers_1[i].DcuEbOK[3];
-                temp.DCU_Ed_Fadeout_4 = history.Containers_1[i].DcuEbFadeout[3];
-                temp.DCU_Ed_Slip_4 = history.Containers_1[i].DcuEbSlip[3];
-                
-                
-                
-                
-                
-                
-                temp.HardDifferent = history.Containers_1[i].HardDifferent;
-                
-                temp.CanASPActive = history.Containers_1[i].CanASPEnable;
-                
-                temp.SoftVersion = history.Containers_1[i].SoftVersion;
+                #region 暂时用不到的数据(先注释
+                //temp.HardBrake = history.Containers_1[i].HardBrakeCmd;
+                //temp.HoldBrakeRealease = history.Containers_1[i].HoldBrakeRealease;
+                //temp.NotZeroSpeed = history.Containers_1[i].NotZeroSpeed;               
+                //temp.MassValid_1 = history.Containers_1[i].MassSigValid;
+                //temp.MassValid_2 = history.Containers_2[i].MassSigValid;
+                //temp.MassValid_3 = history.Containers_3[i].MassSigValid;
+                //temp.MassValid_4 = history.Containers_4[i].MassSigValid;
+                //temp.MassValid_5 = history.Containers_5[i].MassSigValid;
+                //temp.MassValid_6 = history.Containers_6[i].MassSigValid;
+                //temp.AbTargetValue_1 = history.Containers_1[i].AbTargetValueAx1;
+                //temp.AbTargetValue_2 = history.Containers_1[i].AbTargetValueAx2;
+                //temp.AbTargetValue_3 = history.Containers_1[i].AbTargetValueAx3;
+                //temp.AbTargetValue_4 = history.Containers_1[i].AbTargetValueAx4;
+                //temp.AbTargetValue_5 = history.Containers_1[i].AbTargetValueAx5;
+                //temp.AbTargetValue_6 = history.Containers_1[i].AbTargetValueAx6;
+                //temp.NetFastBrake = history.Containers_1[i].NetFastBrakeCmd;
+                //temp.WheelInputState = history.Containers_1[i].WheelInputState;
+                //temp.HardDifferent = history.Containers_1[i].HardDifferent;
+                //temp.CanASPActive = history.Containers_1[i].CanASPEnable;                
+                //temp.SoftVersion = history.Containers_1[i].SoftVersion;
+                #endregion
                 #endregion
                 dataModelList.Add(temp);
             }
@@ -1167,5 +1315,7 @@ namespace DirectConnectionPredictControl
             //// 注：由于是每次读取100行数据，我怎么能在toolbar最左侧显示所有的搜索结果？
             #endregion
         }
+
+        
     }
 }
