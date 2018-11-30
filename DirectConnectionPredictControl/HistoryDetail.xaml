@@ -164,7 +164,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <DataGrid Name="historyList" Grid.Row="0" AutoGenerateColumns="False" >
+            <DataGrid Name="historyList" Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False" >
                 <DataGrid.Columns>
                     <!--模拟量数据-->
                     <DataGridTextColumn Header="ID" Width="60" Binding="{Binding ID}"></DataGridTextColumn>
