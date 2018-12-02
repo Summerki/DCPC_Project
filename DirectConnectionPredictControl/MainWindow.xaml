@@ -13,7 +13,7 @@
        AllowsTransparency="True" Icon="Asserts/Image/speed_test_120px_1118805_easyicon.net.ico">
  <!--sb-->
     <Window.Resources>
-      <!--test branch-->
+      <!--test-->
         <Storyboard x:Key="open">
             <DoubleAnimation From="0" To="1" Duration="0:0:0.5"
                                  Storyboard.TargetName="MyWindow"
