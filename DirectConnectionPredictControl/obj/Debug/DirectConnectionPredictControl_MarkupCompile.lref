@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿
 FE:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\App.xaml;;
 FE:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\Antiskid_Display.xaml;;
@@ -27,34 +26,4 @@ FE:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\ReN
 FE:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\SlaveDetailWindow.xaml;;
 FE:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\SpeedboardRes.xaml;;
 FE:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\Window1.xaml;;
-=======
-﻿D:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\obj\Debug\GeneratedInternalTypeHelper.g.cs
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\App.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\Antiskid_Display.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\Antiskid_Setting.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\CanDownload.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\ChartWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\ComboBoxControl.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\ComboxGeneric.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\CommenResource.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\DashboardControls.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\DetailWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\FileSystemView.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\FTPLogin.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\FTPWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\Generic.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\HistoryDetail.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\MainWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\NodeWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\OverviewWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\OverviewWindowHis.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\ParameterSetWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\RealTimeOtherWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\RealTimePressureChartWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\RealTimeSpeedChartWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\ReNameWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\SlaveDetailWindow.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\SpeedboardRes.xaml;;
-FD:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\Window1.xaml;;
->>>>>>> 7bdde5304e56b4774bd71c1389310bbf568628b5
 

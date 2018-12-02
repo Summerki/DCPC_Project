@@ -4,29 +4,17 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\
-=======
-D:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\obj\Debug\
->>>>>>> 7bdde5304e56b4774bd71c1389310bbf568628b5
 DirectConnectionPredictControl
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\App.xaml
 26-366041357
 20-1347466085
 51-174981062
 23-1028855111
-=======
-D:\repo\DCPC-Gemini\DCPC_Project\DirectConnectionPredictControl\App.xaml
-26-366041357
-20-1347466085
-55739967919
-23-1024019876
->>>>>>> 7bdde5304e56b4774bd71c1389310bbf568628b5
 Antiskid_Display.xaml;Antiskid_Setting.xaml;CanDownload.xaml;ChartWindow.xaml;ComboBoxControl.xaml;ComboxGeneric.xaml;CommenResource.xaml;DashboardControls.xaml;DetailWindow.xaml;FileSystemView.xaml;FTPLogin.xaml;FTPWindow.xaml;Generic.xaml;HistoryDetail.xaml;MainWindow.xaml;NodeWindow.xaml;OverviewWindow.xaml;OverviewWindowHis.xaml;ParameterSetWindow.xaml;RealTimeOtherWindow.xaml;RealTimePressureChartWindow.xaml;RealTimeSpeedChartWindow.xaml;ReNameWindow.xaml;SlaveDetailWindow.xaml;SpeedboardRes.xaml;Window1.xaml;
 
-True
+False
 
