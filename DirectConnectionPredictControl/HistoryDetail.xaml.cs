@@ -104,7 +104,7 @@ namespace DirectConnectionPredictControl
             antiskidDataItem.Click += AntiskidDataItem_Click;
             context.Items.Add(antiskidDataItem);
 
-            // 添加一条分割线
+            // 添加一条分割线，方便辨认
             Separator sp = new Separator();
             context.Items.Add(sp);
 
