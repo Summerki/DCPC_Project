@@ -109,7 +109,7 @@ namespace DirectConnectionPredictControl
             {
                 storyBoard.Begin();
             }
-            Init();
+            //Init();
             //Test();
         }
 
@@ -720,7 +720,7 @@ namespace DirectConnectionPredictControl
                             container_1.Bcp2PressureAx2 = Utils.PositiveToNegative(recvData[point + 4], recvData[point + 5]);
 
                             container_1.BSSRSenorFault = (recvData[6] & 0x01) == 0x01 ? true : false;
-                            container_1.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x20 ? true : false;
+                            container_1.AirSpringSenorFault_1 = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_1.AirSpringSenorFault_2 = (recvData[6] & 0x04) == 0x04 ? true : false;
                             container_1.ParkCylinderSenorFault = (recvData[6] & 0x08) == 0x08 ? true : false;
                             container_1.VLDSensorFault = (recvData[6] & 0x10) == 0x10 ? true : false;
@@ -919,7 +919,7 @@ namespace DirectConnectionPredictControl
                             container_2.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_2.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_2.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_2.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_2.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_2.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_2.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
@@ -1066,7 +1066,7 @@ namespace DirectConnectionPredictControl
                             container_3.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_3.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_3.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_3.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_3.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_3.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_3.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
@@ -1213,7 +1213,7 @@ namespace DirectConnectionPredictControl
                             container_4.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_4.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_4.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_4.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_4.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_4.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_4.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
@@ -1360,7 +1360,7 @@ namespace DirectConnectionPredictControl
                             container_5.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_5.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_5.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_5.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_5.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_5.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_5.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
@@ -1574,8 +1574,9 @@ namespace DirectConnectionPredictControl
                             container_6.BCUFail_Serious = (recvData[6] & 0x01) == 0x01 ? true : false;
                             container_6.BCUFail_Middle = (recvData[6] & 0x02) == 0x02 ? true : false;
                             container_6.BCUFail_Slight = (recvData[6] & 0x04) == 0x04 ? true : false;
-                            container_6.OCANFault1 = (recvData[6] & 0x08) == 0x08 ? true : false;
-                            container_6.OCANFault2 = (recvData[6] & 0x10) == 0x10 ? true : false;
+                            container_6.EmergencyBrakeFault = (recvData[6] & 0x08) == 0x08 ? true : false;
+                            container_6.OCANFault1 = (recvData[6] & 0x10) == 0x10 ? true : false;
+                            container_6.OCANFault2 = (recvData[6] & 0x20) == 0x20 ? true : false;
                             container_6.SpeedSenorFault_1 = (recvData[7] & 0x01) == 0x01 ? true : false;
                             container_6.SpeedSenorFault_2 = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_6.WSPFault_1 = (recvData[7] & 0x04) == 0x04 ? true : false;
@@ -1629,19 +1630,27 @@ namespace DirectConnectionPredictControl
                             container_1.VCMLifeSig = recvData[1];
                             container_1.DcuLifeSig[0] = recvData[2];
                             container_1.DcuLifeSig[1] = recvData[3];
+                            
 
                             container_1.DcuEbOK[0] = (recvData[4] & 0x01) == 0x01 ? true : false;
                             container_1.DcuEbFadeout[0] = (recvData[4] & 0x02) == 0x02 ? true : false;
                             container_1.DcuEbSlip[0] = (recvData[4] & 0x04) == 0x04 ? true : false;
+                            container_1.DcuEbFault[0] = (recvData[4] & 0x08) == 0x08 ? true : false;
+
                             container_1.DcuEbOK[1] = (recvData[4] & 0x10) == 0x10 ? true : false;
                             container_1.DcuEbFadeout[1] = (recvData[4] & 0x20) == 0x20 ? true : false;
                             container_1.DcuEbSlip[1] = (recvData[4] & 0x40) == 0x40 ? true : false;
+                            container_1.DcuEbFault[1] = (recvData[4] & 0x80) == 0x80 ? true : false;
+
                             container_1.DcuEbOK[2] = (recvData[5] & 0x01) == 0x01 ? true : false;
                             container_1.DcuEbFadeout[2] = (recvData[5] & 0x02) == 0x02 ? true : false;
                             container_1.DcuEbSlip[2] = (recvData[5] & 0x04) == 0x04 ? true : false;
+                            container_1.DcuEbFault[3] = (recvData[5] & 0x08) == 0x08 ? true : false;
+
                             container_1.DcuEbOK[3] = (recvData[5] & 0x10) == 0x10 ? true : false;
                             container_1.DcuEbFadeout[3] = (recvData[5] & 0x20) == 0x20 ? true : false;
                             container_1.DcuEbSlip[3] = (recvData[5] & 0x40) == 0x40 ? true : false;
+                            container_1.DcuEbFault[3] = (recvData[5] & 0x80) == 0x80 ? true : false;
 
                             container_1.DcuLifeSig[2] = recvData[6];
                             container_1.DcuLifeSig[3] = recvData[7];
@@ -1748,15 +1757,22 @@ namespace DirectConnectionPredictControl
                             container_6.DcuEbOK[0] = (recvData[4] & 0x01) == 0x01 ? true : false;
                             container_6.DcuEbFadeout[0] = (recvData[4] & 0x02) == 0x02 ? true : false;
                             container_6.DcuEbSlip[0] = (recvData[4] & 0x04) == 0x04 ? true : false;
+                            container_6.DcuEbFault[0] = (recvData[4] & 0x08) == 0x08 ? true : false;
+
                             container_6.DcuEbOK[1] = (recvData[4] & 0x10) == 0x10 ? true : false;
                             container_6.DcuEbFadeout[1] = (recvData[4] & 0x20) == 0x20 ? true : false;
                             container_6.DcuEbSlip[1] = (recvData[4] & 0x40) == 0x40 ? true : false;
+                            container_6.DcuEbFault[1] = (recvData[4] & 0x80) == 0x80 ? true : false;
+
                             container_6.DcuEbOK[2] = (recvData[5] & 0x01) == 0x01 ? true : false;
                             container_6.DcuEbFadeout[2] = (recvData[5] & 0x02) == 0x02 ? true : false;
                             container_6.DcuEbSlip[2] = (recvData[5] & 0x04) == 0x04 ? true : false;
+                            container_6.DcuEbFault[2] = (recvData[5] & 0x08) == 0x08 ? true : false;
+
                             container_6.DcuEbOK[3] = (recvData[5] & 0x10) == 0x10 ? true : false;
                             container_6.DcuEbFadeout[3] = (recvData[5] & 0x20) == 0x20 ? true : false;
                             container_6.DcuEbSlip[3] = (recvData[5] & 0x40) == 0x40 ? true : false;
+                            container_6.DcuEbFault[3] = (recvData[5] & 0x80) == 0x80 ? true : false;
 
                             container_6.DcuLifeSig[2] = recvData[6];
                             container_6.DcuLifeSig[3] = recvData[7];
@@ -1854,34 +1870,38 @@ namespace DirectConnectionPredictControl
                     switch (canIdLow)
                     {
                         case 1:
-                            container_1.Tc1Stander = recvData[0] * 256 + recvData[1];
+                            container_1.WheelSize = recvData[0] * 256 + recvData[1];
                             container_1.ConfirmDownload = recvData[4] == 0xAA;
                             container_1.CPUAddr = recvData[5];
                             container_1.SoftwareVersionCPU = recvData[7];
                             container_1.SoftwareVersionEP = recvData[6];
                             break;
                         case 4:
+                            container_3.WheelSize = recvData[0] * 256 + recvData[1];
                             container_3.CPUAddr = recvData[5];
                             container_3.SoftwareVersionCPU = recvData[7];
                             container_3.SoftwareVersionEP = recvData[6];
                             break;
                         case 5:
+                            container_4.WheelSize = recvData[0] * 256 + recvData[1];
                             container_4.CPUAddr = recvData[5];
                             container_4.SoftwareVersionCPU = recvData[7];
                             container_4.SoftwareVersionEP = recvData[6];
                             break;
                         case 6:
+                            container_5.WheelSize = recvData[0] * 256 + recvData[1];
                             container_5.CPUAddr = recvData[5];
                             container_5.SoftwareVersionCPU = recvData[7];
                             container_5.SoftwareVersionEP = recvData[6];
                             break;
                         case 2:
+                            container_6.WheelSize = recvData[0] * 256 + recvData[1];
                             container_6.CPUAddr = recvData[5];
                             container_6.SoftwareVersionCPU = recvData[7];
                             container_6.SoftwareVersionEP = recvData[6];
                             break;
                         case 3:
-                            container_2.Tc1Stander = recvData[0] * 256 + recvData[1];
+                            container_2.WheelSize = recvData[0] * 256 + recvData[1];
                             container_2.ConfirmDownload = recvData[4] == 0xAA;
                             container_2.CPUAddr = recvData[5];
                             container_2.SoftwareVersionCPU = recvData[7];
@@ -2197,7 +2217,7 @@ namespace DirectConnectionPredictControl
                             container_2.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_2.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_2.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_2.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_2.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_2.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_2.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
@@ -2302,7 +2322,7 @@ namespace DirectConnectionPredictControl
                             container_3.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_3.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_3.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_3.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_3.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_3.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_3.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
@@ -2407,7 +2427,7 @@ namespace DirectConnectionPredictControl
                             container_4.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_4.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_4.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_4.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_4.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_4.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_4.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;
@@ -2512,7 +2532,7 @@ namespace DirectConnectionPredictControl
                             container_5.VCM_MVBConnectionState = (recvData[6] & 0x80) == 0x80 ? true : false;
 
                             container_5.Slip = (recvData[7] & 0x01) == 0x01 ? true : false;
-                            container_5.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x20 ? true : false;
+                            container_5.EmergencyBrakeActive = (recvData[7] & 0x02) == 0x02 ? true : false;
                             container_5.AbBrakeActive = (recvData[7] & 0x08) == 0x08 ? true : false;
                             container_5.BSRLow1 = (recvData[7] & 0x10) == 0x10 ? true : false;
                             container_5.ParkBrakeRealease = (recvData[7] & 0x20) == 0x20 ? true : false;

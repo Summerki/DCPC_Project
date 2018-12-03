@@ -824,6 +824,12 @@
                         <Label Grid.Column="7" Grid.Row="20">DCU4电制动OK</Label>
                         <Label Grid.Column="7" Grid.Row="21">DCU4电制动准备淡出</Label>
                         <Label Grid.Column="7" Grid.Row="22">DCU4电制动滑行</Label>
+                        <Label Grid.Column="7" Grid.Row="23">ATO保持制动施加</Label>
+                        <Label Grid.Column="7" Grid.Row="24">DCU1电制动不可用</Label>
+                        <Label Grid.Column="7" Grid.Row="25">DCU2电制动不可用</Label>
+                        <Label Grid.Column="7" Grid.Row="26">DCU3电制动不可用</Label>
+                        <Label Grid.Column="7" Grid.Row="27">DCU4电制动不可用</Label>
+                        
 
                         <!--GS_1 Data Vector-->
                         <Ellipse Grid.Column="1" Grid.Row="1" Name="row_1_column_1_DO" Style="{StaticResource ellipse}"></Ellipse>
@@ -1175,6 +1181,7 @@
                         <Ellipse Grid.Column="13" Grid.Row="24" Name="row_24_column_13_DO" Style="{StaticResource ellipse}"></Ellipse>
                         <Ellipse Grid.Column="13" Grid.Row="25" Name="row_25_column_13_DO" Style="{StaticResource ellipse}"></Ellipse>
                         <Ellipse Grid.Column="13" Grid.Row="26" Name="row_26_column_13_DO" Style="{StaticResource ellipse}"></Ellipse>
+                        <Ellipse Grid.Column="13" Grid.Row="26" Name="row_27_column_13_DO" Style="{StaticResource ellipse}"></Ellipse>
                     </Grid>
                 </ScrollViewer>
                 <StackPanel Grid.Row="7">

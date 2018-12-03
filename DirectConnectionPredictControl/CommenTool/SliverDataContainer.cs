@@ -642,5 +642,10 @@ namespace DirectConnectionPredictControl.CommenTool
         /// 主风管传感器故障
         /// </summary>
         public bool MainPipeSensorFault { get; set; }
+
+        /// <summary>
+        /// 轮径存储值
+        /// </summary>
+        public double WheelSize { get; set; }
     }
 }
