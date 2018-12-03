@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DirectConnectionPredictControl.exe" size="2005472">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DirectConnectionPredictControl.exe" size="2016736">
       <assemblyIdentity name="DirectConnectionPredictControl" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>By0qt8sXMANpG6M7p0ePJiy25lGeCkYUu8Ccix4veOY=</dsig:DigestValue>
+        <dsig:DigestValue>OGOxqb9fE7B7luZYM3OqYYLrlDs6+6IRSBx0rY8Yr4c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,6 +74,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>85htmMmvw8XeU/J/JTw/HJpcwKh2IykLQaHf1gYstmk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LitJson.dll" size="49664">
+      <assemblyIdentity name="LitJson" version="2.3.7.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>fg1FDTI1UIWxfuiOKMnwjvWA192lmLn9kELh+E0/ckM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

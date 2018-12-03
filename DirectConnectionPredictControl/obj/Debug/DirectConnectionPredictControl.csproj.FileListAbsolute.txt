@@ -4037,3 +4037,4 @@ E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.csproj.CopyComplete
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.exe
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.pdb
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\LitJson.dll

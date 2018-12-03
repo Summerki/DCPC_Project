@@ -82,6 +82,9 @@
     <Reference Include="IKVM.Runtime.JNI">
       <HintPath>..\..\..\..\software\ikvmbin\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\IKVM.Runtime.JNI.dll</HintPath>
     </Reference>
+    <Reference Include="LitJson">
+      <HintPath>C:\Users\Summerki\Desktop\LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Controls">
       <HintPath>..\..\..\WPF\originalcode\WPF.UI-master\ZdfFlatUI\DLL\Microsoft.Expression.Controls.dll</HintPath>
     </Reference>
