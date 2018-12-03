@@ -67,6 +67,8 @@ namespace DirectConnectionPredictControl
         /// </summary>
         private void Init()
         {
+            
+
             context = new System.Windows.Controls.ContextMenu();
 
             analogDataItem = new System.Windows.Controls.MenuItem();
@@ -1137,7 +1139,13 @@ namespace DirectConnectionPredictControl
             string MinuteChoose = MinuteComboBox.SelectedItem.ToString();
             string SecondChoose = SecondComboBox.SelectedItem.ToString();
             string FullSearchDateTime = YearMonthDayChoose + " " + HourChoose + ":" + MinuteChoose + ":" + SecondChoose;
+
+            object[] temp = history.GetProperties();
+
+
             return FullSearchDateTime;
+
+            
         }
         /// <summary>
         /// 点击历史窗口下搜索按钮会产生的事件
@@ -1316,6 +1324,9 @@ namespace DirectConnectionPredictControl
             #endregion
         }
 
-        
+        private void JSONBtn_Click(object sender, RoutedEventArgs e)
+        {
+            history.ExportToJson();
+        }
     }
 }

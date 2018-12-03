@@ -7,14 +7,18 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="DirectConnectionPredictControl.exe.manifest" size="14292">
+    <dependentAssembly dependencyType="install" codebase="DirectConnectionPredictControl.exe.manifest" size="14924">
       <assemblyIdentity name="DirectConnectionPredictControl.exe" version="1.0.0.6" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+<<<<<<< HEAD
         <dsig:DigestValue>gCzzkEFYaaKSUKL5oXTxoBufs/8bOlRqrhucr20p62U=</dsig:DigestValue>
+=======
+        <dsig:DigestValue>P+wSiWPFZh2lZ8WQA8N+Bgds6/TVG5YXh6pXlVducLs=</dsig:DigestValue>
+>>>>>>> 5c55a1b280ac51498d8b9efc7efca145f4e74561
       </hash>
     </dependentAssembly>
   </dependency>

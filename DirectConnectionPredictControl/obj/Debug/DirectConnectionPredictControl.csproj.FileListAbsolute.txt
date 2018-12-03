@@ -4037,6 +4037,7 @@ E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.csproj.CopyComplete
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.exe
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.pdb
+<<<<<<< HEAD
 C:\repo\DCPC\code\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DirectConnectionPredictControl.exe.config
 C:\repo\DCPC\code\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DirectConnectionPredictControl.exe.manifest
 C:\repo\DCPC\code\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DirectConnectionPredictControl.application
@@ -4107,3 +4108,6 @@ C:\repo\DCPC\code\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectCo
 C:\repo\DCPC\code\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.csproj.CopyComplete
 C:\repo\DCPC\code\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.exe
 C:\repo\DCPC\code\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.pdb
+=======
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\LitJson.dll
+>>>>>>> 5c55a1b280ac51498d8b9efc7efca145f4e74561

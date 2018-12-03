@@ -127,6 +127,7 @@
                 <Button Margin="5,0,0,0" Content="测试搜索" Background="#b0d2f5" Name="IDSearch" Click="IDSearch_Click" ></Button>
                 <ComboBox Height="27.2"  Width="auto" Name="SearchResultComboBox" Focusable="False" HorizontalAlignment="Right" />
                 <Button Margin="5,0,0,0" Content="跳转" Background="#b0d2f5" Name="JumpTo"></Button>
+                <Button Margin="5,0,0,0" Content="生成JSON文件" Background="#b0d2f5" Name="JSONBtn" Click="JSONBtn_Click"></Button>
             </ToolBar>
         </Grid>
         <Grid DockPanel.Dock="Bottom">
