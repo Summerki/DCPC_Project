@@ -1001,9 +1001,10 @@ namespace DirectConnectionPredictControl
         public void SetHistory(HistoryModel history)
         {
             this.history = history;
+            history.ExportToJson();
             GetData(location, location + LINE_PER_TIME);
             totalPage = (int)(history.Count / LINE_PER_TIME) + 1;
-            totalPageLbl.Content = totalPage;
+            totalPageLbl.Content = history.Count;
             byteHasReadLbl.Content = history.FileLength / 1024 + " KB";
         }
 
@@ -1139,10 +1140,6 @@ namespace DirectConnectionPredictControl
             string MinuteChoose = MinuteComboBox.SelectedItem.ToString();
             string SecondChoose = SecondComboBox.SelectedItem.ToString();
             string FullSearchDateTime = YearMonthDayChoose + " " + HourChoose + ":" + MinuteChoose + ":" + SecondChoose;
-
-            object[] temp = history.GetProperties();
-
-
             return FullSearchDateTime;
 
             
