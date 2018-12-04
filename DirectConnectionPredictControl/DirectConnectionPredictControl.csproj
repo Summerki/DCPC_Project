@@ -70,21 +70,8 @@
     <Reference Include="DynamicDataDisplay">
       <HintPath>..\..\..\..\..\项目\lib\DynamicDataDisplay.dll</HintPath>
     </Reference>
-    <Reference Include="excel">
-      <HintPath>..\..\excel.dll</HintPath>
-    </Reference>
-    <Reference Include="IKVM.OpenJDK.Core">
-      <HintPath>..\..\..\..\software\ikvmbin\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\IKVM.OpenJDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="IKVM.Runtime">
-      <HintPath>..\..\..\..\software\ikvmbin\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\IKVM.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="IKVM.Runtime.JNI">
-      <HintPath>..\..\..\..\software\ikvmbin\ikvmbin-7.2.4630.5\ikvm-7.2.4630.5\bin\IKVM.Runtime.JNI.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson, Version=2.3.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\LitJson.dll</HintPath>
+    <Reference Include="LitJson">
+      <HintPath>C:\Users\Summerki\Desktop\LitJson.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Controls">
       <HintPath>..\..\..\WPF\originalcode\WPF.UI-master\ZdfFlatUI\DLL\Microsoft.Expression.Controls.dll</HintPath>
@@ -366,6 +353,19 @@
     <Resource Include="Asserts\train.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLLs\DynamicDataDisplay.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLLs\LitJson.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLLs\Microsoft.Expression.Controls.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLLs\Microsoft.Expression.Drawing.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LitJson.dll" />
     <Resource Include="Asserts\header.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

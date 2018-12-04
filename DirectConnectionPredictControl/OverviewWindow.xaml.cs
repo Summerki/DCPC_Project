@@ -297,9 +297,12 @@ namespace DirectConnectionPredictControl
             //row_34_column_4.Content = container_4.ParkPressure;
 
             // TC、MP、ME轮径
-            row_36_column_1.Content = container_1.Tc1 + " / " + container_6.Tc1;
-            row_36_column_3.Content = container_1.Mp1 + " / " + container_6.Mp1;
-            row_36_column_5.Content = container_1.M1 + " / " + container_6.M1;
+            row_36_column_1.Content = container_1.WheelSize;
+            row_36_column_2.Content = container_2.WheelSize;
+            row_36_column_3.Content = container_3.WheelSize;
+            row_36_column_4.Content = container_4.WheelSize;
+            row_36_column_5.Content = container_5.WheelSize;
+            row_36_column_6.Content = container_6.WheelSize;
         }
 
         private void UpdateDI()
@@ -587,6 +590,19 @@ namespace DirectConnectionPredictControl
 
             row_22_column_8_DO.Fill = GetBrush(container_1.DcuEbSlip[3], 1);
             row_22_column_13_DO.Fill = GetBrush(container_6.DcuEbSlip[3], 6);
+
+            row_23_column_8_DO.Fill = GetBrush(container_1.ATOHold);
+            row_23_column_13_DO.Fill = GetBrush(container_6.ATOHold);
+
+            row_24_column_8_DO.Fill = GetBrush(container_1.DcuEbFault[0]);
+            row_25_column_8_DO.Fill = GetBrush(container_1.DcuEbFault[1]);
+            row_26_column_8_DO.Fill = GetBrush(container_1.DcuEbFault[2]);
+            row_27_column_8_DO.Fill = GetBrush(container_1.DcuEbFault[3]);
+
+            row_24_column_13_DO.Fill = GetBrush(container_6.DcuEbFault[0]);
+            row_25_column_13_DO.Fill = GetBrush(container_6.DcuEbFault[1]);
+            row_26_column_13_DO.Fill = GetBrush(container_6.DcuEbFault[2]);
+            row_27_column_13_DO.Fill = GetBrush(container_6.DcuEbFault[3]);
         }
 
         private void UpdateFA()

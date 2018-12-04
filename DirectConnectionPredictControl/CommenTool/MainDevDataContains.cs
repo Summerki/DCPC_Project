@@ -513,6 +513,8 @@ namespace DirectConnectionPredictControl.CommenTool
 
         private bool[] dcuEbSlip = new bool[4] { false, false, false, false };
 
+        private bool[] dcuEbFault = new bool[4] { false, false, false, false };
+
         private int[] dcuEbRealValue = new int[4] { 0, 0, 0, 0 };
 
         private int[] dcuMax = new int[4] { 0, 0, 0, 0 };
@@ -1663,6 +1665,14 @@ namespace DirectConnectionPredictControl.CommenTool
         /// </summary>
         public bool MainPipeSensorFault { get; set; }
 
+        /// <summary>
+        /// DCU电制动不可用
+        /// </summary>
+        public bool[] DcuEbFault { get => dcuEbFault; set => dcuEbFault = value; }
 
+        /// <summary>
+        /// 轮径存储值
+        /// </summary>
+        public double WheelSize { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace DirectConnectionPredictControl.CommenTool
         {
             //string[] analogDataArray = ReadTxtFiles("./1架模拟量数据.txt");
             //string[] analogData_2Array = ReadTxtFiles("./2架模拟量数据.txt");
-            //string[] analogData_3Array = ReadTxtFiles("./3架模拟量数据.txt");    
+            //string[] analogData_3Array = ReadTxtFiles("./3架模拟量数据.txt");
             //string[] analogData_4Array = ReadTxtFiles("./4架模拟量数据.txt");
             //string[] analogData_5Array = ReadTxtFiles("./5架模拟量数据.txt");
             //string[] analogData_6Array = ReadTxtFiles("./6架模拟量数据.txt");
