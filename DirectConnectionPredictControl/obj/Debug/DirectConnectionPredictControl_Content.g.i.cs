@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("litjson.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("canjiemianmfc.exe")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("controlcan.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("controlcan.h")]

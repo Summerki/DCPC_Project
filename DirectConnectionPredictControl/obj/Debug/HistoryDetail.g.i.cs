@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------
 
 using DirectConnectionPredictControl;
+using DirectConnectionPredictControl.Converters;
 using System;
 using System.Diagnostics;
 using System.Windows;

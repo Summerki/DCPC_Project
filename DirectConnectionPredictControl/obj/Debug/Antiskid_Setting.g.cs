@@ -10,15 +10,6 @@
 //------------------------------------------------------------------------------
 
 using DirectConnectionPredictControl;
-using Microsoft.Research.DynamicDataDisplay;
-using Microsoft.Research.DynamicDataDisplay.Charts;
-using Microsoft.Research.DynamicDataDisplay.Charts.Axes;
-using Microsoft.Research.DynamicDataDisplay.Charts.Navigation;
-using Microsoft.Research.DynamicDataDisplay.Charts.Shapes;
-using Microsoft.Research.DynamicDataDisplay.Common.Palettes;
-using Microsoft.Research.DynamicDataDisplay.DataSources;
-using Microsoft.Research.DynamicDataDisplay.Navigation;
-using Microsoft.Research.DynamicDataDisplay.PointMarkers;
 using System;
 using System.Diagnostics;
 using System.Windows;

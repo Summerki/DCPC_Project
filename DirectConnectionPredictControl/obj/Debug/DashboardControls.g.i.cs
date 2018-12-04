@@ -10,7 +10,6 @@
 //------------------------------------------------------------------------------
 
 using DirectConnectionPredictControl;
-using Microsoft.Expression.Controls;
 using System;
 using System.Diagnostics;
 using System.Windows;

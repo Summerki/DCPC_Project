@@ -365,6 +365,7 @@
     <Resource Include="Asserts\train.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LitJson.dll" />
     <Resource Include="Asserts\header.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
