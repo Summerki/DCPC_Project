@@ -4038,3 +4038,11 @@ E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.exe
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\obj\Debug\DirectConnectionPredictControl.pdb
 E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\LitJson.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DLL\DynamicDataDisplay.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DLL\LitJson.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DLL\Microsoft.Expression.Controls.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DLL\Microsoft.Expression.Drawing.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\DynamicDataDisplay.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\Microsoft.Expression.Controls.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\Microsoft.Expression.Drawing.dll
+E:\1-研一DCPC项目\2018-12-2\DCPC_Project\DirectConnectionPredictControl\bin\Debug\ControlCAN.dll
