@@ -1619,9 +1619,10 @@
                         <Label Grid.Row="1" Grid.Column="0">滑行等级</Label>
                         <Label Grid.Row="2" Grid.Column="0">DCU1电网电压</Label>
                         <Label Grid.Row="3" Grid.Column="0">DCU2电网电压</Label>
-                        <Label Grid.Row="1" Grid.Column="7">减速度</Label>
+                        <Label Grid.Row="4" Grid.Column="0">轴1减速度</Label>
                         <Label Grid.Row="2" Grid.Column="7">DCU3电网电压</Label>
                         <Label Grid.Row="3" Grid.Column="7">DCU4电网电压</Label>
+                        <Label Grid.Row="4" Grid.Column="7">轴2减速度</Label>
 
                         <Label Grid.Row="1" Grid.Column="1" Name="row_1_column_1_sli"></Label>
                         <Label Grid.Row="1" Grid.Column="2" Name="row_1_column_2_sli"></Label>
@@ -1658,12 +1659,26 @@
                         <Label Grid.Row="3" Grid.Column="5" Name="row_3_column_5_sli"></Label>
                         <Label Grid.Row="3" Grid.Column="6" Name="row_3_column_6_sli"></Label>
 
+                        <Label Grid.Row="4" Grid.Column="1" Name="row_4_column_1_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="2" Name="row_4_column_2_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="3" Name="row_4_column_3_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="4" Name="row_4_column_4_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="5" Name="row_4_column_5_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="6" Name="row_4_column_6_sli"></Label>
+
                         <Label Grid.Row="3" Grid.Column="8" Name="row_3_column_8_sli"></Label>
                         <Label Grid.Row="3" Grid.Column="9" Name="row_3_column_9_sli"></Label>
                         <Label Grid.Row="3" Grid.Column="10" Name="row_3_column_10_sli"></Label>
                         <Label Grid.Row="3" Grid.Column="11" Name="row_3_column_11_sli"></Label>
                         <Label Grid.Row="3" Grid.Column="12" Name="row_3_column_12_sli"></Label>
                         <Label Grid.Row="3" Grid.Column="13" Name="row_3_column_13_sli"></Label>
+
+                        <Label Grid.Row="4" Grid.Column="8" Name="row_4_column_8_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="9" Name="row_4_column_9_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="10" Name="row_4_column_10_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="11" Name="row_4_column_11_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="12" Name="row_4_column_12_sli"></Label>
+                        <Label Grid.Row="4" Grid.Column="13" Name="row_4_column_13_sli"></Label>
                     </Grid>
                     
                 </ScrollViewer>

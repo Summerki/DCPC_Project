@@ -78,17 +78,31 @@ namespace DirectConnectionPredictControl
             row_1_column_5_sli.Content = container_5.SlipLvl1 + " / " + container_5.SlipLvl2;
             row_1_column_6_sli.Content = container_6.SlipLvl1 + " / " + container_6.SlipLvl2;
 
-            row_1_column_8_sli.Content = container_1.AccValue1 + " / " + container_1.AccValue2;
-            row_1_column_9_sli.Content = container_2.AccValue1 + " / " + container_2.AccValue2;
-            row_1_column_10_sli.Content = container_3.AccValue1 + " / " + container_3.AccValue2;
-            row_1_column_11_sli.Content = container_4.AccValue1 + " / " + container_4.AccValue2;
-            row_1_column_12_sli.Content = container_5.AccValue1 + " / " + container_5.AccValue2;
-            row_1_column_13_sli.Content = container_6.AccValue1 + " / " + container_6.AccValue2;
+            //row_1_column_8_sli.Content = container_1.AccValue1 + " / " + container_1.AccValue2;
+            //row_1_column_9_sli.Content = container_2.AccValue1 + " / " + container_2.AccValue2;
+            //row_1_column_10_sli.Content = container_3.AccValue1 + " / " + container_3.AccValue2;
+            //row_1_column_11_sli.Content = container_4.AccValue1 + " / " + container_4.AccValue2;
+            //row_1_column_12_sli.Content = container_5.AccValue1 + " / " + container_5.AccValue2;
+            //row_1_column_13_sli.Content = container_6.AccValue1 + " / " + container_6.AccValue2;
 
             row_2_column_1_sli.Content = container_1.DcuVolta[0] + " V";
             row_3_column_8_sli.Content = container_1.DcuVolta[3] + " V";
             row_3_column_1_sli.Content = container_1.DcuVolta[1] + " V";
             row_2_column_8_sli.Content = container_1.DcuVolta[2] + " V";
+
+            row_4_column_1_sli.Content = container_1.AccValue1;
+            row_4_column_2_sli.Content = container_2.AccValue1;
+            row_4_column_3_sli.Content = container_3.AccValue1;
+            row_4_column_4_sli.Content = container_4.AccValue1;
+            row_4_column_5_sli.Content = container_5.AccValue1;
+            row_4_column_6_sli.Content = container_6.AccValue1;
+
+            row_4_column_8_sli.Content = container_1.AccValue2;
+            row_4_column_9_sli.Content = container_2.AccValue2;
+            row_4_column_10_sli.Content = container_3.AccValue2;
+            row_4_column_11_sli.Content = container_4.AccValue2;
+            row_4_column_12_sli.Content = container_5.AccValue2;
+            row_4_column_13_sli.Content = container_6.AccValue2;
         }
 
         /// <summary>
